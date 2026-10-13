@@ -1,0 +1,20 @@
+/*CONFIGURANDO O TAILWINDCSS*/
+@import "tailwindcss";
+
+/*MODO ESCURO */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+.campo {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white;
+}
+.rotulo {
+    @apply mb-1 block text-sm font-medium;
+}
+.btn-primario {
+    @apply rounded-xl bg-orange-400 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-orange-500;
+}
+.btn-secundario {
+    @apply rounded-xl border border-slate-300 px-5 py-3 text-sm dark:border-slate-600;
+}
+}
