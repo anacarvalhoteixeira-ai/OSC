@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.10.0",
@@ -33,6 +34,7 @@
   },
   "homepage": "https://github.com/anacarvalhoteixeira-ai/OSC#readme",
   "devDependencies": {
+    "nodemon": "^3.1.14",
     "prisma": "^7.10.0"
   }
 }

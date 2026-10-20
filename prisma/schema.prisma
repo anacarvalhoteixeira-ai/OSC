@@ -9,7 +9,7 @@ datasource db {
 }
 
 
-// Papéis que um usuário pode ter no sistema
+// PapÃ©is que um usuÃ¡rio pode ter no sistema
 enum PapelUsuario {
   ADMIN
   GESTOR
@@ -18,7 +18,7 @@ enum PapelUsuario {
 }
 
 
-// Situações possíveis de um projeto
+// SituaÃ§Ãµes possÃ­veis de um projeto
 enum StatusProjeto {
   PLANEJAMENTO
   EM_ANDAMENTO
@@ -27,7 +27,7 @@ enum StatusProjeto {
 }
 
 
-// Situações possíveis de uma ação
+// SituaÃ§Ãµes possÃ­veis de uma aÃ§Ã£o
 enum StatusAcao {
   PENDENTE
   EM_ANDAMENTO
@@ -36,7 +36,7 @@ enum StatusAcao {
 }
 
 
-// Situações possíveis de uma demanda
+// SituaÃ§Ãµes possÃ­veis de uma demanda
 enum StatusDemanda {
   ABERTA
   EM_ANALISE
@@ -45,7 +45,7 @@ enum StatusDemanda {
 }
 
 
-// Usuários que acessam o sistema
+// UsuÃ¡rios que acessam o sistema
 model Usuario {
   id        Int          @id @default(autoincrement())
   nome      String       @db.VarChar(120)
@@ -85,8 +85,11 @@ model Organizacao {
   cnpj      String? @unique @db.VarChar(18)
   email     String? @db.VarChar(191)
   telefone  String? @db.VarChar(20)
-  endereco  String? @db.VarChar(255)
-  descricao String? @db.Text
+  endereco   String? @db.VarChar(255)
+  categoria  String? @db.VarChar(30)
+  bairro     String? @db.VarChar(120)
+  responsavel String? @db.VarChar(120)
+  descricao  String? @db.Text
 
 
   usuarios     Usuario[]
@@ -100,7 +103,7 @@ model Organizacao {
 }
 
 
-// Projetos desenvolvidos pelas organizações
+// Projetos desenvolvidos pelas organizaÃ§Ãµes
 model Projeto {
   id         Int           @id @default(autoincrement())
   titulo     String        @db.VarChar(180)
@@ -132,7 +135,7 @@ model Projeto {
 }
 
 
-// Ações ou atividades vinculadas a projetos
+// AÃ§Ãµes ou atividades vinculadas a projetos
 model Acao {
   id         Int        @id @default(autoincrement())
   titulo     String     @db.VarChar(180)
@@ -160,7 +163,7 @@ model Acao {
 }
 
 
-// Demandas ou solicitações registradas no sistema
+// Demandas ou solicitaÃ§Ãµes registradas no sistema
 model Demanda {
   id        Int           @id @default(autoincrement())
   titulo    String        @db.VarChar(180)
