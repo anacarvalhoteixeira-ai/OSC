@@ -3,13 +3,11 @@ generator client {
   output   = "../src/generated/prisma"
 }
 
-
 datasource db {
   provider = "mysql"
 }
 
-
-// PapÃ©is que um usuÃ¡rio pode ter no sistema
+// Papéis que um usuário pode ter no sistema
 enum PapelUsuario {
   ADMIN
   GESTOR
@@ -17,8 +15,7 @@ enum PapelUsuario {
   RESPONSAVEL_OSC
 }
 
-
-// SituaÃ§Ãµes possÃ­veis de um projeto
+// Situações possíveis de um projeto
 enum StatusProjeto {
   PLANEJAMENTO
   EM_ANDAMENTO
@@ -26,8 +23,7 @@ enum StatusProjeto {
   PAUSADO
 }
 
-
-// SituaÃ§Ãµes possÃ­veis de uma aÃ§Ã£o
+// Situações possíveis de uma ação
 enum StatusAcao {
   PENDENTE
   EM_ANDAMENTO
@@ -35,8 +31,7 @@ enum StatusAcao {
   CANCELADA
 }
 
-
-// SituaÃ§Ãµes possÃ­veis de uma demanda
+// Situações possíveis de uma demanda
 enum StatusDemanda {
   ABERTA
   EM_ANALISE
@@ -44,66 +39,66 @@ enum StatusDemanda {
   RECUSADA
 }
 
+// Categorias de uma demanda
+enum CategoriaDemanda {
+  MATERIAIS
+  VOLUNTARIOS
+  FINANCEIRO
+  SERVICOS
+  OUTROS
+}
 
-// UsuÃ¡rios que acessam o sistema
+// Usuários que acessam o sistema
 model Usuario {
-  id        Int          @id @default(autoincrement())
-  nome      String       @db.VarChar(120)
-  email     String       @unique @db.VarChar(191)
-  senha     String       @db.VarChar(255)
-  papel     PapelUsuario
-  telefone  String?      @db.VarChar(20)
-  ativo     Boolean      @default(true)
+  id       Int          @id @default(autoincrement())
+  nome     String       @db.VarChar(120)
+  email    String       @unique @db.VarChar(191)
+  senha    String       @db.VarChar(255)
+  papel    PapelUsuario
+  telefone String?      @db.VarChar(20)
+  ativo    Boolean      @default(true)
 
-
-  // Obrigatorio para RESPONSAVEL_OSC por regra de negocio.
+  // Obrigatório para RESPONSAVEL_OSC por regra de negócio.
   organizacaoId Int?
   organizacao   Organizacao? @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
-
-  projetosCriados     Projeto[]  @relation("ProjetosCriados")
-  acoesResponsavel    Acao[]     @relation("ResponsavelAcao")
-  demandasCriadas     Demanda[]  @relation("DemandasCriadas")
-  demandasResponsavel Demanda[]  @relation("ResponsavelDemanda")
-
+  projetosCriados     Projeto[] @relation("ProjetosCriados")
+  acoesResponsavel    Acao[]    @relation("ResponsavelAcao")
+  demandasCriadas     Demanda[] @relation("DemandasCriadas")
+  demandasResponsavel Demanda[] @relation("ResponsavelDemanda")
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-
 
   @@index([organizacaoId])
   @@index([papel])
   @@index([ativo])
 }
 
-
-// OSCS
+// OSCs
 model Organizacao {
-  id        Int     @id @default(autoincrement())
-  nome      String  @db.VarChar(180)
-  sigla     String? @db.VarChar(30)
-  cnpj      String? @unique @db.VarChar(18)
-  email     String? @db.VarChar(191)
-  telefone  String? @db.VarChar(20)
-  endereco   String? @db.VarChar(255)
-  categoria  String? @db.VarChar(30)
-  bairro     String? @db.VarChar(120)
+  id          Int     @id @default(autoincrement())
+  nome        String  @db.VarChar(180)
+  sigla       String? @db.VarChar(30)
+  cnpj        String? @unique @db.VarChar(18)
+  email       String? @db.VarChar(191)
+  telefone    String? @db.VarChar(20)
+  endereco    String? @db.VarChar(255)
+  categoria   String? @db.VarChar(30)
+  bairro      String? @db.VarChar(120)
   responsavel String? @db.VarChar(120)
-  descricao  String? @db.Text
-
+  descricao   String? @db.Text
 
   usuarios     Usuario[]
   projetos     Projeto[]
   demandas     Demanda[]
   atendimentos RegistroAtendimento[]
 
-
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 }
 
-
-// Projetos desenvolvidos pelas organizaÃ§Ãµes
+// Projetos desenvolvidos pelas organizações
 model Projeto {
   id         Int           @id @default(autoincrement())
   titulo     String        @db.VarChar(180)
@@ -112,30 +107,31 @@ model Projeto {
   dataInicio DateTime?
   dataFim    DateTime?
 
+  objetivo    String?  @db.Text
+  resultados  String?  @db.Text
+  orcamento   Decimal? @db.Decimal(12, 2)
+  responsavel String?  @db.VarChar(120)
+  telefone    String?  @db.VarChar(20)
+  email       String?  @db.VarChar(191)
 
   organizacaoId Int
   organizacao   Organizacao @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
-
   criadorId Int
   criador   Usuario @relation("ProjetosCriados", fields: [criadorId], references: [id], onDelete: Restrict)
-
 
   acoes        Acao[]
   atendimentos RegistroAtendimento[]
 
-
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-
 
   @@index([organizacaoId])
   @@index([criadorId])
   @@index([status])
 }
 
-
-// AÃ§Ãµes ou atividades vinculadas a projetos
+// Ações ou atividades vinculadas a projetos
 model Acao {
   id         Int        @id @default(autoincrement())
   titulo     String     @db.VarChar(180)
@@ -144,55 +140,50 @@ model Acao {
   dataInicio DateTime?
   dataFim    DateTime?
 
-
   projetoId Int
   projeto   Projeto @relation(fields: [projetoId], references: [id], onDelete: Restrict)
-
 
   responsavelId Int?
   responsavel   Usuario? @relation("ResponsavelAcao", fields: [responsavelId], references: [id], onDelete: SetNull)
 
-
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-
 
   @@index([projetoId])
   @@index([responsavelId])
   @@index([status])
 }
 
-
-// Demandas ou solicitaÃ§Ãµes registradas no sistema
+// Demandas ou solicitações registradas no sistema
 model Demanda {
-  id        Int           @id @default(autoincrement())
-  titulo    String        @db.VarChar(180)
-  descricao String        @db.Text
-  status    StatusDemanda @default(ABERTA)
+  id        Int              @id @default(autoincrement())
+  titulo    String           @db.VarChar(180)
+  descricao String           @db.Text
+  status    StatusDemanda    @default(ABERTA)
+  categoria CategoriaDemanda @default(OUTROS)
 
+  prazo         DateTime?
+  dataConclusao DateTime?
+  resultado     String?   @db.Text
 
   organizacaoId Int?
   organizacao   Organizacao? @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
-
   solicitanteId Int
   solicitante   Usuario @relation("DemandasCriadas", fields: [solicitanteId], references: [id], onDelete: Restrict)
-
 
   responsavelId Int?
   responsavel   Usuario? @relation("ResponsavelDemanda", fields: [responsavelId], references: [id], onDelete: SetNull)
 
-
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
-
 
   @@index([organizacaoId])
   @@index([solicitanteId])
   @@index([responsavelId])
   @@index([status])
+  @@index([categoria])
 }
-
 
 // Registros usados para contabilizar atendimentos
 model RegistroAtendimento {
@@ -201,21 +192,16 @@ model RegistroAtendimento {
   descricao  String?  @db.VarChar(255)
   data       DateTime @default(now())
 
-
   periodoInicio DateTime?
   periodoFim    DateTime?
-
 
   organizacaoId Int
   organizacao   Organizacao @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
-
   projetoId Int?
   projeto   Projeto? @relation(fields: [projetoId], references: [id], onDelete: Restrict)
 
-
   criadoEm DateTime @default(now())
-
 
   @@index([organizacaoId])
   @@index([projetoId])
