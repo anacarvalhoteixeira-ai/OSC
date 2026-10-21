@@ -28,10 +28,7 @@ form.addEventListener("submit", async (e) => {
     const dados = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(dados.erro || "Não foi possível entrar.");
 
-    localStorage.removeItem("uoscc_token");
-    localStorage.removeItem("uoscc_usuario");
-    sessionStorage.removeItem("uoscc_token");
-    sessionStorage.removeItem("uoscc_usuario");
+    for (const s of [localStorage, sessionStorage]) { s.removeItem("uoscc_token"); s.removeItem("uoscc_usuario"); }
     const destino = form.lembrar.checked ? localStorage : sessionStorage;
     destino.setItem("uoscc_token", dados.token);
     destino.setItem("uoscc_usuario", JSON.stringify(dados.usuario));

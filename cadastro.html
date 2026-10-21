@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro | UOSCC</title>
-    <link rel="stylesheet" href="./cadastro.css">
+    <link rel="stylesheet" href="/assets/login.css">
+    <link rel="stylesheet" href="/assets/cadastro.css">
 </head>
 <body>
 
@@ -59,7 +59,7 @@
                             type="text"
                             id="organizacao"
                             name="organizacao"
-                            placeholder="Nome da sua OSC"
+                            placeholder="Nome da sua OSC (igual ao cadastrado pela equipe)"
                             required
                         >
                     </div>
@@ -70,7 +70,7 @@
                             type="password"
                             id="senha"
                             name="senha"
-                            placeholder="Crie uma senha"
+                            placeholder="Crie uma senha (mínimo 8 caracteres)"
                             minlength="8"
                             autocomplete="new-password"
                             required
@@ -97,7 +97,7 @@
 
                 <div class="alternativa">
                     <p>Já possui uma conta?</p>
-                    <a href="../login/login.html" class="link">
+                    <a href="/login.html" class="link">
                         Fazer login
                     </a>
                 </div>
@@ -114,6 +114,6 @@
         </p>
     </main>
 
-    <script src="./cadastro.js"></script>
+    <script type="module" src="/assets/cadastro.js"></script>
 </body>
 </html>
