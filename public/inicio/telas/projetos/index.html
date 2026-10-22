@@ -1,0 +1,66 @@
+<section
+          id="pagina-projetos"
+          data-pagina
+          class="hidden"
+          aria-labelledby="titulo-projetos"
+        >
+          <header
+            class="mb-6 flex flex-wrap items-center justify-between gap-4"
+          >
+            <h2
+              id="titulo-projetos"
+              class="text-2xl font-bold text-[#122957] dark:text-white"
+            >
+              Projetos
+            </h2>
+            <button
+              id="botao-novo-projeto"
+              type="button"
+              data-action="abrir-formulario-projeto"
+              class="btn-primario"
+            >
+              + Novo projeto
+            </button>
+          </header>
+
+          <section class="mb-5" aria-label="Pesquisa de projetos">
+            <form
+              id="form-pesquisa-projetos"
+              class="flex flex-col gap-3 sm:flex-row"
+            >
+              <label for="busca-projetos" class="sr-only"
+                >Buscar projeto por título ou OSC</label
+              >
+              <input
+                id="busca-projetos"
+                name="busca"
+                type="search"
+                placeholder="Buscar por título ou OSC"
+                autocomplete="off"
+                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              />
+
+              <label for="filtro-status" class="sr-only"
+                >Filtrar por status</label
+              >
+              <select
+                id="filtro-status"
+                name="status"
+                class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white sm:w-56"
+              >
+                <option value="">Todos os status</option>
+                <option value="Planejando">Planejando</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Concluído">Concluído</option>
+              </select>
+            </form>
+          </section>
+
+          <ul id="itens-projetos" class="space-y-3"></ul>
+          <p
+            id="sem-projetos"
+            class="text-sm text-slate-500 dark:text-slate-400"
+          >
+            Nenhum projeto cadastrado ainda. Clique em "+ Novo projeto".
+          </p>
+        </section>

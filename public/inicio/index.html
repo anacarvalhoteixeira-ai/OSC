@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>|Painel UOSCC</title>
+
+    <script type="module" src="/inicio/carregar-telas.js"></script>
+  </head>
+
+  <body
+    class="min-h-screen bg-gray-100 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white"
+  >
+    <div class="flex min-h-screen">
+      <!-- MENU LATERAL -->
+      <aside class="flex w-56 shrink-0 flex-col bg-[#122957] text-white">
+        <div class="border-b border-white/30 px-5 py-6">
+          <h1 class="text-xl font-bold tracking-tight">UOSCC</h1>
+          <p class="mt-2 text-xs font-semibold text-blue-100">
+            Rede de OSCs - Camaçari
+          </p>
+        </div>
+
+        <nav class="flex-1 py-3" aria-label="Menu principal">
+          <a
+            href="#inicio"
+            data-menu="inicio"
+            class="menu-link block rounded-r-xl bg-orange-400 px-4 py-3 text-sm font-medium text-slate-950"
+            >Início</a
+          >
+          <a
+            href="#oscs"
+            data-menu="oscs"
+            class="menu-link mt-1 block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10"
+            >OSCs</a
+          >
+          <a
+            href="#projetos"
+            data-menu="projetos"
+            class="menu-link mt-1 block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10"
+            >Projetos</a
+          >
+          <a
+            href="#demandas"
+            data-menu="demandas"
+            class="menu-link mt-1 block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10"
+            >Demandas</a
+          >
+          <a
+            href="#relatorios"
+            data-menu="relatorios"
+            class="menu-link mt-1 block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10"
+            >Relatórios</a
+          >
+        </nav>
+
+        <div class="border-t border-white/30 p-4">
+          <p class="text-xs text-blue-200">UOSCC © 2026</p>
+        </div>
+      </aside>
+
+      <!----------- CONTEÚDO PRINCIPAL ---------->
+      <main class="min-w-0 flex-1 p-5 sm:p-8">
+        <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <h2 class="text-xl font-semibold">Olá, equipe UOSCC!</h2>
+
+          <button
+            id="botao-tema"
+            type="button"
+            class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800"
+          >
+            <span id="icone-tema">🌙</span>
+            <span id="texto-tema">Modo escuro</span>
+          </button>
+        </header>
+
+        <!-------------  PÁGINA 1: INÍCIO ------------>
+        <div data-tela-placeholder="inicio"></div>
+        <!-- FIM DA PÁGINA 1 -->
+
+        <!---------------- PÁGINA 2: LISTA DE OSCs ------------->
+        <div data-tela-placeholder="oscs"></div>
+
+        <!---------  FICHA COMPLETA DA OSC ------------->
+        <div data-tela-placeholder="ficha-osc"></div>
+
+        <!----------- CADASTRO OU  EDIÇÃO DE OSC ------------>
+        <!-- Aqui fica somente dados da ORGANIZAÇÃO. O que ela oferece fica em Projetos. -->
+        <div data-tela-placeholder="cadastro-osc"></div>
+        <!-- FIM DAS PÁGINAS DE OSC -->
+
+        <!-- ============ PÁGINA 3: PROJETOS ============ -->
+        <div data-tela-placeholder="projetos"></div>
+
+        <!-- ============ CADASTRO / EDIÇÃO DE PROJETO ============ -->
+        <!-- Projeto = o que a OSC oferece à comunidade (por exemplo,sei lá: projeto ex-DAX Code) -->
+        <div data-tela-placeholder="cadastro-projeto"></div>
+        <!-- FIM DAS PÁGINAS DE PROJETO -->
+
+        <!-- ============ PÁGINA 4: DEMANDAS ============ -->
+        <div data-tela-placeholder="demandas"></div>
+
+        <!-- ============ CADASTRO ou EDIÇÃO DE DEMANDA ============ -->
+        <div data-tela-placeholder="cadastro-demanda"></div>
+        <!-- FIM DAS PÁGINAS DE DEMANDA -->
+
+        <!-- ============ PÁGINA 5: RELATÓRIOS ============ -->
+        <div data-tela-placeholder="relatorios"></div>
+        <!-- FIM DA PÁGINA 5 -->
+      </main>
+    </div>
+  </body>
+</html>

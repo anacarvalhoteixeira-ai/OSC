@@ -1,0 +1,83 @@
+<section
+          id="pagina-oscs"
+          data-pagina
+          class="hidden"
+          aria-labelledby="titulo-oscs"
+        >
+          <header class="mb-6">
+            <h2
+              id="titulo-oscs"
+              class="text-2xl font-bold text-[#122957] dark:text-white"
+            >
+              OSCs cadastradas
+            </h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Organizações da Sociedade Civil cadastradas na rede.
+            </p>
+          </header>
+
+          <div class="mb-5 flex justify-end">
+            <button
+              id="botao-nova-osc"
+              type="button"
+              data-action="abrir-formulario-osc"
+              class="btn-primario"
+            >
+              + Nova OSC
+            </button>
+          </div>
+
+          <!-- Busca e filtro -->
+          <section id="filtros-oscs" class="mb-5" aria-label="Pesquisa de OSCs">
+            <form
+              id="form-pesquisa-oscs"
+              class="flex flex-col gap-3 sm:flex-row"
+            >
+              <label for="busca-oscs" class="sr-only"
+                >Buscar OSC por nome, CNPJ ou responsável</label
+              >
+              <input
+                id="busca-oscs"
+                name="busca"
+                type="search"
+                placeholder="Buscar por nome, CNPJ ou responsável"
+                autocomplete="off"
+                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              />
+
+              <label for="filtro-categoria" class="sr-only"
+                >Filtrar por categoria</label
+              >
+              <select
+                id="filtro-categoria"
+                name="categoria"
+                class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white sm:w-72"
+              >
+                <option value="">Todas as categorias</option>
+                <option value="educacao">Educação e formação cidadã</option>
+                <option value="meio-ambiente">
+                  Meio ambiente e sustentabilidade
+                </option>
+                <option value="saude">Saúde e bem-estar comunitário</option>
+                <option value="social">
+                  Assistência social e apoio às famílias
+                </option>
+                <option value="direitos">
+                  Direitos humanos e inclusão social
+                </option>
+                <option value="cultura">Cultura, esporte e lazer</option>
+              </select>
+            </form>
+          </section>
+
+          <section id="lista-oscs" aria-labelledby="titulo-lista-oscs">
+            <h3 id="titulo-lista-oscs" class="sr-only">
+              Lista de OSCs cadastradas
+            </h3>
+            <!-- Cada item deve levar data-id="<osc.id>" e botões Ver ficha / Editar / Excluir -->
+            <ul id="itens-oscs" class="space-y-3"></ul>
+            <p id="sem-oscs" class="text-sm text-slate-500 dark:text-slate-400">
+              Nenhuma OSC cadastrada ainda. Clique em "+ Nova OSC".
+            </p>
+          </section>
+        </section>

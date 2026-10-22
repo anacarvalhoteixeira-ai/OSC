@@ -1,0 +1,88 @@
+<section id="pagina-relatorios" data-pagina class="hidden">
+          <header class="mb-6">
+            <h2 class="text-2xl font-bold text-[#122957] dark:text-white">
+              Relatórios
+            </h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Escolha o tipo de relatório e marque o que deseja incluir.
+            </p>
+          </header>
+
+          <div class="max-w-3xl space-y-6">
+            <section
+              class="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <h3 class="font-bold text-[#122957] dark:text-white">
+                Relatório individual
+              </h3>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="rel-tipo" class="rotulo">Tipo</label>
+                  <select id="rel-tipo" class="campo">
+                    <option value="osc">OSC</option>
+                    <option value="projeto">Projeto</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="rel-item" class="rotulo">Selecionar</label>
+                  <select id="rel-item" class="campo"></select>
+                </div>
+              </div>
+              <fieldset>
+                <legend class="mb-2 text-sm font-medium">
+                  Informações no relatório:
+                </legend>
+                <!-- checkboxes gerados conforme o tipo escolhido -->
+                <div
+                  id="rel-campos"
+                  class="flex flex-wrap gap-x-5 gap-y-2 text-sm"
+                ></div>
+              </fieldset>
+              <button
+                id="btn-gerar-individual"
+                type="button"
+                class="btn-primario"
+              >
+                Gerar relatório
+              </button>
+            </section>
+
+            <section
+              class="space-y-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <h3 class="font-bold text-[#122957] dark:text-white">
+                Relatório anual
+              </h3>
+              <div class="flex flex-wrap items-end gap-4">
+                <div>
+                  <label for="rel-ano" class="rotulo">Ano</label>
+                  <input
+                    id="rel-ano"
+                    type="number"
+                    min="2000"
+                    max="2100"
+                    class="campo"
+                  />
+                </div>
+                <button id="btn-gerar-anual" type="button" class="btn-primario">
+                  Gerar relatório anual
+                </button>
+              </div>
+            </section>
+
+            <section
+              id="area-relatorio"
+              class="hidden rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <div id="conteudo-relatorio"></div>
+              <div class="mt-6 flex gap-3 print:hidden">
+                <button id="btn-imprimir" type="button" class="btn-secundario">
+                  🖨️ Imprimir / PDF
+                </button>
+                <button id="btn-csv" type="button" class="btn-secundario">
+                  ⬇️ Baixar CSV
+                </button>
+              </div>
+            </section>
+          </div>
+        </section>
