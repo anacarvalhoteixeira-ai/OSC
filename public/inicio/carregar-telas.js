@@ -11,5 +11,5 @@ await Promise.all(telas.map(async (tela) => {
 }));
 const script = document.createElement('script');
 script.type = 'module';
-script.src = '/script.js';
+script.src = '/inicio/script.js';
 document.body.append(script);

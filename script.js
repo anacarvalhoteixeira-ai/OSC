@@ -477,8 +477,10 @@ function iniciar() {
   });
 
   const agora = new Date();
-  $("data-hoje").textContent = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "long", year: "numeric" }).format(agora);
-  $("dia-semana").textContent = new Intl.DateTimeFormat("pt-BR", { weekday: "long" }).format(agora);
+  const dataHoje = $("data-hoje");
+  if (dataHoje) dataHoje.textContent = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "long", year: "numeric" }).format(agora);
+  const diaSemana = $("dia-semana");
+  if (diaSemana) diaSemana.textContent = new Intl.DateTimeFormat("pt-BR", { weekday: "long" }).format(agora);
 
   const botaoSair = Object.assign(document.createElement("button"), { type: "button", textContent: "Sair" });
   botaoSair.className = "rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800";
