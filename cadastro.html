@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +7,16 @@
     <title>Cadastro | UOSCC</title>
     <link rel="stylesheet" href="/assets/login.css">
     <link rel="stylesheet" href="/assets/cadastro.css">
+    <style>
+      .card-login { max-width: 600px; }
+      .seletor-cenario { display: flex; gap: 10px; margin-bottom: 20px; }
+      .seletor-btn { flex: 1; padding: 12px; border: 2px solid #ccd5e3; background: #fff; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; text-align: center; }
+      .seletor-btn.ativo { border-color: #ff901c; color: #ff901c; background: #fff8f2; }
+      .resultado-item { padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+      .resultado-item:hover { background: #f8fafc; border-color: #ff901c; }
+      .item-selecionado { border-color: #05603a; background: #ecfdf3; }
+      .badge-tipo { font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #e2e8f0; }
+    </style>
 </head>
 <body>
 
@@ -14,7 +25,6 @@
 
             <header class="cabecalho">
                 <div class="logo">U</div>
-
                 <div class="identidade">
                     <h1>UOSCC</h1>
                     <p>Rede de OSCs • Camaçari</p>
@@ -24,94 +34,107 @@
             <div class="conteudo">
                 <div class="introducao">
                     <span class="etiqueta">FAÇA PARTE DA REDE</span>
-                    <h2>Crie sua conta!</h2>
-                    <p>Preencha os dados para solicitar seu acesso.</p>
+                    <h2>Solicitação de Cadastro</h2>
+                    <p>Selecione a situação da sua OSC e preencha seus dados de responsável.</p>
                 </div>
 
-                <form action="#" method="post">
+                <div class="seletor-cenario">
+                    <button type="button" id="btn-cenario-a" class="seletor-btn ativo">A. Minha OSC já existe</button>
+                    <button type="button" id="btn-cenario-b" class="seletor-btn">B. Nova OSC (não cadastrada)</button>
+                </div>
+
+                <form id="form-cadastro" action="#" method="post">
+                    <input type="hidden" id="tipo" name="tipo" value="VINCULO_OSC">
+                    <input type="hidden" id="organizacaoId" name="organizacaoId" value="">
+
+                    <!-- Bloco Cenário A: Busca de OSC existente -->
+                    <div id="bloco-cenario-a">
+                        <div class="campo">
+                            <label for="busca-osc">Pesquisar organização (CNPJ ou Nome)</label>
+                            <input type="text" id="busca-osc" placeholder="Digite para buscar a OSC cadastrada..." autocomplete="off">
+                        </div>
+                        <div id="lista-resultados-osc" style="max-height: 180px; overflow-y: auto; margin-bottom: 16px;"></div>
+                        <div id="osc-selecionada-box" style="display: none; padding: 12px; background: #ecfdf3; border: 1px solid #abefc6; border-radius: 8px; margin-bottom: 16px;">
+                            <p style="font-size: 13px; font-weight: 700; color: #05603a;">OSC Selecionada:</p>
+                            <p id="osc-selecionada-nome" style="font-size: 14px; font-weight: 800; color: #05603a;"></p>
+                            <p id="osc-selecionada-detalhe" style="font-size: 11px; color: #087443;"></p>
+                        </div>
+                    </div>
+
+                    <!-- Bloco Cenário B: Dados da Nova OSC -->
+                    <div id="bloco-cenario-b" style="display: none;">
+                        <h4 style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: #132957;">Dados da Organização</h4>
+                        <div class="campo">
+                            <label for="nomeOsc">Nome da OSC *</label>
+                            <input type="text" id="nomeOsc" name="nomeOsc" placeholder="Nome oficial da organização">
+                        </div>
+                        <div class="campo">
+                            <label for="cnpj">CNPJ (apenas números ou formatado)</label>
+                            <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18">
+                        </div>
+                        <div class="campo">
+                            <label for="categoria">Categoria / Área de Atuação</label>
+                            <select id="categoria" name="categoria" class="campo" style="height: 49px; padding: 0 15px; border: 1px solid #ccd5e3; border-radius: 8px; width: 100%; font-size: 12px;">
+                                <option value="">Selecione uma categoria</option>
+                                <option value="educacao">Educação e formação cidadã</option>
+                                <option value="meio-ambiente">Meio ambiente e sustentabilidade</option>
+                                <option value="saude">Saúde e bem-estar comunitário</option>
+                                <option value="social">Assistência social e apoio às famílias</option>
+                                <option value="direitos">Direitos humanos e inclusão social</option>
+                                <option value="cultura">Cultura, esporte e lazer</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="endereco">Endereço e Bairro</label>
+                            <input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento">
+                        </div>
+                    </div>
+
+                    <!-- Dados Pessoais do Responsável (Comuns aos 2 cenários) -->
+                    <hr style="border: none; border-top: 1px solid #e0e5ed; margin: 20px 0;">
+                    <h4 style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: #132957;">Dados do Responsável</h4>
+
                     <div class="campo">
-                        <label for="nome">Nome completo</label>
-                        <input
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            placeholder="Digite seu nome completo"
-                            autocomplete="name"
-                            required
-                        >
+                        <label for="nome">Seu nome completo *</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
                     </div>
 
                     <div class="campo">
-                        <label for="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="seuemail@exemplo.com"
-                            autocomplete="email"
-                            required
-                        >
+                        <label for="email">Seu e-mail de acesso *</label>
+                        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
                     </div>
 
                     <div class="campo">
-                        <label for="organizacao">Organização</label>
-                        <input
-                            type="text"
-                            id="organizacao"
-                            name="organizacao"
-                            placeholder="Nome da sua OSC (igual ao cadastrado pela equipe)"
-                            required
-                        >
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(71) 99999-9999">
                     </div>
 
                     <div class="campo">
-                        <label for="senha">Senha</label>
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="Crie uma senha (mínimo 8 caracteres)"
-                            minlength="8"
-                            autocomplete="new-password"
-                            required
-                        >
+                        <label for="senha">Crie sua senha * (mínimo 8 caracteres)</label>
+                        <input type="password" id="senha" name="senha" minlength="8" required>
                     </div>
 
                     <div class="campo">
-                        <label for="confirmar-senha">Confirmar senha</label>
-                        <input
-                            type="password"
-                            id="confirmar-senha"
-                            name="confirmar_senha"
-                            placeholder="Digite a senha novamente"
-                            minlength="8"
-                            autocomplete="new-password"
-                            required
-                        >
+                        <label for="confirmar_senha">Confirme a senha *</label>
+                        <input type="password" id="confirmar_senha" name="confirmar_senha" minlength="8" required>
                     </div>
 
-                    <button type="submit" class="botao">
-                        Solicitar cadastro <span>→</span>
+                    <button type="submit" class="botao" id="btn-enviar">
+                        Enviar solicitação <span>→</span>
                     </button>
                 </form>
 
                 <div class="alternativa">
-                    <p>Já possui uma conta?</p>
-                    <a href="/login.html" class="link">
-                        Fazer login
-                    </a>
+                    <p>Já possui uma conta ativa?</p>
+                    <a href="/login.html" class="link">Fazer login</a>
                 </div>
 
                 <footer class="rodape">
-                    Unindo forças para fortalecer organizações.
+                    UOSCC · Governança e fortalecimento das organizações sociais.
                 </footer>
             </div>
 
         </section>
-
-        <p class="legenda">
-            UOSCC · Unindo forças, transformando comunidades.
-        </p>
     </main>
 
     <script type="module" src="/assets/cadastro.js"></script>

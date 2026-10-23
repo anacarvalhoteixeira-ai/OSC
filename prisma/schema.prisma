@@ -15,6 +15,19 @@ enum PapelUsuario {
   RESPONSAVEL_OSC
 }
 
+// Situações de uma solicitação de cadastro/acesso
+enum StatusSolicitacao {
+  PENDENTE
+  APROVADA
+  RECUSADA
+}
+
+// Tipo de solicitação
+enum TipoSolicitacao {
+  VINCULO_OSC
+  NOVA_OSC
+}
+
 // Situações possíveis de um projeto
 enum StatusProjeto {
   PLANEJAMENTO
@@ -58,14 +71,14 @@ model Usuario {
   telefone String?      @db.VarChar(20)
   ativo    Boolean      @default(true)
 
-  // Obrigatório para RESPONSAVEL_OSC por regra de negócio.
   organizacaoId Int?
   organizacao   Organizacao? @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
-  projetosCriados     Projeto[] @relation("ProjetosCriados")
-  acoesResponsavel    Acao[]    @relation("ResponsavelAcao")
-  demandasCriadas     Demanda[] @relation("DemandasCriadas")
-  demandasResponsavel Demanda[] @relation("ResponsavelDemanda")
+  projetosCriados          Projeto[]             @relation("ProjetosCriados")
+  acoesResponsavel         Acao[]                @relation("ResponsavelAcao")
+  demandasCriadas          Demanda[]             @relation("DemandasCriadas")
+  demandasResponsavel      Demanda[]             @relation("ResponsavelDemanda")
+  solicitacoesAnalisadas   SolicitacaoCadastro[] @relation("SolicitacoesAnalisadas")
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
@@ -93,9 +106,51 @@ model Organizacao {
   projetos     Projeto[]
   demandas     Demanda[]
   atendimentos RegistroAtendimento[]
+  solicitacoes SolicitacaoCadastro[]
 
   criadoEm     DateTime @default(now())
   atualizadoEm DateTime @updatedAt
+}
+
+// Nova tabela para o fluxo de cadastro e vínculo sem duplicação
+model SolicitacaoCadastro {
+  id              Int               @id @default(autoincrement())
+  tipo            TipoSolicitacao
+  status          StatusSolicitacao @default(PENDENTE)
+
+  nomeUsuario     String            @db.VarChar(120)
+  emailUsuario    String            @db.VarChar(191)
+  senhaUsuario    String            @db.VarChar(255)
+  telefoneUsuario String?           @db.VarChar(20)
+
+  // Preenchido no Cenário A (Vínculo)
+  organizacaoId   Int?
+  organizacao     Organizacao?      @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
+
+  // Preenchido no Cenário B (Nova OSC)
+  nomeOsc         String?           @db.VarChar(180)
+  cnpj            String?           @db.VarChar(18)
+  categoria       String?           @db.VarChar(30)
+  endereco        String?           @db.VarChar(255)
+  bairro          String?           @db.VarChar(120)
+  telefoneOsc     String?           @db.VarChar(20)
+  emailOsc        String?           @db.VarChar(191)
+  descricaoOsc    String?           @db.Text
+
+  motivoRecusa    String?           @db.Text
+  analisadoPorId  Int?
+  analisadoPor    Usuario?          @relation("SolicitacoesAnalisadas", fields: [analisadoPorId], references: [id], onDelete: SetNull)
+  dataAnalise     DateTime?
+
+  criadoEm        DateTime          @default(now())
+  atualizadoEm    DateTime          @updatedAt
+
+  @@index([status])
+  @@index([tipo])
+  @@index([cnpj])
+  @@index([emailUsuario])
+  @@index([organizacaoId])
+  @@index([analisadoPorId])
 }
 
 // Projetos desenvolvidos pelas organizações
