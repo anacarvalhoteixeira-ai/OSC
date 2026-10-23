@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const botao = document.getElementById("login");
-const URL_PAINEL = "/inicio/index.html";
+const URL_PAINEL = "/";
 
 function mostrarErro(mensagem) {
   let aviso = document.getElementById("erro-form");

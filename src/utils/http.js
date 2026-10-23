@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const dataOpcional = z
-  .preprocess((v) => (v === "" ? null : v), z.coerce.date().nullable())
+  .preprocess((v) => (v === "" || v == null ? null : v), z.coerce.date().nullable())
   .optional();
 
 export function idDaRota(valor) {

@@ -7,12 +7,17 @@
           <header
             class="mb-6 flex flex-wrap items-center justify-between gap-4"
           >
-            <h2
-              id="titulo-demandas"
-              class="text-2xl font-bold text-[#122957] dark:text-white"
-            >
-              Demandas cadastradas
-            </h2>
+            <div>
+              <h2
+                id="titulo-demandas"
+                class="text-2xl font-bold text-[#122957] dark:text-white"
+              >
+                Demandas cadastradas
+              </h2>
+              <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Acompanhe pedidos, responsáveis e prazos da rede.
+              </p>
+            </div>
             <button
               id="botao-nova-demanda"
               type="button"
@@ -55,7 +60,7 @@
             </form>
           </section>
 
-          <ul id="itens-demandas" class="space-y-3"></ul>
+          <ul id="itens-demandas" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></ul>
           <p
             id="sem-demandas"
             class="text-sm text-slate-500 dark:text-slate-400"

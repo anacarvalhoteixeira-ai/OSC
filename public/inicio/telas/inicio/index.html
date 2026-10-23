@@ -1,16 +1,16 @@
 <section id="pagina-inicio" data-pagina>
           <section
             id="indicadores"
-            class="mb-9 grid grid-cols-1 gap-3 sm:grid-cols-3"
+            class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3"
           >
             <article
               id="card-pessoas-atendidas"
-              class="rounded-xl bg-[#122957] p-5 text-white"
+              class="rounded-2xl bg-[#122957] p-5 text-white ring-1 ring-blue-900/10"
             >
               <!-- soma de projeto,pessoas atendidas e etc -->
               <p
                 id="numeracao-pessoas"
-                class="text-2xl font-bold text-orange-400"
+                class="text-3xl font-extrabold tracking-tight text-orange-400"
               >
                 0
               </p>
@@ -19,9 +19,9 @@
 
             <article
               id="card-oscs"
-              class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+              class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
             >
-              <p id="total-oscs" class="text-2xl font-bold text-emerald-600">
+              <p id="total-oscs" class="text-3xl font-extrabold tracking-tight text-emerald-600">
                 0
               </p>
               <p class="text-xs text-slate-500 dark:text-slate-300">
@@ -31,11 +31,11 @@
 
             <article
               id="cards-demandas-abertas"
-              class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+              class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
             >
               <p
                 id="total-demandas"
-                class="text-2xl font-bold text-emerald-600"
+                class="text-3xl font-extrabold tracking-tight text-emerald-600"
               >
                 0
               </p>
@@ -46,50 +46,53 @@
           </section>
 
           <!-- Botões de atalho -->
-          <section
-            id="acessos-rapidos"
-            class="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-4 xl:grid-cols-4"
-          >
-            <button
-              type="button"
-              data-secao="oscs"
-              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
-            >
-              🏛️ OSCs
+          <section id="acessos-rapidos" aria-label="Acesso rápido" class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <h3 class="col-span-full text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Acesso rápido</h3>
+            <button type="button" data-secao="oscs" class="cartao-acesso flex min-h-32 items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-blue-50 text-sm font-bold text-blue-800 dark:bg-blue-900/40 dark:text-blue-200">01</span>
+              <span class="flex-1 text-lg font-bold">OSCs<small class="mt-1 block text-xs font-normal text-slate-500 dark:text-slate-400">Organizações da rede</small></span><span aria-hidden="true" class="text-xl text-orange-500">&#8594;</span>
             </button>
-            <button
-              type="button"
-              data-secao="projetos"
-              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
-            >
-              📋 Projetos
+            <button type="button" data-secao="projetos" class="cartao-acesso flex min-h-32 items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-violet-50 text-sm font-bold text-violet-800 dark:bg-violet-900/40 dark:text-violet-200">02</span>
+              <span class="flex-1 text-lg font-bold">Projetos<small class="mt-1 block text-xs font-normal text-slate-500 dark:text-slate-400">Ações em andamento</small></span><span aria-hidden="true" class="text-xl text-orange-500">&#8594;</span>
             </button>
-            <button
-              type="button"
-              data-secao="demandas"
-              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
-            >
-              🙋 Demandas
+            <button type="button" data-secao="demandas" class="cartao-acesso flex min-h-32 items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-orange-50 text-sm font-bold text-orange-800 dark:bg-orange-900/40 dark:text-orange-200">03</span>
+              <span class="flex-1 text-lg font-bold">Demandas<small class="mt-1 block text-xs font-normal text-slate-500 dark:text-slate-400">Pedidos e necessidades</small></span><span aria-hidden="true" class="text-xl text-orange-500">&#8594;</span>
             </button>
-            <button
-              type="button"
-              data-secao="relatorios"
-              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
-            >
-              📝 Relatórios
+            <button type="button" data-secao="relatorios" class="cartao-acesso flex min-h-32 items-center gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald-50 text-sm font-bold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">04</span>
+              <span class="flex-1 text-lg font-bold">Relatórios<small class="mt-1 block text-xs font-normal text-slate-500 dark:text-slate-400">Acompanhe os resultados</small></span><span aria-hidden="true" class="text-xl text-orange-500">&#8594;</span>
             </button>
           </section>
 
           <section
-            class="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800"
+            id="painel-demandas-inicio"
+            class="mt-2 rounded-2xl border border-orange-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800"
           >
-            <h3 class="mb-4 text-sm font-bold text-[#122957] dark:text-white">
-              ⏰ Demandas atuais
-            </h3>
+            <h3 class="mb-4 text-sm font-bold text-[#122957] dark:text-white">Painel de demandas</h3>
             <div id="lista-lembretes">
               <p class="text-sm text-slate-500 dark:text-slate-400">
                 Nenhum lembrete cadastrado no momento.
               </p>
             </div>
+          </section>
+          <section
+            id="painel-solicitacoes-acesso"
+            class="hidden mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-5 shadow-sm dark:border-amber-900 dark:bg-amber-950/30"
+            aria-labelledby="titulo-solicitacoes-acesso"
+          >
+            <header class="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 id="titulo-solicitacoes-acesso" class="text-base font-bold text-amber-950 dark:text-amber-100">
+                  Solicitações de acesso
+                </h3>
+                <p class="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                  Contas aguardando aprovação da equipe.
+                </p>
+              </div>
+              <span id="total-pendentes" class="rounded-full bg-amber-200 px-3 py-1 text-sm font-bold text-amber-900 dark:bg-amber-900 dark:text-amber-100">0</span>
+            </header>
+            <ul id="lista-pendentes" class="space-y-2"></ul>
           </section>
         </section>
