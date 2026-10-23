@@ -1,0 +1,28 @@
+/* Ajustes específicos da tela de cadastro (carregado depois de login.css) */
+
+.card-login {
+    max-width: 510px;
+}
+
+.conteudo {
+    padding-top: 28px;
+    padding-bottom: 25px;
+}
+
+.introducao {
+    margin-bottom: 23px;
+}
+
+.campo {
+    margin-bottom: 16px;
+}
+
+.rodape {
+    margin-top: 22px;
+}
+
+@media (max-width: 480px) {
+    .conteudo {
+        padding: 24px 22px;
+    }
+}

@@ -1,0 +1,95 @@
+<section id="pagina-inicio" data-pagina>
+          <section
+            id="indicadores"
+            class="mb-9 grid grid-cols-1 gap-3 sm:grid-cols-3"
+          >
+            <article
+              id="card-pessoas-atendidas"
+              class="rounded-xl bg-[#122957] p-5 text-white"
+            >
+              <!-- soma de projeto,pessoas atendidas e etc -->
+              <p
+                id="numeracao-pessoas"
+                class="text-2xl font-bold text-orange-400"
+              >
+                0
+              </p>
+              <p class="text-xs text-blue-100">Pessoas atendidas</p>
+            </article>
+
+            <article
+              id="card-oscs"
+              class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <p id="total-oscs" class="text-2xl font-bold text-emerald-600">
+                0
+              </p>
+              <p class="text-xs text-slate-500 dark:text-slate-300">
+                OSCs na rede
+              </p>
+            </article>
+
+            <article
+              id="cards-demandas-abertas"
+              class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+            >
+              <p
+                id="total-demandas"
+                class="text-2xl font-bold text-emerald-600"
+              >
+                0
+              </p>
+              <p class="text-xs text-slate-500 dark:text-slate-300">
+                Demandas abertas
+              </p>
+            </article>
+          </section>
+
+          <!-- Botões de atalho -->
+          <section
+            id="acessos-rapidos"
+            class="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-4 xl:grid-cols-4"
+          >
+            <button
+              type="button"
+              data-secao="oscs"
+              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
+            >
+              🏛️ OSCs
+            </button>
+            <button
+              type="button"
+              data-secao="projetos"
+              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
+            >
+              📋 Projetos
+            </button>
+            <button
+              type="button"
+              data-secao="demandas"
+              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
+            >
+              🙋 Demandas
+            </button>
+            <button
+              type="button"
+              data-secao="relatorios"
+              class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
+            >
+              📝 Relatórios
+            </button>
+          </section>
+
+          <section
+            class="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800"
+          >
+            <h3 class="mb-4 text-sm font-bold text-[#122957] dark:text-white">
+              ⏰ Demandas atuais
+            </h3>
+            <div id="lista-lembretes">
+              <p class="text-sm text-slate-500 dark:text-slate-400">
+                Nenhum lembrete cadastrado no momento.
+              </p>
+            </div>
+          </section>
+        </section>

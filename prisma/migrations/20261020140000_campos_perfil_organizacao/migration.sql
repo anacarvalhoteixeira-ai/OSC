@@ -1,0 +1,4 @@
+ALTER TABLE `Organizacao`
+  ADD COLUMN `categoria` VARCHAR(30) NULL,
+  ADD COLUMN `bairro` VARCHAR(120) NULL,
+  ADD COLUMN `responsavel` VARCHAR(120) NULL;

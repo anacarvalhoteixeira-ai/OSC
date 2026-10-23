@@ -1,0 +1,173 @@
+<section id="pagina-cadastro-projeto" data-pagina class="hidden">
+          <header class="mb-6">
+            <h2
+              id="titulo-form-projeto"
+              class="text-2xl font-bold text-[#122957] dark:text-white"
+            >
+              Cadastrar projeto
+            </h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Preencha os dados do projeto ou atividade oferecida pela OSC.
+            </p>
+          </header>
+
+          <form
+            id="form-projeto"
+            data-entidade="projeto"
+            class="max-w-3xl space-y-5 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+          >
+            <input type="hidden" id="proj-id" name="id" />
+
+            <div>
+              <label for="proj-titulo" class="rotulo"
+                >Título do projeto *</label
+              >
+              <input id="proj-titulo" name="titulo" required class="campo" />
+            </div>
+
+            <div>
+              <label for="proj-osc" class="rotulo">OSC responsável *</label>
+
+              <select
+                id="proj-osc"
+                name="osc_id"
+                required
+                class="campo"
+              ></select>
+              <p id="aviso-sem-oscs" class="mt-1 hidden text-xs text-red-500">
+                Nenhuma OSC cadastrada. Cadastre uma OSC antes de criar um
+                projeto.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div>
+                <label for="proj-responsavel" class="rotulo"
+                  >Responsável pelo projeto</label
+                >
+                <input id="proj-responsavel" name="responsavel" class="campo" />
+              </div>
+              <div>
+                <label for="proj-contato" class="rotulo">Telefone</label>
+                <input
+                  id="proj-contato"
+                  name="telefone"
+                  type="tel"
+                  class="campo"
+                />
+              </div>
+              <div>
+                <label for="proj-email" class="rotulo">E-mail</label>
+                <input
+                  id="proj-email"
+                  name="email"
+                  type="email"
+                  class="campo"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div>
+                <label for="proj-status" class="rotulo">Status *</label>
+                <select id="proj-status" name="status" required class="campo">
+                  <option value="Planejando">Planejando</option>
+                  <option value="Em andamento">Em andamento</option>
+                  <option value="Concluído">Concluído</option>
+                </select>
+              </div>
+              <div>
+                <label for="proj-inicio" class="rotulo">Data de início</label>
+                <input
+                  id="proj-inicio"
+                  name="data_inicio"
+                  type="date"
+                  class="campo"
+                />
+              </div>
+              <div>
+                <label for="proj-fim" class="rotulo"
+                  >Data de fim (obrigatória se Concluído)</label
+                >
+                <input
+                  id="proj-fim"
+                  name="data_fim"
+                  type="date"
+                  class="campo"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="proj-pessoas" class="rotulo"
+                  >Pessoas atendidas (quantidade)</label
+                >
+                <input
+                  id="proj-pessoas"
+                  name="pessoas_atendidas"
+                  type="number"
+                  class="campo"
+                />
+              </div>
+              <div>
+                <label for="proj-orcamento" class="rotulo"
+                  >Orçamento necessário (R$)</label
+                >
+                <input
+                  id="proj-orcamento"
+                  name="orcamento"
+                  type="number"
+                  class="campo"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="proj-descricao" class="rotulo">Descrição</label>
+              <textarea
+                id="proj-descricao"
+                name="descricao"
+                rows="3"
+                class="campo"
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="proj-objetivo" class="rotulo">Objetivo</label>
+              <textarea
+                id="proj-objetivo"
+                name="objetivo"
+                rows="2"
+                class="campo"
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="proj-resultados" class="rotulo">Resultados</label>
+              <textarea
+                id="proj-resultados"
+                name="resultados"
+                rows="2"
+                class="campo"
+              ></textarea>
+            </div>
+
+            <div class="flex justify-end gap-3">
+              <button
+                type="button"
+                data-secao="projetos"
+                class="btn-secundario"
+              >
+                Cancelar
+              </button>
+              <button
+                id="botao-salvar-projeto"
+                type="submit"
+                class="btn-primario"
+              >
+                Salvar projeto
+              </button>
+            </div>
+          </form>
+        </section>

@@ -1,0 +1,137 @@
+<section id="pagina-cadastro-osc" data-pagina class="hidden">
+          <header class="mb-6">
+            <h2
+              id="titulo-form-osc"
+              class="text-2xl font-bold text-[#122957] dark:text-white"
+            >
+              Cadastrar OSC
+            </h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Preencha os dados da organização.
+            </p>
+          </header>
+
+          <form
+            id="form-osc"
+            data-entidade="osc"
+            class="max-w-3xl space-y-5 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
+          >
+            <!-- vazio = nova OSC -->
+            <input type="hidden" id="osc-id" name="id" />
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="osc-nome" class="rotulo">Nome da OSC *</label>
+                <input id="osc-nome" name="nome" required class="campo" />
+              </div>
+              <div>
+                <label for="osc-cnpj" class="rotulo">CNPJ *</label>
+                <input
+                  id="osc-cnpj"
+                  name="cnpj"
+                  required
+                  inputmode="numeric"
+                  maxlength="18"
+                  placeholder="00.000.000/0000-00"
+                  pattern="\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}"
+                  title="Digite um CNPJ válido, ex.: 00.000.000/0000-00"
+                  class="campo"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="osc-categoria" class="rotulo"
+                >Categoria (área de atuação) *</label
+              >
+              <select
+                id="osc-categoria"
+                name="categoria"
+                required
+                class="campo"
+              >
+                <option value="">Selecione uma categoria</option>
+                <option value="educacao">Educação e formação cidadã</option>
+                <option value="meio-ambiente">
+                  Meio ambiente e sustentabilidade
+                </option>
+                <option value="saude">Saúde e bem-estar comunitário</option>
+                <option value="social">
+                  Assistência social e apoio às famílias
+                </option>
+                <option value="direitos">
+                  Direitos humanos e inclusão social
+                </option>
+                <option value="cultura">Cultura, esporte e lazer</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="osc-endereco" class="rotulo"
+                  >Endereço (rua e número) *</label
+                >
+                <input
+                  id="osc-endereco"
+                  name="endereco"
+                  required
+                  class="campo"
+                />
+              </div>
+              <div>
+                <label for="osc-bairro" class="rotulo">Bairro</label>
+                <input id="osc-bairro" name="bairro" class="campo" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label for="osc-responsavel" class="rotulo"
+                  >Responsável (representante) *</label
+                >
+                <input
+                  id="osc-responsavel"
+                  name="responsavel"
+                  required
+                  class="campo"
+                />
+              </div>
+              <div>
+                <label for="osc-contato" class="rotulo">Telefone *</label>
+                <input
+                  id="osc-contato"
+                  name="telefone"
+                  type="tel"
+                  required
+                  class="campo"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="osc-email" class="rotulo">E-mail</label>
+              <input id="osc-email" name="email" type="email" class="campo" />
+            </div>
+
+            <div>
+              <label for="osc-descricao" class="rotulo"
+                >Descrição da organização</label
+              >
+              <textarea
+                id="osc-descricao"
+                name="descricao"
+                rows="3"
+                class="campo"
+              ></textarea>
+            </div>
+
+            <div class="flex justify-end gap-3">
+              <button type="button" data-secao="oscs" class="btn-secundario">
+                Cancelar
+              </button>
+              <button id="botao-salvar-osc" type="submit" class="btn-primario">
+                Salvar OSC
+              </button>
+            </div>
+          </form>
+        </section>
