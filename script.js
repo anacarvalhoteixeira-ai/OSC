@@ -1,3 +1,5 @@
+import { criarModuloDemandas } from "./assets/demandas.js";
+import { podeEditarProjeto, podeExcluirProjeto } from "./src/utils/permissoes.js";
 import "./inicio.css";
 
 // ============================================================
@@ -23,15 +25,10 @@ const STATUS_PROJETO = {
 };
 
 const STATUS_DEMANDA = {
-  ABERTA: "Pendente",
-  EM_ANALISE: "Em andamento",
-  ATENDIDA: "Concluído",
+  ABERTA: "Aberta",
+  EM_ANALISE: "Em análise",
+  ATENDIDA: "Atendida",
   RECUSADA: "Recusada",
-};
-
-const STATUS_DEMANDA_ABERTA = {
-  ABERTA: "Pendente",
-  EM_ANALISE: "Em andamento",
 };
 
 const CATEGORIAS_DEMANDA = {
@@ -46,7 +43,6 @@ const CAMPOS_REL = {
   osc: {
     dados: "Dados cadastrais",
     projetos: "Projetos",
-    demandas: "Demandas",
     pessoas: "Pessoas atendidas",
   },
   projeto: {
@@ -63,6 +59,7 @@ const MENU_DE = {
   "cadastro-osc": "oscs",
   "cadastro-projeto": "projetos",
   "cadastro-demanda": "demandas",
+  "detalhe-demanda": "demandas",
 };
 
 // ---------- Sessão ----------
@@ -76,8 +73,22 @@ try {
   /* sessão inválida */
 }
 
+if (token && usuario) {
+  try {
+    const resposta = await fetch("/api/auth/me", { headers: { Authorization: `Bearer ${token}` } });
+    if (!resposta.ok) throw new Error("Sessão indisponível");
+    usuario = (await resposta.json()).usuario;
+    guarda.setItem("uoscc_usuario", JSON.stringify(usuario));
+  } catch {
+    sair();
+    throw new Error("Entre novamente para continuar.");
+  }
+}
+
 const ehOsc = usuario?.papel === "RESPONSAVEL_OSC";
-const podeExcluir = ["ADMIN", "GESTOR"].includes(usuario?.papel);
+const ehAdmin = usuario?.papel === "ADMIN";
+const ehUoscc = usuario?.papel === "RESPONSAVEL_UOSCC";
+const podeExcluir = ehUoscc;
 const estado = { oscs: [], oscAtual: null, relatorio: null };
 
 function sair() {
@@ -114,6 +125,7 @@ const qs = (obj) => {
   return t ? `?${t}` : "";
 };
 const rotulo = (mapa, chave) => mapa[chave] ?? chave ?? "—";
+const demandasUI = criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, paraInput, qs, STATUS_DEMANDA, CATEGORIAS_DEMANDA });
 
 function avisar(msg, erro = false) {
   const el = document.createElement("div");
@@ -189,9 +201,9 @@ function preencherOscs(select, aviso) {
 
 const classeItem =
   "flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800";
-const botoesItem = (extra = "") =>
-  `<div class="flex gap-2 text-sm">${extra}<button type="button" data-act="editar" class="btn-secundario px-3 py-2">Editar</button>${
-    podeExcluir ? `<button type="button" data-act="excluir" class="btn-secundario px-3 py-2 text-red-600">Excluir</button>` : ""
+const botoesItem = (extra = "", editar = !ehAdmin, excluir = podeExcluir) =>
+  `<div class="flex gap-2 text-sm">${extra}${editar ? `<button type="button" data-act="editar" class="btn-secundario px-3 py-2">Editar</button>` : ""}${
+    excluir ? `<button type="button" data-act="excluir" class="btn-secundario px-3 py-2 text-red-600">Excluir</button>` : ""
   }</div>`;
 const infoItem = (titulo, sub) =>
   `<div><p class="font-semibold">${esc(titulo)}</p><p class="text-xs text-slate-500 dark:text-slate-400">${sub}</p></div>`;
@@ -209,10 +221,15 @@ function ligarLista(ulId, acoes) {
 // ---------- Navegação ----------
 
 function ir(nome) {
+  if ((nome === "relatorios" && !ehUoscc) || (nome === "cadastro-osc" && ehAdmin)) {
+    avisar("Esta ação não está disponível para seu perfil.", true); return;
+  }
   document.querySelectorAll("[data-pagina]").forEach((s) => s.classList.toggle("hidden", s.id !== `pagina-${nome}`));
   const menu = MENU_DE[nome] ?? nome;
   document.querySelectorAll(".menu-link").forEach((a) => {
     const ativo = a.dataset.menu === menu;
+    if (ativo) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
     a.classList.toggle("bg-orange-400", ativo);
     a.classList.toggle("text-slate-950", ativo);
     a.classList.toggle("font-semibold", ativo);
@@ -236,42 +253,24 @@ const paginaDaHash = () => (PRINCIPAIS.includes(location.hash.slice(1)) ? locati
 // ---------- Início ----------
 
 async function carregarInicio() {
-  let pessoas, oscs, abertas, lista;
+  let pessoas, oscs, projetos, recentes;
   if (!ehOsc) {
     const { painel: p } = await api("/painel");
-    pessoas = p.totais.pessoasAtendidas;
-    oscs = p.totais.organizacoes;
-    abertas = (p.demandasPorStatus.ABERTA ?? 0) + (p.demandasPorStatus.EM_ANALISE ?? 0);
-    lista = p.demandasEmAberto;
+    pessoas = p.totais.pessoasAtendidas; oscs = p.totais.organizacoes; projetos = p.totais.projetos; recentes = p.projetosRecentes;
   } else {
-    const [{ total }, { demandas }] = await Promise.all([api("/atendimentos"), api("/demandas")]);
-    const ab = demandas.filter((d) => ["ABERTA", "EM_ANALISE"].includes(d.status));
-    pessoas = total;
-    oscs = 1;
-    abertas = ab.length;
-    lista = ab.slice(0, 5);
+    const [{ total }, resultado] = await Promise.all([api("/atendimentos"), api("/projetos")]);
+    pessoas = total; oscs = 1; projetos = resultado.projetos.length; recentes = resultado.projetos.slice(0, 5);
   }
-
   $("numeracao-pessoas").textContent = pessoas;
   $("total-oscs").textContent = oscs;
-  $("total-demandas").textContent = abertas;
-  $("lista-lembretes").innerHTML = lista.length
-    ? `<ul class="space-y-2 text-sm">${lista
-        .map(
-          (d) =>
-            `<li class="flex flex-wrap justify-between gap-2"><span>${esc(d.titulo)} <span class="text-xs text-slate-500 dark:text-slate-400">· ${esc(
-              d.organizacao?.nome ?? "Rede"
-            )}</span></span><span class="text-xs">${esc(rotulo(STATUS_DEMANDA, d.status))}${
-              d.prazo ? ` · prazo ${fmtData(d.prazo)}` : ""
-            }</span></li>`
-        )
-        .join("")}</ul>`
-    : `<p class="text-sm text-slate-500 dark:text-slate-400">Nenhuma demanda em aberto no momento.</p>`;
-
-  if (podeExcluir) await carregarPendentes();
+  $("total-demandas").textContent = projetos;
+  $("lista-lembretes").innerHTML = recentes.length
+    ? `<ul class="space-y-3">${recentes.map(p => `<li class="flex flex-wrap justify-between gap-2"><span>${esc(p.titulo)} <small>· ${p.tipo === "GERAL" ? "Geral UOSCC" : "Específico OSC"}</small></span><span class="text-sm">${esc(rotulo(STATUS_PROJETO, p.status))}</span></li>`).join("")}</ul>`
+    : '<p class="text-sm text-slate-500">Os projetos da rede vão aparecer aqui. Cada ação começa com uma ideia.</p>';
+  if (ehUoscc) await carregarPendentes();
 }
 
-// Solicitações de cadastro aguardando aprovação (ADMIN/GESTOR)
+// Solicitações de cadastro: análise exclusiva da UOSCC.
 async function carregarPendentes() {
   if (!podeExcluir) return;
 
@@ -427,7 +426,7 @@ async function carregarOscs() {
     await carregarListaOscs();
     lista = estado.oscs;
   } else {
-    lista = (await api(`/organizacoes${qs({ busca: f.busca.value.trim(), categoria: f.categoria.value })}`)).organizacoes;
+    lista = (await api(`/organizacoes${qs({ busca: f.busca.value.trim(), categoria: f.categoria.value, ativa: f.ativa.value })}`)).organizacoes;
   }
   $("itens-oscs").innerHTML = lista
     .map(
@@ -435,13 +434,14 @@ async function carregarOscs() {
         `<li data-id="${o.id}" class="${classeItem}">${infoItem(
           o.nome,
           `${esc(rotulo(CATEGORIAS_OSC, o.categoria))} · ${esc(o.cnpj)} · ${esc(o.responsavel)} · ${esc(o.telefone)}`
-        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver ficha</button>`)}</li>`
+        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver ficha</button>${o.ativa ? "" : `<span class="text-sm text-slate-500">Inativa · histórico preservado</span>`}`, !ehAdmin && o.ativa, ehUoscc && o.ativa)}</li>`
     )
     .join("");
   $("sem-oscs").classList.toggle("hidden", lista.length > 0);
 }
 
 function abrirFormularioOsc(osc) {
+  if (ehAdmin) return avisar("O ADMIN tem acesso somente à consulta das OSCs.", true);
   const f = $("form-osc");
   f.reset();
   $("titulo-form-osc").textContent = osc ? "Editar OSC" : "Cadastrar OSC";
@@ -507,10 +507,10 @@ async function abrirFicha(id) {
   $("ficha-osc-pessoas").textContent = total;
 
   const li = (t, s) => `<li class="flex justify-between gap-3"><span>${esc(t)}</span><span class="text-xs">${esc(s)}</span></li>`;
-  $("ficha-osc-projetos").innerHTML = o.projetos.map((p) => li(p.titulo, rotulo(STATUS_PROJETO, p.status))).join("");
-  $("ficha-osc-sem-projetos").classList.toggle("hidden", o.projetos.length > 0);
-  $("ficha-osc-demandas").innerHTML = o.demandas.map((d) => li(d.titulo, rotulo(STATUS_DEMANDA, d.status))).join("");
-  $("ficha-osc-sem-demandas").classList.toggle("hidden", o.demandas.length > 0);
+  const { projetos: relacionados } = await api(`/projetos${qs({ organizacaoId: id })}`);
+  $("ficha-osc-projetos").innerHTML = relacionados.map((p) => li(p.titulo, rotulo(STATUS_PROJETO, p.status))).join("");
+  $("ficha-osc-sem-projetos").classList.toggle("hidden", relacionados.length > 0);
+  $("botao-editar-osc-ficha").hidden = ehAdmin || !o.ativa;
   ir("ficha-osc");
 }
 
@@ -518,32 +518,44 @@ async function abrirFicha(id) {
 
 async function carregarProjetos() {
   const f = $("form-pesquisa-projetos");
-  const { projetos } = await api(`/projetos${qs({ busca: f.busca.value.trim(), status: f.status.value })}`);
+  const { projetos } = await api(`/projetos${qs({ busca: f.busca.value.trim(), status: f.status.value, tipo: f.tipo.value })}`);
   $("itens-projetos").innerHTML = projetos
     .map(
       (p) =>
         `<li data-id="${p.id}" class="${classeItem}">${infoItem(
           p.titulo,
-          `${esc(p.organizacao.nome)} · ${esc(rotulo(STATUS_PROJETO, p.status))} · ${fmtData(p.dataInicio)} → ${fmtData(
+          `${esc((p.organizacao?.nome ?? "Geral UOSCC"))} · ${esc(rotulo(STATUS_PROJETO, p.status))} · ${fmtData(p.dataInicio)} → ${fmtData(
             p.dataFim
           )}`
-        )}${botoesItem()}</li>`
+        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver projeto</button>`, podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false, podeExcluirProjeto(usuario, p))}</li>`
     )
     .join("");
   $("sem-projetos").classList.toggle("hidden", projetos.length > 0);
 }
 
-async function abrirFormularioProjeto(id) {
+async function abrirFormularioProjeto(id, somenteLeitura = false) {
   await tentar(async () => {
     await carregarListaOscs();
     const f = $("form-projeto");
     f.reset();
+    for (const campo of f.elements) campo.disabled = false;
     preencherOscs($("proj-osc"), $("aviso-sem-oscs"));
     $("titulo-form-projeto").textContent = id ? "Editar projeto" : "Cadastrar projeto";
     $("proj-id").value = id ?? "";
+    $("proj-tipo").value = ehOsc ? "ESPECIFICO" : "GERAL";
+    $("proj-participantes").replaceChildren(...estado.oscs.map(o => new Option(o.nome, o.id)));
+    $("proj-todas").checked = !ehOsc;
+    $("proj-tipo").disabled = true;
     if (id) {
       const { projeto: p } = await api(`/projetos/${id}`);
-      f.elements.osc_id.value = p.organizacaoId;
+      f.elements.osc_id.value = p.organizacaoId ?? "";
+      $("proj-tipo").value = p.tipo;
+      $("proj-todas").checked = p.todasOscs;
+      for (const participante of p.participantes) {
+        if (![...$("proj-participantes").options].some(o => Number(o.value) === participante.id)) $("proj-participantes").add(new Option(`${participante.nome}${participante.ativa ? "" : " (inativa)"}`, participante.id));
+      }
+      for (const option of $("proj-participantes").options) option.selected = p.participantes.some(o => o.id === Number(option.value));
+      somenteLeitura ||= !podeEditarProjeto(usuario, p) || p.organizacao?.ativa === false;
       for (const c of ["titulo", "responsavel", "telefone", "email", "status", "descricao", "objetivo", "resultados"]) {
         f.elements[c].value = p[c] ?? "";
       }
@@ -551,6 +563,19 @@ async function abrirFormularioProjeto(id) {
       f.elements.data_fim.value = paraInput(p.dataFim);
       f.elements.pessoas_atendidas.value = p.totalAtendidos || "";
       f.elements.orcamento.value = p.orcamento ?? "";
+    }
+    const geral = $("proj-tipo").value === "GERAL";
+    $("proj-osc").closest(".vinculo-projeto").hidden = geral;
+    $("proj-osc").required = !geral;
+    $("proj-osc").disabled = geral || ehOsc;
+    $("proj-participacao").hidden = !geral;
+    $("proj-pessoas").closest("div").hidden = geral;
+    $("proj-pessoas").disabled = geral;
+    $("proj-participantes").disabled = $("proj-todas").checked;
+    $("botao-salvar-projeto").hidden = somenteLeitura;
+    if (somenteLeitura) {
+      for (const campo of f.elements) if (campo.type !== "button") campo.disabled = true;
+      $("titulo-form-projeto").textContent = "Detalhes do projeto";
     }
     ir("cadastro-projeto");
   });
@@ -582,14 +607,17 @@ async function salvarProjeto(e) {
   e.preventDefault();
   const v = Object.fromEntries(new FormData(e.currentTarget));
   const id = $("proj-id").value;
-  const pessoas = v.pessoas_atendidas === "" ? null : Number(v.pessoas_atendidas);
+  const pessoas = !ehOsc || v.pessoas_atendidas == null || v.pessoas_atendidas === "" ? null : Number(v.pessoas_atendidas);
   if (pessoas !== null && (!Number.isInteger(pessoas) || pessoas < 0)) {
     return avisar("Informe um número inteiro de pessoas atendidas.", true);
   }
 
   const dados = {
     titulo: v.titulo.trim(),
-    organizacaoId: Number(v.osc_id),
+    organizacaoId: ehOsc ? usuario.organizacaoId : null,
+    tipo: $("proj-tipo").value,
+    todasOscs: $("proj-tipo").value === "GERAL" && $("proj-todas").checked,
+    participantesIds: $("proj-tipo").value === "GERAL" && !$("proj-todas").checked ? [...$("proj-participantes").selectedOptions].map(o => Number(o.value)) : [],
     status: v.status,
     descricao: nuloSeVazio(v.descricao),
     objetivo: nuloSeVazio(v.objetivo),
@@ -613,74 +641,9 @@ async function salvarProjeto(e) {
 
 // ---------- Demandas ----------
 
-async function carregarDemandas() {
-  const f = $("form-pesquisa-demandas");
-  const { demandas } = await api(`/demandas${qs({ busca: f.busca.value.trim(), status: f.status.value })}`);
-  const abertas = demandas.filter((d) => ["ABERTA", "EM_ANALISE"].includes(d.status));
-  const hoje = new Date().toISOString().slice(0, 10);
-  $("itens-demandas").innerHTML = abertas
-    .map((d) => {
-      const atrasada = d.prazo && d.prazo.slice(0, 10) < hoje;
-      return `<li data-id="${d.id}" class="${classeItem}">${infoItem(
-        d.titulo,
-        `${esc(d.organizacao?.nome ?? "Rede")} · ${esc(rotulo(CATEGORIAS_DEMANDA, d.categoria))} · ${esc(
-          rotulo(STATUS_DEMANDA, d.status)
-        )} · <span class="${atrasada ? "font-semibold text-red-600" : ""}">prazo ${fmtData(d.prazo)}</span>`
-      )}${botoesItem()}</li>`;
-    })
-    .join("");
-  $("sem-demandas").classList.toggle("hidden", abertas.length > 0);
-}
-
-const alternarConclusao = () => $("bloco-dem-conclusao").classList.toggle("hidden", $("dem-status").value !== "ATENDIDA");
-
-async function abrirFormularioDemanda(id) {
-  await tentar(async () => {
-    await carregarListaOscs();
-    const f = $("form-demanda");
-    f.reset();
-    preencherOscs($("dem-osc"), $("aviso-sem-oscs-demanda"));
-    $("titulo-form-demanda").textContent = id ? "Editar demanda" : "Cadastrar demanda";
-    $("dem-id").value = id ?? "";
-    f.elements.status.disabled = ehOsc;
-    if (id) {
-      const { demanda: d } = await api(`/demandas/${id}`);
-      if (d.organizacaoId) f.elements.osc_id.value = d.organizacaoId;
-      for (const c of ["titulo", "categoria", "status", "descricao", "resultado"]) {
-        f.elements[c].value = d[c] ?? "";
-      }
-      f.elements.prazo.value = paraInput(d.prazo);
-      f.elements.data_conclusao.value = paraInput(d.dataConclusao);
-    }
-    alternarConclusao();
-    ir("cadastro-demanda");
-  });
-}
-
-async function salvarDemanda(e) {
-  e.preventDefault();
-  const v = Object.fromEntries(new FormData(e.currentTarget));
-  const id = $("dem-id").value;
-  const dados = {
-    titulo: v.titulo.trim(),
-    descricao: v.descricao.trim() || v.titulo.trim(),
-    categoria: v.categoria || "OUTROS",
-    organizacaoId: v.osc_id ? Number(v.osc_id) : null,
-    prazo: v.prazo || null,
-    ...(v.status !== undefined && {
-      status: v.status,
-      dataConclusao: v.status === "ATENDIDA" ? v.data_conclusao || null : null,
-      resultado: nuloSeVazio(v.resultado),
-    }),
-  };
-
-  if (ehOsc && id) delete dados.organizacaoId;
-  await tentar(async () => {
-    await api(id ? `/demandas/${id}` : "/demandas", { method: id ? "PUT" : "POST", corpo: dados });
-    avisar("Demanda salva com sucesso.");
-    ir("demandas");
-  });
-}
+const carregarDemandas = () => demandasUI.carregar();
+const abrirFormularioDemanda = id => demandasUI.formulario(id);
+const salvarDemanda = e => demandasUI.salvar(e);
 
 // ---------- Relatórios ----------
 
@@ -705,7 +668,7 @@ async function trocarTipoRelatorio() {
     await carregarListaOscs();
     itens = estado.oscs.map((o) => [o.id, o.nome]);
   } else {
-    itens = (await api("/projetos")).projetos.map((p) => [p.id, `${p.titulo} (${p.organizacao.nome})`]);
+    itens = (await api("/projetos")).projetos.map((p) => [p.id, `${p.titulo} (${(p.organizacao?.nome ?? "Geral UOSCC")})`]);
   }
   $("rel-item").innerHTML = itens.map(([id, r]) => `<option value="${id}">${esc(r)}</option>`).join("");
 }
@@ -760,10 +723,9 @@ async function gerarIndividual() {
   let titulo;
 
   if (tipo === "osc") {
-    const [{ organizacao: o }, { projetos }, { demandas }, { atendimentos, total }] = await Promise.all([
+    const [{ organizacao: o }, { projetos }, { atendimentos, total }] = await Promise.all([
       api(`/organizacoes/${id}`),
       api(`/projetos${qs({ organizacaoId: id })}`),
-      api(`/demandas${qs({ organizacaoId: id })}`),
       api(`/atendimentos${qs({ organizacaoId: id })}`),
     ]);
     titulo = o.nome;
@@ -773,18 +735,6 @@ async function gerarIndividual() {
         titulo: "Projetos",
         cab: ["Título", "Status", "Início", "Fim"],
         linhas: projetos.map((p) => [p.titulo, rotulo(STATUS_PROJETO, p.status), fmtData(p.dataInicio), fmtData(p.dataFim)]),
-      });
-    }
-    if (marcados.has("demandas")) {
-      blocos.push({
-        titulo: "Demandas",
-        cab: ["Título", "Categoria", "Status", "Prazo"],
-        linhas: demandas.map((d) => [
-          d.titulo,
-          rotulo(CATEGORIAS_DEMANDA, d.categoria),
-          rotulo(STATUS_DEMANDA, d.status),
-          fmtData(d.prazo),
-        ]),
       });
     }
     if (marcados.has("pessoas")) {
@@ -802,7 +752,7 @@ async function gerarIndividual() {
       blocos.push({
         titulo: "Dados do projeto",
         pares: [
-          ["OSC", p.organizacao.nome],
+          ["OSC", (p.organizacao?.nome ?? "Geral UOSCC")],
           ["Status", rotulo(STATUS_PROJETO, p.status)],
           ["Início", fmtData(p.dataInicio)],
           ["Fim", fmtData(p.dataFim)],
@@ -841,10 +791,9 @@ async function gerarAnual() {
   const ano = Number($("rel-ano").value);
   if (!Number.isInteger(ano) || ano < 2000 || ano > 2100) return avisar("Informe um ano válido.", true);
 
-  const [{ organizacoes }, { projetos }, { demandas }, { atendimentos, total }] = await Promise.all([
-    api("/organizacoes"),
+  const [{ organizacoes }, { projetos }, { atendimentos, total }] = await Promise.all([
+    api("/organizacoes?ativa=todas"),
     api("/projetos"),
-    api("/demandas"),
     api(`/atendimentos?de=${ano}-01-01&ate=${ano}-12-31`),
   ]);
 
@@ -853,8 +802,6 @@ async function gerarAnual() {
     (p) => anoDe(p.dataInicio ?? p.criadoEm) <= ano && (p.dataFim ? anoDe(p.dataFim) : 9999) >= ano
   );
   const concluidosAno = projetos.filter((p) => p.status === "CONCLUIDO" && anoDe(p.dataFim) === ano);
-  const demConcluidas = demandas.filter((d) => d.status === "ATENDIDA" && anoDe(d.dataConclusao) === ano);
-  const demRegistradas = demandas.filter((d) => anoDe(d.criadoEm) === ano);
 
   const porOsc = new Map();
   for (const a of atendimentos) porOsc.set(a.organizacao.nome, (porOsc.get(a.organizacao.nome) ?? 0) + a.quantidade);
@@ -869,20 +816,13 @@ async function gerarAnual() {
           ["OSCs na rede", String(organizacoes.length)],
           ["Projetos ativos no ano", String(ativos.length)],
           ["Projetos concluídos no ano", String(concluidosAno.length)],
-          ["Demandas registradas no ano", String(demRegistradas.length)],
-          ["Demandas concluídas no ano", String(demConcluidas.length)],
           ["Pessoas atendidas no ano", String(total)],
         ],
       },
       {
         titulo: "Projetos ativos no ano",
         cab: ["Título", "OSC", "Status", "Início", "Fim"],
-        linhas: ativos.map((p) => [p.titulo, p.organizacao.nome, rotulo(STATUS_PROJETO, p.status), fmtData(p.dataInicio), fmtData(p.dataFim)]),
-      },
-      {
-        titulo: "Demandas concluídas no ano",
-        cab: ["Título", "OSC", "Concluída em", "Resultado"],
-        linhas: demConcluidas.map((d) => [d.titulo, d.organizacao?.nome ?? "Rede", fmtData(d.dataConclusao), d.resultado ?? "—"]),
+        linhas: ativos.map((p) => [p.titulo, (p.organizacao?.nome ?? "Geral UOSCC"), rotulo(STATUS_PROJETO, p.status), fmtData(p.dataInicio), fmtData(p.dataFim)]),
       },
       {
         titulo: "Pessoas atendidas por OSC",
@@ -967,10 +907,16 @@ function iniciar() {
   preencherSelect($("osc-categoria"), CATEGORIAS_OSC, "Selecione uma categoria");
   preencherSelect($("filtro-status"), STATUS_PROJETO, "Todos os status");
   preencherSelect($("proj-status"), STATUS_PROJETO);
-  preencherSelect($("filtro-status-demanda"), STATUS_DEMANDA_ABERTA, "Todos os status");
-  preencherSelect($("dem-status"), STATUS_DEMANDA);
-  preencherSelect($("dem-categoria"), CATEGORIAS_DEMANDA, "Selecione");
-  if (ehOsc) $("botao-nova-osc").classList.add("hidden");
+  demandasUI.iniciar();
+  $("botao-nova-osc").hidden = !ehUoscc;
+  $("botao-novo-projeto").hidden = ehAdmin;
+  $("botao-editar-osc-ficha").hidden = ehAdmin;
+  document.querySelectorAll('[data-menu="relatorios"], [data-secao="relatorios"]').forEach(el => el.hidden = !ehUoscc);
+  document.querySelectorAll('[data-menu="demandas"], [data-secao="demandas"]').forEach(el => el.hidden = false);
+  $("proj-todas").addEventListener("change", () => { $("proj-participantes").disabled = $("proj-todas").checked; });
+  $("filtro-tipo-projeto").addEventListener("change", () => tentar(carregarProjetos));
+  $("filtro-situacao-osc").hidden = ehOsc;
+  $("filtro-situacao-osc").addEventListener("change", () => tentar(carregarOscs));
 
   document.addEventListener("click", (e) => {
     const botaoAcesso = e.target.closest("[data-act='aprovar'], [data-act='recusar']");
@@ -1018,20 +964,20 @@ function iniciar() {
   $("form-osc").addEventListener("submit", salvarOsc);
   $("form-projeto").addEventListener("submit", salvarProjeto);
   $("form-demanda").addEventListener("submit", salvarDemanda);
-  $("dem-status").addEventListener("change", alternarConclusao);
 
   ligarLista("itens-oscs", {
     ver: abrirFicha,
     editar: async (id) => abrirFormularioOsc((await api(`/organizacoes/${id}`)).organizacao),
     excluir: async (id) => {
-      if (!confirm("Excluir esta OSC? Só é possível se ela não tiver projetos, demandas ou atendimentos.")) return;
+      if (!confirm("Desativar esta OSC? Os usuários vinculados perderão acesso. Projetos e históricos serão preservados.")) return;
       await api(`/organizacoes/${id}`, { method: "DELETE" });
-      avisar("OSC excluída.");
+      avisar("OSC desativada. Histórico preservado.");
       await carregarOscs();
     },
   });
 
   ligarLista("itens-projetos", {
+    ver: id => abrirFormularioProjeto(id, true),
     editar: abrirFormularioProjeto,
     excluir: async (id) => {
       if (!confirm("Excluir este projeto?")) return;
@@ -1041,15 +987,6 @@ function iniciar() {
     },
   });
 
-  ligarLista("itens-demandas", {
-    editar: abrirFormularioDemanda,
-    excluir: async (id) => {
-      if (!confirm("Excluir esta demanda?")) return;
-      await api(`/demandas/${id}`, { method: "DELETE" });
-      avisar("Demanda excluída.");
-      await carregarDemandas();
-    },
-  });
 
   $("rel-tipo").addEventListener("change", () => tentar(trocarTipoRelatorio));
   $("btn-gerar-individual").addEventListener("click", () => tentar(gerarIndividual));
@@ -1063,3 +1000,7 @@ function iniciar() {
 
 if (!token || !usuario) sair();
 else iniciar();
+if (token && usuario) {
+  const { prepararEquipe } = await import("./assets/equipe.js");
+  prepararEquipe(usuario, api, avisar);
+}

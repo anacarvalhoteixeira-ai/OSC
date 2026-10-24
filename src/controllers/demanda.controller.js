@@ -1,57 +1,43 @@
 import { z } from "zod";
-import {
-  atualizarDemanda, buscarDemanda, criarDemanda, excluirDemanda, listarDemandas,
-} from "../models/demanda.model.js";
+import { atualizarDemanda, buscarDemanda, criarDemanda, listarDemandas } from "../models/demanda.model.js";
 import { CATEGORIAS_DEMANDA, STATUS_DEMANDA } from "../utils/enums.js";
 import { dataOpcional, ehOsc, erroPrisma, idDaRota, limparQuery, validar } from "../utils/http.js";
+import { podeConsultarDemanda, podeEditarDemanda } from "../utils/demanda.js";
 
-const idOpcional = z.number().int().positive().nullable();
-const campos = {
+const camposOsc = {
   titulo: z.string().trim().min(3).max(180),
   descricao: z.string().trim().min(3).max(5000),
   categoria: z.enum(CATEGORIAS_DEMANDA),
-  status: z.enum(STATUS_DEMANDA),
-  organizacaoId: idOpcional,
-  responsavelId: idOpcional,
   prazo: dataOpcional,
-  dataConclusao: dataOpcional,
-  resultado: z.string().trim().max(5000).nullable().optional(),
 };
-const schemaCriacao = z.object({
-  titulo: campos.titulo,
-  descricao: campos.descricao,
-  categoria: campos.categoria.default("OUTROS"),
-  organizacaoId: campos.organizacaoId.optional(), // null = demanda geral da rede
-  status: campos.status.default("ABERTA"),
-  prazo: campos.prazo,
-  dataConclusao: campos.dataConclusao,
-  resultado: campos.resultado,
+const schemaCriacao = z.object({ ...camposOsc, categoria: camposOsc.categoria.default("OUTROS") }).strict();
+const schemaEdicao = z.object({ ...camposOsc }).partial().extend({ versao: z.number().int().nonnegative() }).strict();
+const textoAtendimento = z.string().trim().min(1).max(5000).optional();
+const schemaAtendimento = z.object({
+  versao: z.number().int().nonnegative(),
+  status: z.enum(STATUS_DEMANDA).optional(),
+  resposta: textoAtendimento,
+  observacao: textoAtendimento,
 }).strict();
-const schemaAtualizacao = z.object(campos).partial().strict();
+const dataFiltro = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(v => {
+  const data = new Date(`${v}T00:00:00.000Z`);
+  return !Number.isNaN(data.getTime()) && data.toISOString().slice(0, 10) === v;
+});
 const schemaFiltros = z.object({
   busca: z.string().max(180).optional(),
   status: z.enum(STATUS_DEMANDA).optional(),
   categoria: z.enum(CATEGORIAS_DEMANDA).optional(),
   organizacaoId: z.coerce.number().int().positive().optional(),
-});
-const camposDaOsc = new Set(["titulo", "descricao", "categoria", "prazo"]);
-
-// Concluída (ATENDIDA) ganha data de conclusão automática; qualquer outro status limpa a data.
-function ajustarConclusao(dados, atual) {
-  if (dados.status === undefined) return;
-  if (dados.status === "ATENDIDA") dados.dataConclusao ??= atual?.dataConclusao ?? new Date();
-  else dados.dataConclusao = null;
-}
+  de: dataFiltro.optional(),
+  ate: dataFiltro.optional(),
+}).refine(v => !v.de || !v.ate || v.de <= v.ate, { message: "A data inicial não pode ser posterior à final." });
 
 export async function listar(req, res) {
   const filtros = validar(schemaFiltros, limparQuery(req.query), res);
   if (!filtros) return;
-  if (ehOsc(req)) filtros.organizacaoId = req.usuario.organizacaoId ?? -1;
-  try {
-    return res.json({ demandas: await listarDemandas(filtros) });
-  } catch (erro) {
-    return erroPrisma(res, erro);
-  }
+  if (ehOsc(req)) filtros.organizacaoId = req.usuario.organizacaoId;
+  try { return res.json({ demandas: await listarDemandas(filtros) }); }
+  catch (erro) { return erroPrisma(res, erro); }
 }
 
 export async function obter(req, res) {
@@ -60,67 +46,49 @@ export async function obter(req, res) {
   try {
     const demanda = await buscarDemanda(id);
     if (!demanda) return res.status(404).json({ erro: "Demanda não encontrada." });
-    if (ehOsc(req) && demanda.organizacaoId !== req.usuario.organizacaoId) {
-      return res.status(403).json({ erro: "Você só pode consultar demandas da sua própria OSC." });
-    }
+    if (!podeConsultarDemanda(req.usuario, demanda)) return res.status(403).json({ erro: "Você só pode consultar demandas da sua própria OSC." });
     return res.json({ demanda });
-  } catch (erro) {
-    return erroPrisma(res, erro);
-  }
+  } catch (erro) { return erroPrisma(res, erro); }
 }
 
 export async function criar(req, res) {
   const dados = validar(schemaCriacao, req.body, res);
   if (!dados) return;
-  if (ehOsc(req)) {
-    dados.organizacaoId = req.usuario.organizacaoId;
-    dados.status = "ABERTA";
-    delete dados.dataConclusao;
-    delete dados.resultado;
-  }
-  ajustarConclusao(dados, null);
   try {
-    const demanda = await criarDemanda({ ...dados, solicitanteId: req.usuario.id });
+    const demanda = await criarDemanda({ ...dados, organizacaoId: req.usuario.organizacaoId, solicitanteId: req.usuario.id }, req.usuario.id);
     return res.status(201).json({ demanda });
-  } catch (erro) {
-    return erroPrisma(res, erro);
-  }
+  } catch (erro) { return erroPrisma(res, erro); }
 }
 
 export async function atualizar(req, res) {
   const id = idDaRota(req.params.id);
   if (!id) return res.status(400).json({ erro: "ID de demanda inválido." });
-  const dados = validar(schemaAtualizacao, req.body, res);
+  const osc = ehOsc(req);
+  const permitidos = new Set(osc ? ["versao", ...Object.keys(camposOsc)] : ["versao", "status", "resposta", "observacao"]);
+  if (req.body && Object.keys(req.body).some(c => !permitidos.has(c))) return res.status(403).json({ erro: osc ? "Você só pode editar os dados da demanda. Atendimento e status são definidos pela UOSCC." : "A UOSCC pode registrar atendimento e status, preservando os dados do solicitante." });
+  const dados = validar(osc ? schemaEdicao : schemaAtendimento, req.body, res);
   if (!dados) return;
-  if (Object.keys(dados).length === 0) return res.status(400).json({ erro: "Envie ao menos um campo para atualizar." });
+  const { versao, ...alteracoes } = dados;
+  if (!Object.keys(alteracoes).length) return res.status(400).json({ erro: "Informe os dados que deseja atualizar." });
   try {
     const atual = await buscarDemanda(id);
     if (!atual) return res.status(404).json({ erro: "Demanda não encontrada." });
-    if (ehOsc(req)) {
-      if (atual.organizacaoId !== req.usuario.organizacaoId) {
-        return res.status(403).json({ erro: "Você só pode editar demandas da sua própria OSC." });
-      }
-      if (Object.keys(dados).some((campo) => !camposDaOsc.has(campo))) {
-        return res.status(403).json({ erro: "Status e responsável são definidos pela equipe UOSCC." });
-      }
-      if (atual.status !== "ABERTA") {
-        return res.status(409).json({ erro: "A demanda já está em tratamento. Fale com a equipe UOSCC." });
-      }
+    if (!podeConsultarDemanda(req.usuario, atual)) return res.status(403).json({ erro: "Você só pode acessar demandas da sua própria OSC." });
+    if (osc && !podeEditarDemanda(req.usuario, atual)) return res.status(409).json({ erro: "Esta demanda já está em atendimento e não pode mais ser editada." });
+    if (versao !== atual.versao) return res.status(409).json({ erro: "Esta demanda foi atualizada por outra pessoa. Reabra os detalhes antes de salvar." });
+    let registro;
+    if (osc) {
+      registro = { tipo: "EDICAO" };
+    } else {
+      if (alteracoes.status === atual.status && !alteracoes.resposta && !alteracoes.observacao) return res.status(400).json({ erro: "Escolha um novo status ou registre uma resposta ou observação." });
+      registro = { tipo: "ATENDIMENTO", resposta: alteracoes.resposta, observacao: alteracoes.observacao };
+      delete alteracoes.resposta;
+      delete alteracoes.observacao;
+      alteracoes.responsavelId = req.usuario.id;
+      if (alteracoes.status !== undefined) alteracoes.dataConclusao = alteracoes.status === "ATENDIDA" ? (atual.status === "ATENDIDA" ? atual.dataConclusao : new Date()) : null;
     }
-    ajustarConclusao(dados, atual);
-    return res.json({ demanda: await atualizarDemanda(id, dados) });
-  } catch (erro) {
-    return erroPrisma(res, erro);
-  }
-}
-
-export async function remover(req, res) {
-  const id = idDaRota(req.params.id);
-  if (!id) return res.status(400).json({ erro: "ID de demanda inválido." });
-  try {
-    await excluirDemanda(id);
-    return res.status(204).end();
-  } catch (erro) {
-    return erroPrisma(res, erro);
-  }
+    const demanda = await atualizarDemanda(atual, alteracoes, req.usuario.id, registro, osc);
+    if (!demanda) return res.status(409).json({ erro: "A demanda mudou durante a gravação. Atualize os detalhes e tente novamente." });
+    return res.json({ demanda });
+  } catch (erro) { return erroPrisma(res, erro); }
 }

@@ -10,8 +10,7 @@ datasource db {
 // Papéis que um usuário pode ter no sistema
 enum PapelUsuario {
   ADMIN
-  GESTOR
-  MEMBRO
+  RESPONSAVEL_UOSCC
   RESPONSAVEL_OSC
 }
 
@@ -26,6 +25,11 @@ enum StatusSolicitacao {
 enum TipoSolicitacao {
   VINCULO_OSC
   NOVA_OSC
+}
+
+enum TipoProjeto {
+  GERAL
+  ESPECIFICO
 }
 
 // Situações possíveis de um projeto
@@ -70,6 +74,8 @@ model Usuario {
   papel    PapelUsuario
   telefone String?      @db.VarChar(20)
   ativo    Boolean      @default(true)
+  // Campo legado preservado para compatibilidade; não concede permissões.
+  dono     Boolean      @default(false)
 
   organizacaoId Int?
   organizacao   Organizacao? @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
@@ -78,6 +84,7 @@ model Usuario {
   acoesResponsavel         Acao[]                @relation("ResponsavelAcao")
   demandasCriadas          Demanda[]             @relation("DemandasCriadas")
   demandasResponsavel      Demanda[]             @relation("ResponsavelDemanda")
+  historicoDemandas        DemandaHistorico[]
   solicitacoesAnalisadas   SolicitacaoCadastro[] @relation("SolicitacoesAnalisadas")
 
   criadoEm     DateTime @default(now())
@@ -101,6 +108,9 @@ model Organizacao {
   bairro      String? @db.VarChar(120)
   responsavel String? @db.VarChar(120)
   descricao   String? @db.Text
+
+  ativa        Boolean @default(true)
+  projetosGerais Projeto[] @relation("ParticipantesProjeto")
 
   usuarios     Usuario[]
   projetos     Projeto[]
@@ -155,6 +165,9 @@ model SolicitacaoCadastro {
 
 // Projetos desenvolvidos pelas organizações
 model Projeto {
+  tipo TipoProjeto @default(ESPECIFICO)
+  todasOscs Boolean @default(false)
+  participantes Organizacao[] @relation("ParticipantesProjeto")
   id         Int           @id @default(autoincrement())
   titulo     String        @db.VarChar(180)
   descricao  String?       @db.Text
@@ -169,8 +182,8 @@ model Projeto {
   telefone    String?  @db.VarChar(20)
   email       String?  @db.VarChar(191)
 
-  organizacaoId Int
-  organizacao   Organizacao @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
+  organizacaoId Int?
+  organizacao   Organizacao? @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
 
   criadorId Int
   criador   Usuario @relation("ProjetosCriados", fields: [criadorId], references: [id], onDelete: Restrict)
@@ -211,6 +224,8 @@ model Acao {
 
 // Demandas ou solicitações registradas no sistema
 model Demanda {
+  versao    Int @default(0)
+  historico DemandaHistorico[]
   id        Int              @id @default(autoincrement())
   titulo    String           @db.VarChar(180)
   descricao String           @db.Text
@@ -261,4 +276,22 @@ model RegistroAtendimento {
   @@index([organizacaoId])
   @@index([projetoId])
   @@index([data])
+}
+
+// Registros imutáveis do atendimento; respostas e observações são visíveis à OSC vinculada.
+model DemandaHistorico {
+  id Int @id @default(autoincrement())
+  demandaId Int
+  demanda Demanda @relation(fields: [demandaId], references: [id], onDelete: Restrict)
+  usuarioId Int
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Restrict)
+  tipo String @db.VarChar(20)
+  statusAnterior StatusDemanda?
+  statusNovo StatusDemanda
+  resposta String? @db.Text
+  observacao String? @db.Text
+  criadoEm DateTime @default(now())
+
+  @@index([demandaId, criadoEm])
+  @@index([usuarioId])
 }

@@ -1,69 +1,50 @@
-<section
-          id="pagina-demandas"
-          data-pagina
-          class="hidden"
-          aria-labelledby="titulo-demandas"
-        >
-          <header
-            class="mb-6 flex flex-wrap items-center justify-between gap-4"
-          >
-            <h2
-              id="titulo-demandas"
-              class="text-2xl font-bold text-[#122957] dark:text-white"
-            >
-              Demandas cadastradas
-            </h2>
-            <button
-              id="botao-nova-demanda"
-              type="button"
-              data-action="abrir-formulario-demanda"
-              class="btn-primario"
-            >
-              + Nova demanda
-            </button>
-          </header>
+<section id="pagina-demandas" data-pagina class="hidden" aria-labelledby="titulo-demandas">
+  <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div><p class="painel-etiqueta">ESCUTA, APOIO E ACOMPANHAMENTO</p><h2 id="titulo-demandas" class="mt-2 text-2xl font-bold text-[#122957] dark:text-white">Demandas da rede</h2><p class="mt-2 text-sm text-slate-500 dark:text-slate-300">Cada solicitação tem seu espaço. Acompanhe as respostas e os próximos passos.</p></div>
+    <button id="botao-nova-demanda" type="button" data-action="abrir-formulario-demanda" class="btn-primario" hidden>+ Nova demanda</button>
+  </header>
+  <section class="mb-5 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800" aria-label="Pesquisa de demandas">
+    <form id="form-pesquisa-demandas" class="filtros-demandas">
+      <label class="rotulo filtro-busca-demanda" for="busca-demandas">Pesquisar<input id="busca-demandas" name="busca" type="search" placeholder="Buscar por título, descrição ou OSC" maxlength="180" autocomplete="off" class="campo"></label>
+      <label class="rotulo" for="filtro-status-demanda">Status<select id="filtro-status-demanda" name="status" class="campo"></select></label>
+      <label class="rotulo" for="filtro-categoria-demanda">Categoria<select id="filtro-categoria-demanda" name="categoria" class="campo"></select></label>
+      <label id="filtro-osc-demanda-bloco" class="rotulo" for="filtro-osc-demanda">Organização<select id="filtro-osc-demanda" name="organizacaoId" class="campo"><option value="">Todas as OSCs</option></select></label>
+      <label class="rotulo" for="filtro-demanda-de">Criada a partir de<input id="filtro-demanda-de" name="de" type="date" class="campo"></label>
+      <label class="rotulo" for="filtro-demanda-ate">Criada até<input id="filtro-demanda-ate" name="ate" type="date" class="campo"></label>
+      <button id="limpar-filtros-demandas" type="button" class="btn-secundario">Limpar filtros</button>
+    </form>
+  </section>
+  <div id="demandas-feedback" class="mb-4 text-sm" role="status" aria-live="polite"></div>
+  <button id="repetir-demandas" type="button" class="btn-secundario mb-4" hidden>Tentar novamente</button>
+  <ul id="itens-demandas" class="space-y-3" aria-label="Demandas encontradas"></ul>
+  <p id="sem-demandas" class="rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:text-slate-300" hidden>Nenhuma demanda encontrada. Tente outros filtros.</p>
+</section>
 
-          <section class="mb-5" aria-label="Pesquisa de demandas">
-            <form
-              id="form-pesquisa-demandas"
-              class="flex flex-col gap-3 sm:flex-row"
-            >
-              <label for="busca-demandas" class="sr-only"
-                >Buscar demanda por título ou OSC</label
-              >
-              <input
-                id="busca-demandas"
-                name="busca"
-                type="search"
-                placeholder="Buscar por título ou OSC"
-                autocomplete="off"
-                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-              />
-
-              <label for="filtro-status-demanda" class="sr-only"
-                >Filtrar por status</label
-              >
-              <select
-                id="filtro-status-demanda"
-                name="status"
-                class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white sm:w-56"
-              >
-                <option value="">Todos os status</option>
-                <option value="Pendente">Pendente</option>
-                <option value="Em andamento">Em andamento</option>
-              </select>
-            </form>
-          </section>
-
-          <ul id="itens-demandas" class="space-y-3"></ul>
-          <p
-            id="sem-demandas"
-            class="text-sm text-slate-500 dark:text-slate-400"
-          >
-            Nenhuma demanda cadastrada ainda. Clique em "+ Nova demanda".
-          </p>
-          <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-            * Demandas concluídas saem desta lista e aparecem no Relatório
-            anual.
-          </p>
-        </section>
+<section id="pagina-detalhe-demanda" data-pagina class="hidden" aria-labelledby="titulo-detalhe-demanda">
+  <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div><p class="painel-etiqueta">ACOMPANHAMENTO DA SOLICITAÇÃO</p><h2 id="titulo-detalhe-demanda" class="mt-2 text-2xl font-bold text-[#122957] dark:text-white">Detalhes da demanda</h2></div>
+    <button type="button" data-secao="demandas" class="btn-secundario">Voltar às demandas</button>
+  </header>
+  <p id="detalhe-demanda-feedback" role="status" aria-live="polite" class="mb-4 text-sm"></p>
+  <button id="recarregar-detalhe-demanda" type="button" class="btn-secundario mb-4" hidden>Atualizar detalhes</button>
+  <div id="detalhe-demanda-conteudo" class="max-w-3xl space-y-5" hidden>
+    <article class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+      <div id="detalhe-demanda-resumo" class="space-y-4"></div>
+      <button id="editar-demanda-detalhe" type="button" class="btn-secundario mt-5" hidden>Editar demanda</button>
+    </article>
+    <section class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800" aria-labelledby="titulo-historico-demanda">
+      <h3 id="titulo-historico-demanda" class="mb-4 font-semibold">Respostas e histórico</h3>
+      <ol id="historico-demanda" class="historico-demanda"></ol>
+      <p id="sem-historico-demanda" class="text-sm text-slate-500" hidden>Esta demanda é anterior ao registro de histórico. Os próximos atendimentos aparecerão aqui.</p>
+    </section>
+    <form id="form-atendimento-demanda" class="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800" hidden>
+      <h3 class="font-semibold">Analisar e responder</h3>
+      <p class="text-sm text-slate-500 dark:text-slate-300">Respostas e observações ficam visíveis para a OSC solicitante. O histórico será preservado.</p>
+      <label class="rotulo" for="dem-status">Status do atendimento<select id="dem-status" name="status" class="campo"></select></label>
+      <label class="rotulo" for="dem-resposta">Resposta à organização<textarea id="dem-resposta" name="resposta" rows="4" maxlength="5000" class="campo" placeholder="Conte o que foi analisado e quais são os próximos passos."></textarea></label>
+      <label class="rotulo" for="dem-observacao">Observações de acompanhamento<textarea id="dem-observacao" name="observacao" rows="3" maxlength="5000" class="campo"></textarea></label>
+      <p id="atendimento-demanda-feedback" role="status" aria-live="polite" class="text-sm"></p>
+      <button type="submit" class="btn-primario">Registrar atendimento</button>
+    </form>
+  </div>
+</section>

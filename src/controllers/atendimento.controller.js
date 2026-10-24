@@ -1,3 +1,4 @@
+import prisma from "../config/prisma.js";
 import { z } from "zod";
 import {
   atualizarAtendimento, buscarAtendimento, buscarProjetoDaOsc, criarAtendimento,
@@ -23,14 +24,20 @@ const schemaFiltros = z.object({
   ate: z.coerce.date().optional(),
 });
 
-async function checarRegras({ organizacaoId, projetoId, periodoInicio, periodoFim }) {
+async function checarRegras({ organizacaoId, projetoId, periodoInicio, periodoFim }, usuario) {
+  if (!await prisma.organizacao.findFirst({ where: { id: organizacaoId, ativa: true }, select: { id: true } })) return "OSC inativa ou inexistente.";
   if (periodoInicio && periodoFim && periodoFim < periodoInicio) {
     return "O fim do período não pode ser anterior ao início.";
   }
   if (projetoId) {
     const projeto = await buscarProjetoDaOsc(projetoId);
     if (!projeto) return "Projeto não encontrado.";
-    if (projeto.organizacaoId !== organizacaoId) return "O projeto informado pertence a outra OSC.";
+    if (projeto.tipo === "GERAL") {
+      if (usuario.papel !== "RESPONSAVEL_UOSCC") return "Somente a UOSCC altera atendimentos de projetos gerais.";
+      if (!projeto.todasOscs && !projeto.participantes.some(p => p.id === organizacaoId)) return "A OSC não participa deste projeto.";
+    } else {
+      if (usuario.papel !== "RESPONSAVEL_OSC" || usuario.organizacaoId !== organizacaoId || projeto.organizacaoId !== organizacaoId) return "Somente responsáveis da OSC alteram seus projetos específicos.";
+    }
   }
   return null;
 }
@@ -69,7 +76,7 @@ export async function criar(req, res) {
   if (ehOsc(req)) dados.organizacaoId = req.usuario.organizacaoId;
   if (!dados.organizacaoId) return res.status(400).json({ erro: "Informe a OSC do registro." });
   try {
-    const erroRegra = await checarRegras(dados);
+    const erroRegra = await checarRegras(dados, req.usuario);
     if (erroRegra) return res.status(400).json({ erro: erroRegra });
     return res.status(201).json({ atendimento: await criarAtendimento(dados) });
   } catch (erro) {
@@ -94,7 +101,7 @@ export async function atualizar(req, res) {
       projetoId: dados.projetoId !== undefined ? dados.projetoId : atual.projetoId,
       periodoInicio: dados.periodoInicio !== undefined ? dados.periodoInicio : atual.periodoInicio,
       periodoFim: dados.periodoFim !== undefined ? dados.periodoFim : atual.periodoFim,
-    });
+    }, req.usuario);
     if (erroRegra) return res.status(400).json({ erro: erroRegra });
     return res.json({ atendimento: await atualizarAtendimento(id, dados) });
   } catch (erro) {
@@ -106,6 +113,10 @@ export async function remover(req, res) {
   const id = idDaRota(req.params.id);
   if (!id) return res.status(400).json({ erro: "ID de registro inválido." });
   try {
+    const atual = await buscarAtendimento(id);
+    if (!atual) return res.status(404).json({ erro: "Atendimento não encontrado." });
+    const regra = await checarRegras(atual, req.usuario);
+    if (regra) return res.status(403).json({ erro: regra });
     await excluirAtendimento(id);
     return res.status(204).end();
   } catch (erro) {

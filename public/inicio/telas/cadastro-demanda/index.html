@@ -1,135 +1,17 @@
 <section id="pagina-cadastro-demanda" data-pagina class="hidden">
-          <header class="mb-6">
-            <h2
-              id="titulo-form-demanda"
-              class="text-2xl font-bold text-[#122957] dark:text-white"
-            >
-              Cadastrar demanda
-            </h2>
-            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-              Preencha os dados da demanda.
-            </p>
-          </header>
-
-          <form
-            id="form-demanda"
-            data-entidade="demanda"
-            class="max-w-3xl space-y-5 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
-          >
-            <input type="hidden" id="dem-id" name="id" />
-
-            <div>
-              <label for="dem-titulo" class="rotulo">Título da demanda *</label>
-              <input id="dem-titulo" name="titulo" required class="campo" />
-            </div>
-
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label for="dem-osc" class="rotulo">OSC solicitante *</label>
-
-                <select
-                  id="dem-osc"
-                  name="osc_id"
-                  required
-                  class="campo"
-                ></select>
-                <p
-                  id="aviso-sem-oscs-demanda"
-                  class="mt-1 hidden text-xs text-red-500"
-                >
-                  Nenhuma OSC cadastrada. Cadastre uma OSC antes de criar uma
-                  demanda.
-                </p>
-              </div>
-              <div>
-                <label for="dem-categoria" class="rotulo">Categoria *</label>
-                <select
-                  id="dem-categoria"
-                  name="categoria"
-                  required
-                  class="campo"
-                >
-                  <option value="">Selecione</option>
-                  <option value="Materiais">Materiais</option>
-                  <option value="Voluntários">Voluntários</option>
-                  <option value="Financeiro">Financeiro</option>
-                  <option value="Serviços">Serviços</option>
-                  <option value="Outros">Outros</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div>
-                <label for="dem-status" class="rotulo">Status *</label>
-                <select id="dem-status" name="status" required class="campo">
-                  <option value="Pendente">Pendente</option>
-                  <option value="Em andamento">Em andamento</option>
-                  <option value="Concluído">Concluído</option>
-                </select>
-              </div>
-              <div>
-                <label for="dem-prazo" class="rotulo">Prazo *</label>
-                <input
-                  id="dem-prazo"
-                  name="prazo"
-                  type="date"
-                  required
-                  class="campo"
-                />
-              </div>
-              <!-- Mostrar só quando status = Concluído. vai ser Usada no Relatório anual. -->
-              <div id="bloco-dem-conclusao" class="hidden">
-                <label for="dem-conclusao" class="rotulo"
-                  >Data de conclusão</label
-                >
-                <input
-                  id="dem-conclusao"
-                  name="data_conclusao"
-                  type="date"
-                  class="campo"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="dem-descricao" class="rotulo">Descrição</label>
-              <textarea
-                id="dem-descricao"
-                name="descricao"
-                rows="3"
-                class="campo"
-              ></textarea>
-            </div>
-
-            <div>
-              <label for="dem-resultado" class="rotulo"
-                >Resultado alcançado (ao concluir)</label
-              >
-              <textarea
-                id="dem-resultado"
-                name="resultado"
-                rows="2"
-                class="campo"
-                placeholder="Ex.: Colheita distribuída a 40 famílias."
-              ></textarea>
-            </div>
-
-            <div class="flex justify-end gap-3">
-              <button
-                type="button"
-                data-secao="demandas"
-                class="btn-secundario"
-              >
-                Cancelar
-              </button>
-              <button
-                id="botao-salvar-demanda"
-                type="submit"
-                class="btn-primario"
-              >
-                Salvar demanda
-              </button>
-            </div>
-          </form>
-        </section>
+  <header class="mb-6"><p class="painel-etiqueta">COMO PODEMOS AJUDAR?</p><h2 id="titulo-form-demanda" class="mt-2 text-2xl font-bold text-[#122957] dark:text-white">Nova demanda</h2><p class="mt-2 text-sm text-slate-500 dark:text-slate-300">Descreva o que sua organização precisa. A UOSCC acompanhará sua solicitação.</p></header>
+  <form id="form-demanda" data-entidade="demanda" class="max-w-3xl space-y-5 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+    <input type="hidden" id="dem-id" name="id">
+    <p id="dem-vinculo" class="rounded-xl bg-slate-50 p-3 text-sm dark:bg-slate-900">A demanda será vinculada automaticamente à sua OSC, com data de criação e status Aberta.</p>
+    <div><label for="dem-titulo" class="rotulo">Título da demanda *</label><input id="dem-titulo" name="titulo" required minlength="3" maxlength="180" class="campo" placeholder="Ex.: Materiais para as oficinas da comunidade"></div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div><label for="dem-categoria" class="rotulo">Categoria</label><select id="dem-categoria" name="categoria" class="campo"></select></div>
+      <div><label for="dem-prazo" class="rotulo">Prazo desejado (opcional)</label><input id="dem-prazo" name="prazo" type="date" class="campo"></div>
+    </div>
+    <div><label for="dem-descricao" class="rotulo">Descrição da necessidade *</label><textarea id="dem-descricao" name="descricao" rows="5" required minlength="3" maxlength="5000" class="campo" placeholder="Explique a necessidade e como esse apoio pode ajudar sua organização."></textarea></div>
+    <p class="text-xs text-slate-500 dark:text-slate-300">Você pode editar enquanto a demanda estiver aberta. Apenas a UOSCC altera o status de atendimento.</p>
+    <p id="form-demanda-feedback" role="status" aria-live="polite" class="text-sm"></p>
+    <button id="recarregar-edicao-demanda" type="button" class="btn-secundario" hidden>Reabrir os detalhes atualizados</button>
+    <div class="flex flex-wrap justify-end gap-3"><button type="button" data-secao="demandas" class="btn-secundario">Cancelar</button><button id="botao-salvar-demanda" type="submit" class="btn-primario">Enviar demanda</button></div>
+  </form>
+</section>

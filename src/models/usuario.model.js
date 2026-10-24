@@ -7,6 +7,7 @@ const usuarioPublico = {
   papel: true,
   ativo: true,
   organizacaoId: true,
+  organizacao: { select: { ativa: true } },
 };
 
 export function buscarOrganizacaoPorNome(nome) {

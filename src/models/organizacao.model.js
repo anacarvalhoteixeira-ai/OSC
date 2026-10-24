@@ -1,6 +1,7 @@
 ﻿import prisma from "../config/prisma.js";
 
 const camposLista = {
+  ativa: true,
   id: true,
   nome: true,
   sigla: true,
@@ -16,9 +17,11 @@ const camposLista = {
   atualizadoEm: true,
 };
 
-export function listarOrganizacoes({ busca, categoria }) {
+export function listarOrganizacoes({ busca, categoria, ativa = true, organizacaoId } = {}) {
   return prisma.organizacao.findMany({
     where: {
+      ...(ativa != null ? { ativa } : {}),
+      ...(organizacaoId ? { id: organizacaoId } : {}),
       ...(categoria ? { categoria } : {}),
       ...(busca
         ? {
@@ -44,10 +47,7 @@ export function buscarOrganizacao(id) {
         select: { id: true, titulo: true, status: true },
         orderBy: { titulo: "asc" },
       },
-      demandas: {
-        select: { id: true, titulo: true, status: true },
-        orderBy: { criadoEm: "desc" },
-      },
+      projetosGerais: { select: { id: true, titulo: true, status: true } },
     },
   });
 }
@@ -65,5 +65,5 @@ export function atualizarOrganizacao(id, dados) {
 }
 
 export function excluirOrganizacao(id) {
-  return prisma.organizacao.delete({ where: { id }, select: { id: true } });
+  return prisma.organizacao.update({ where: { id }, data: { ativa: false }, select: { id: true } });
 }

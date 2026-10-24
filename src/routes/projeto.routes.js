@@ -5,9 +5,9 @@ import { autenticar, exigirPapel } from "../middlewares/auth.middleware.js";
 const router = Router();
 router.use(autenticar);
 router.get("/", listar);
-router.post("/", criar);
+router.post("/", exigirPapel("RESPONSAVEL_UOSCC", "RESPONSAVEL_OSC"), criar);
 router.get("/:id", obter);
-router.put("/:id", atualizar);
-router.delete("/:id", exigirPapel("ADMIN", "GESTOR"), remover);
+router.put("/:id", exigirPapel("RESPONSAVEL_UOSCC", "RESPONSAVEL_OSC"), atualizar);
+router.delete("/:id", exigirPapel("RESPONSAVEL_UOSCC"), remover);
 
 export default router;

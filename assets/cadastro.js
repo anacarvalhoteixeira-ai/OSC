@@ -25,6 +25,9 @@ if (!form || !botao || !campoTipo) {
   // Alternar para o cenário A: vínculo com uma OSC existente.
   btnA?.addEventListener("click", () => {
     btnA.classList.add("ativo");
+    btnA.setAttribute("aria-pressed", "true");
+    btnB?.setAttribute("aria-pressed", "false");
+    document.getElementById("nomeOsc").required = false;
     btnB?.classList.remove("ativo");
 
     if (blocoA) blocoA.style.display = "block";
@@ -36,6 +39,9 @@ if (!form || !botao || !campoTipo) {
   // Alternar para o cenário B: cadastrar uma nova OSC.
   btnB?.addEventListener("click", () => {
     btnB.classList.add("ativo");
+    btnB.setAttribute("aria-pressed", "true");
+    btnA?.setAttribute("aria-pressed", "false");
+    document.getElementById("nomeOsc").required = true;
     btnA?.classList.remove("ativo");
 
     if (blocoB) blocoB.style.display = "block";
@@ -66,6 +72,8 @@ if (!form || !botao || !campoTipo) {
       : "color:#b42318;background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:12px;font-size:13px;margin-bottom:16px;line-height:1.4;";
 
     aviso.textContent = mensagem || "Não foi possível concluir a solicitação.";
+    aviso.tabIndex = -1;
+    aviso.focus();
   }
 
   // Converte a resposta da API para JSON com tratamento de erro.
@@ -83,9 +91,11 @@ if (!form || !botao || !campoTipo) {
 
   // Busca OSCs cadastradas com um pequeno atraso.
   let debounceTimer;
+  let pesquisaAtual = 0;
 
   buscaOscInput?.addEventListener("input", () => {
     clearTimeout(debounceTimer);
+    const pesquisa = ++pesquisaAtual;
 
     const termo = buscaOscInput.value.trim();
 
@@ -101,6 +111,7 @@ if (!form || !botao || !campoTipo) {
         );
 
         const dados = await lerResposta(resposta);
+        if (pesquisa !== pesquisaAtual || campoTipo.value !== "VINCULO_OSC") return;
 
         if (!resposta.ok) {
           throw new Error(
@@ -125,7 +136,8 @@ if (!form || !botao || !campoTipo) {
         }
 
         organizacoes.forEach((organizacao) => {
-          const item = document.createElement("div");
+          const item = document.createElement("button");
+          item.type = "button";
           item.className = "resultado-item";
 
           // Usa textContent para evitar inserir dados da API como HTML.
@@ -172,6 +184,7 @@ if (!form || !botao || !campoTipo) {
           listaResultados.appendChild(item);
         });
       } catch (erro) {
+        if (pesquisa !== pesquisaAtual || campoTipo.value !== "VINCULO_OSC") return;
         console.error("Erro ao pesquisar OSC:", erro);
 
         if (listaResultados) {
@@ -292,8 +305,7 @@ if (!form || !botao || !campoTipo) {
 
       // Restaura o cenário inicial.
       campoTipo.value = "VINCULO_OSC";
-      btnA?.classList.add("ativo");
-      btnB?.classList.remove("ativo");
+      btnA?.click();
 
       if (blocoA) blocoA.style.display = "block";
       if (blocoB) blocoB.style.display = "none";

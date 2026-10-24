@@ -26,6 +26,17 @@
             </div>
 
             <div>
+              <label for="proj-tipo" class="rotulo">Tipo de projeto</label>
+              <select id="proj-tipo" class="campo" disabled><option value="GERAL">Geral da UOSCC</option><option value="ESPECIFICO">Específico da minha OSC</option></select>
+            </div>
+            <fieldset id="proj-participacao" class="space-y-3">
+              <legend class="rotulo">OSCs participantes</legend>
+              <label class="flex items-center gap-2"><input id="proj-todas" type="checkbox"> Envolve todas as OSCs da rede</label>
+              <label for="proj-participantes" class="rotulo">Ou selecione as organizações participantes</label>
+              <select id="proj-participantes" class="campo" multiple size="5" aria-describedby="ajuda-participantes"></select>
+              <p id="ajuda-participantes" class="text-sm text-slate-500">Use Ctrl ou Cmd para selecionar mais de uma organização.</p>
+            </fieldset>
+            <div class="vinculo-projeto">
               <label for="proj-osc" class="rotulo">OSC responsável *</label>
 
               <select

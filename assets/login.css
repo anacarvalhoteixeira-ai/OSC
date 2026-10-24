@@ -262,3 +262,72 @@ body {
         font-size: 27px;
     }
 }
+
+/* A mesma identidade do painel, com espaço para ler e respirar. */
+.pagina-login { padding: 0; display: grid; grid-template-columns: minmax(300px, .9fr) minmax(420px, 1.1fr); align-items: stretch; background: #f3f5f8; }
+.apresentacao { padding: clamp(28px, 5vw, 80px); background: #122957; color: white; display: flex; flex-direction: column; justify-content: space-between; gap: 64px; }
+.marca-rede { font-size: 23px; font-weight: 800; }
+.marca-rede span { display: block; margin-top: 8px; font-size: 13px; font-weight: 400; color: #cbd7ed; }
+.sobrelinha { color: #ffb76a; font-size: 12px; letter-spacing: 1.5px; font-weight: 700; }
+.apresentacao h2 { font-size: clamp(30px, 3.2vw, 48px); line-height: 1.18; letter-spacing: -1.4px; margin: 20px 0; }
+.apresentacao p:not(.sobrelinha) { color: #d5def0; line-height: 1.8; max-width: 450px; font-size: 15px; }
+.apresentacao ul { list-style: none; margin-top: 32px; }
+.apresentacao li { margin-top: 18px; font-size: 14px; line-height: 1.6; }
+.apresentacao li::before { content: '✓'; color: #ffb76a; margin-right: 12px; }
+.apresentacao .assinatura { font-size: 12px !important; }
+.area-formulario { padding: 48px 28px; align-self: center; width: 100%; max-width: 680px; margin: auto; }
+.card-login { max-width: 560px; margin: auto; border-radius: 16px; box-shadow: 0 8px 28px #12295708; }
+.cabecalho { background: white; color: #122957; padding: 26px 32px; border-bottom: 1px solid #e2e8f0; gap: 12px; }
+.logo { width: 42px; height: 42px; border: none; border-radius: 12px; font-size: 25px; background: #122957; color: #ffb76a; }
+.identidade h1 { font-size: 23px; }
+.identidade p { color: #58677e; font-size: 12px; }
+.conteudo { padding: 32px; }
+.etiqueta { color: #915015; font-size: 11px; }
+.introducao p, .alternativa p, .link, .lembrar, .campo label { font-size: 14px; }
+.introducao p, .alternativa p { color: #59677b; }
+.campo input, .campo select { font-size: 16px; }
+.link { color: #122957; }
+.botao { color: #122957; background: #ffad50; font-weight: 700; }
+.botao:hover { background: #ff9e30; transform: none; }
+.rodape, .legenda { font-size: 12px; color: #59677b; line-height: 1.6; }
+.campo small { color: #59677b; font-size: 12px; line-height: 1.6; }
+.campo-senha { position: relative; }
+.campo-senha input { padding-right: 85px; }
+.campo-senha button { position: absolute; right: 5px; top: 5px; min-height: 39px; padding: 0 10px; border: 0; border-radius: 6px; color: #122957; background: #f1f5f9; cursor: pointer; font: 600 12px inherit; }
+.ajuda-senha { font-size: 13px; color: #122957; }
+.ajuda-senha summary { cursor: pointer; padding: 8px 0; }
+.ajuda-senha p { max-width: 290px; color: #59677b; line-height: 1.6; padding: 8px 0; }
+:where(button, a, input, select, summary):focus-visible { outline: 3px solid #c36b0b; outline-offset: 3px; }
+@media (max-width: 850px) { .pagina-login { grid-template-columns: 1fr; } .apresentacao { padding: 24px; gap: 0; } .apresentacao > div, .apresentacao .assinatura { display: none; } .marca-rede span { display: inline; margin-left: 8px; } .area-formulario { padding: 24px 16px; } }
+@media (max-width: 480px) { .conteudo, .cabecalho { padding: 24px 20px; } .marca-rede span { display: block; margin-left: 0; } }
+
+/* Acolhimento com a identidade azul e laranja da rede. */
+body { background: #f6f5f1; }
+.pagina-login { background: #f6f5f1; }
+.apresentacao { position: relative; overflow: hidden; background: radial-gradient(ellipse at 8% 100%, #254a69 0, transparent 62%), #122957; }
+.apresentacao::after { content: ''; position: absolute; width: 290px; height: 290px; border: 1px solid #ffffff18; border-radius: 50%; right: -170px; top: 25%; box-shadow: 0 0 0 55px #ffffff04, 0 0 0 110px #ffffff03; pointer-events: none; }
+.apresentacao > * { position: relative; z-index: 1; }
+.apresentacao .sobrelinha { display: inline-flex; padding: 8px 12px; border: 1px solid #ffffff26; border-radius: 30px; font-size: 10px; }
+.marca-rede { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.marca-rede::before { content: 'U'; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: #ffad50; color: #122957; }
+.marca-rede span { width: 100%; margin-top: 2px; }
+.apresentacao li::before { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #ffffff10; }
+.area-formulario { padding: clamp(24px, 5vw, 68px) clamp(16px, 4vw, 54px); }
+.card-login { border-radius: 24px; border-color: #e4e5df; box-shadow: 0 20px 60px #12295707; }
+.cabecalho { padding-top: 24px; padding-bottom: 24px; background: #fffefa; }
+.conteudo { padding: clamp(24px, 3vw, 36px); }
+.introducao h2 { line-height: 1.25; font-size: clamp(25px, 2.5vw, 30px); letter-spacing: -.9px; }
+.campo input { border-radius: 11px; min-height: 52px; background: #fdfdfb; border-color: #d7dddF; }
+.campo label { font-size: 13px; }
+.botao { min-height: 52px; border-radius: 11px; box-shadow: 0 4px 10px #d9822315; }
+.alternativa { border-radius: 12px; background: #f5f7fa; padding: 16px 10px; gap: 8px; }
+.alternativa .link { text-decoration: underline; text-underline-offset: 3px; }
+.nota-acesso { display: flex; gap: 10px; align-items: flex-start; padding: 13px 15px; background: #f5f7fa; border: 1px solid #e6ebf1; border-radius: 12px; margin-bottom: 24px; font-size: 12px; line-height: 1.7; color: #53627a; }
+.nota-acesso > span { flex-shrink: 0; color: #986025; }
+.etapas-cadastro { display: flex; align-items: center; gap: 8px; list-style: none; flex-wrap: wrap; color: #59677b; font-size: 11px; margin-bottom: 24px; }
+.etapas-cadastro li { display: flex; align-items: center; gap: 7px; }
+.etapas-cadastro span { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #122957; background: #fcebd7; font-weight: 700; }
+.etapas-cadastro li + li::before { content: '→'; color: #8793a3; margin: 0 4px; }
+@media (max-width: 850px) { .apresentacao { padding: 20px 24px; } .marca-rede { font-size: 19px; } .marca-rede span { width: auto; font-size: 11px; } .apresentacao::after { display: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+[hidden] { display: none !important; }

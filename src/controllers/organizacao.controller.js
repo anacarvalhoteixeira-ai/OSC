@@ -59,7 +59,8 @@ export async function listar(req, res) {
     return res.status(400).json({ erro: "Categoria inválida." });
   }
   try {
-    const organizacoes = await listarOrganizacoes({ busca, categoria });
+    if (req.query.ativa && !["true", "false", "todas"].includes(req.query.ativa)) return res.status(400).json({ erro: "Situação inválida." });
+    const organizacoes = await listarOrganizacoes({ busca, categoria, ativa: req.usuario.papel === "RESPONSAVEL_OSC" ? true : (req.query.ativa === "todas" ? null : req.query.ativa !== "false"), organizacaoId: req.usuario.papel === "RESPONSAVEL_OSC" ? req.usuario.organizacaoId : undefined });
     return res.json({ organizacoes });
   } catch (erro) {
     return falha(res, erro);
@@ -117,6 +118,8 @@ export async function atualizar(req, res) {
   }
 
   try {
+    const atual = await buscarOrganizacao(id);
+    if (!atual?.ativa) return res.status(409).json({ erro: "A OSC está inativa. Seu histórico permanece disponível para consulta." });
     const organizacao = await atualizarOrganizacao(id, dados);
     return res.json({ organizacao });
   } catch (erro) {

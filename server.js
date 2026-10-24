@@ -3,14 +3,14 @@ import cors from "cors";
 import express from "express";
 import authRoutes from "./src/routes/auth.routes.js";
 import organizacaoRoutes from "./src/routes/organizacao.routes.js";
-import projetoRoutes from "./src/routes/projeto.routes.js";
 import demandaRoutes from "./src/routes/demanda.routes.js";
+import projetoRoutes from "./src/routes/projeto.routes.js";
 import atendimentoRoutes from "./src/routes/atendimento.routes.js";
 import painelRoutes from "./src/routes/painel.routes.js";
 import relatorioRoutes from "./src/routes/relatorio.routes.js";
 import acessoRoutes from "./src/routes/acesso.routes.js";
 
-const app = express();
+export const app = express();
 const origem = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
 
 app.use(cors({ origin: origem }));
@@ -34,4 +34,4 @@ app.use((erro, _req, res, _next) => {
 });
 
 const porta = Number(process.env.PORT || 3000);
-app.listen(porta, () => console.log(`API UOSCC disponível em http://localhost:${porta}.`));
+if (process.env.NODE_ENV !== "test") app.listen(porta, () => console.log(`API UOSCC disponível em http://localhost:${porta}.`));

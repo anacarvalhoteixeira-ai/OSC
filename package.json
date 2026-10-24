@@ -4,7 +4,9 @@
     "criar-admin": "node scripts/criar-admin.js",
     "dev": "vite",
     "build": "vite build",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "node --test tests/*.test.js",
+    "test:integration": "node --test tests/*.integration.js"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.10.1",
