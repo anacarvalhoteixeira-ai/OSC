@@ -102,6 +102,26 @@ test("Demandas: rotas reais, escopo, atendimento, histórico e concorrência", a
       const depois = (await req(a, `/${aberta.id}`)).dados.demanda;
       assert.equal(depois.historico.length, 2);
     });
+    await t.test("exclusão de atendimento: somente autor, versão e preservação do status", async () => {
+      const outro = await prisma.usuario.create({ data: { nome: tag, email: `${tag}-outro@example.test`, senha: hash, papel: "RESPONSAVEL_UOSCC" } });
+      usuarios.push(outro);
+      const criada = await criar(a);
+      const d = (await req(uoscc, `/${criada.id}`, "PATCH", { versao: criada.versao, status: "ATENDIDA", resposta: "Materiais entregues" })).dados.demanda;
+      const registro = d.historico.at(-1);
+      const caminho = `/${d.id}/atendimentos/${registro.id}`;
+      for (const pessoa of [outro, admin, a, b]) assert.equal((await req(pessoa, caminho, "DELETE", { versao: d.versao })).status, 403);
+      assert.equal((await req(null, caminho, "DELETE", { versao: d.versao })).status, 401);
+      assert.equal((await req(uoscc, caminho, "DELETE", { versao: d.versao - 1 })).status, 409);
+      assert.equal((await req(uoscc, `/${d.id}/atendimentos/${d.historico[0].id}`, "DELETE", { versao: d.versao })).status, 404);
+      assert.equal((await req(uoscc, `/${atual.id}/atendimentos/${registro.id}`, "DELETE", { versao: d.versao })).status, 404);
+      const r = await req(uoscc, caminho, "DELETE", { versao: d.versao });
+      assert.equal(r.status, 200);
+      assert.equal(r.dados.demanda.status, "ATENDIDA");
+      assert.equal(r.dados.demanda.dataConclusao, d.dataConclusao);
+      assert.equal(r.dados.demanda.versao, d.versao + 1);
+      assert.equal(r.dados.demanda.historico.length, 1);
+      assert.equal((await req(uoscc, caminho, "DELETE", { versao: d.versao + 1 })).status, 404);
+    });
   } finally {
     await prisma.demandaHistorico.deleteMany({ where: { demandaId: { in: ids } } });
     await prisma.demanda.deleteMany({ where: { id: { in: ids } } });

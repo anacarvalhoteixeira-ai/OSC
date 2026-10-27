@@ -30,6 +30,21 @@ test("API: três perfis, isolamento por OSC, aprovação, projetos e exclusão l
     for (let i = 0; i < 2; i++) orgIds.push((await prisma.organizacao.create({ data: { nome: `${tag} OSC ${i}` } })).id);
     const [a, b] = orgIds;
     const admin = await usuario("ADMIN"), uoscc = await usuario("RESPONSAVEL_UOSCC"), oscA = await usuario("RESPONSAVEL_OSC", a), oscB = await usuario("RESPONSAVEL_OSC", b);
+    await t.test("situação da OSC: criação inativa, reativação e restrição à UOSCC", async () => {
+      const r = await req(uoscc, "/organizacoes", "POST", { nome: `${tag} Inativa`, cnpj: "98.765.432/0001-10", categoria: "social", endereco: "Rua de teste", responsavel: "Responsável teste", telefone: "71999999999", ativa: false });
+      assert.equal(r.status, 201, JSON.stringify(r.dados));
+      const id = r.dados.organizacao.id;
+      orgIds.push(id);
+      assert.equal(r.dados.organizacao.ativa, false);
+      assert.equal((await req(uoscc, `/organizacoes/${id}`, "PUT", { ativa: true })).dados.organizacao.ativa, true);
+      assert.equal((await req(oscA, `/organizacoes/${a}`, "PUT", { ativa: false })).status, 403);
+      assert.equal((await req(admin, `/organizacoes/${a}`, "PUT", { ativa: false })).status, 403);
+      assert.equal((await req(uoscc, `/organizacoes/${a}`, "PUT", { ativa: "false" })).status, 400);
+      assert.equal((await req(uoscc, `/organizacoes/${a}`, "PUT", { ativa: false })).status, 200);
+      assert.equal((await req(oscA, `/organizacoes/${a}`)).status, 403);
+      assert.equal((await req(uoscc, `/organizacoes/${a}`, "PUT", { ativa: true })).status, 200);
+      assert.equal((await req(oscA, `/organizacoes/${a}`)).status, 200);
+    });
     await t.test("ADMIN consulta e administra acessos sem escrever dados operacionais", async () => {
       assert.equal((await req(null, "/organizacoes")).status, 401);
       assert.equal((await req(admin, `/organizacoes/${a}`)).status, 200);

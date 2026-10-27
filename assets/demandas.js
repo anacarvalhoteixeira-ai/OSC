@@ -16,6 +16,9 @@ export function criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, pa
     const form = $("form-pesquisa-demandas");
     const filtros = Object.fromEntries(new FormData(form));
     if (osc) delete filtros.organizacaoId;
+    const extras = ["categoria", "organizacaoId", "de", "ate"].filter(chave => filtros[chave]).length;
+    $("total-filtros-extras").textContent = extras ? ` (${extras})` : "";
+    $("limpar-filtros-demandas").hidden = !Object.values(filtros).some(Boolean);
     $("itens-demandas").replaceChildren();
     $("itens-demandas").setAttribute("aria-busy", "true");
     $("sem-demandas").hidden = true; $("repetir-demandas").hidden = true;
@@ -43,8 +46,15 @@ export function criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, pa
 
   function renderDetalhes(d) {
     $("titulo-detalhe-demanda").textContent = d.titulo;
-    $("detalhe-demanda-resumo").innerHTML = `<div class="flex flex-wrap gap-3">${badge(d.status)}<span class="text-sm text-slate-500">${esc(CATEGORIAS_DEMANDA[d.categoria])}</span></div><dl class="grid gap-3 text-sm sm:grid-cols-2">${[...(!osc ? [["OSC", d.organizacao?.nome ?? "Rede (registro anterior)"]] : []), ["Solicitante", d.solicitante?.nome], ["Criada em", dataHora(d.criadoEm)], ["Prazo desejado", d.prazo ? fmtData(d.prazo) : "Não informado"], ["Responsável pelo atendimento", d.responsavel?.nome], ["Concluída em", d.dataConclusao ? dataHora(d.dataConclusao) : "—"]].map(([k,v]) => `<div><dt class="text-slate-500 dark:text-slate-300">${esc(k)}</dt><dd>${texto(v)}</dd></div>`).join("")}</dl><div><h3 class="mb-2 text-sm font-semibold">Descrição da necessidade</h3><p class="demanda-texto text-sm">${esc(d.descricao)}</p></div>${d.resultado && !d.historico.some(h => h.resposta === d.resultado) ? `<div><h3 class="mb-2 text-sm font-semibold">Resposta registrada anteriormente</h3><p class="demanda-texto text-sm">${esc(d.resultado)}</p></div>` : ""}`;
-    $("historico-demanda").innerHTML = d.historico.map(h => `<li><div class="flex flex-wrap justify-between gap-2 text-sm"><strong>${esc(h.usuario.nome)}</strong><time datetime="${esc(h.criadoEm)}" class="text-slate-500 dark:text-slate-300">${esc(dataHora(h.criadoEm))}</time></div><p class="my-2 text-sm">${h.tipo === "CRIACAO" ? "Demanda criada" : h.tipo === "EDICAO" ? "Dados da demanda atualizados" : "Atendimento registrado"} · ${h.statusAnterior && h.statusAnterior !== h.statusNovo ? `${esc(STATUS_DEMANDA[h.statusAnterior])} → ` : ""}${esc(STATUS_DEMANDA[h.statusNovo])}</p>${h.resposta ? `<h4 class="text-sm font-semibold">Resposta</h4><p class="demanda-texto mb-2 text-sm">${esc(h.resposta)}</p>` : ""}${h.observacao ? `<h4 class="text-sm font-semibold">Observação</h4><p class="demanda-texto text-sm">${esc(h.observacao)}</p>` : ""}</li>`).join("");
+    $("ficha-demanda-status").innerHTML = `${badge(d.status)}<span class="text-sm">${esc(CATEGORIAS_DEMANDA[d.categoria])}</span>`;
+    $("detalhe-demanda-resumo").innerHTML = `<dl class="grid gap-3 text-sm sm:grid-cols-2">${[...(!osc ? [["OSC", d.organizacao?.nome ?? "Rede (registro anterior)"]] : []), ["Solicitante", d.solicitante?.nome], ["Criada em", dataHora(d.criadoEm)], ["Prazo desejado", d.prazo ? fmtData(d.prazo) : "Não informado"], ["Responsável pelo atendimento", d.responsavel?.nome], ["Concluída em", d.dataConclusao ? dataHora(d.dataConclusao) : "—"]].map(([k,v]) => `<div><dt class="text-slate-500 dark:text-slate-300">${esc(k)}</dt><dd>${texto(v)}</dd></div>`).join("")}</dl><div><h3 class="mb-2 text-sm font-semibold">Descrição da necessidade</h3><p class="demanda-texto text-sm">${esc(d.descricao)}</p></div>${d.resultado && !d.historico.some(h => h.resposta === d.resultado) ? `<div><h3 class="mb-2 text-sm font-semibold">Resposta registrada anteriormente</h3><p class="demanda-texto text-sm">${esc(d.resultado)}</p></div>` : ""}`;
+    const resumo = $("detalhe-demanda-resumo");
+    const descricao = resumo.querySelector(":scope > div");
+    if (descricao) {
+      descricao.classList.add("demanda-descricao-principal");
+      resumo.prepend(descricao);
+    }
+    $("historico-demanda").innerHTML = d.historico.map(h => `<li><div class="flex flex-wrap justify-between gap-2 text-sm"><strong>${esc(h.usuario.nome)}</strong><time datetime="${esc(h.criadoEm)}" class="text-slate-500 dark:text-slate-300">${esc(dataHora(h.criadoEm))}</time></div><p class="my-2 text-sm">${h.tipo === "CRIACAO" ? "Demanda criada" : h.tipo === "EDICAO" ? "Dados da demanda atualizados" : "Atendimento registrado"} · ${h.statusAnterior && h.statusAnterior !== h.statusNovo ? `${esc(STATUS_DEMANDA[h.statusAnterior])} → ` : ""}${esc(STATUS_DEMANDA[h.statusNovo])}</p>${h.resposta ? `<h4 class="text-sm font-semibold">Resposta</h4><p class="demanda-texto mb-2 text-sm">${esc(h.resposta)}</p>` : ""}${h.observacao ? `<h4 class="text-sm font-semibold">Observação</h4><p class="demanda-texto text-sm">${esc(h.observacao)}</p>` : ""}${podeAtenderDemanda(usuario) && h.tipo === "ATENDIMENTO" && h.usuario.id === usuario.id ? `<button type="button" data-excluir-atendimento="${h.id}" class="excluir-registro-atendimento">Excluir registro</button>` : ""}</li>`).join("");
     $("sem-historico-demanda").hidden = d.historico.length > 0;
     $("editar-demanda-detalhe").hidden = !podeEditarDemanda(usuario, d);
     $("form-atendimento-demanda").hidden = !podeAtenderDemanda(usuario);
@@ -149,8 +159,20 @@ export function criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, pa
     preencher("dem-categoria", CATEGORIAS_DEMANDA); preencher("dem-status", STATUS_DEMANDA);
     $("botao-nova-demanda").hidden = !osc; $("filtro-osc-demanda-bloco").hidden = osc;
     $("titulo-demandas").textContent = osc ? "Demandas da minha OSC" : "Demandas da rede";
+    $("historico-demanda").onclick = async event => {
+      const botao = event.target.closest("[data-excluir-atendimento]");
+      if (!botao || !atual) return;
+      if (!confirm("Excluir este registro de atendimento? O status atual da demanda será mantido.")) return;
+      botao.disabled = true;
+      try {
+        const { demanda } = await api(`/demandas/${atual.id}/atendimentos/${botao.dataset.excluirAtendimento}`, { method: "DELETE", corpo: { versao: atual.versao } });
+        atual = demanda;
+        renderDetalhes(demanda);
+        avisar("Registro excluído.");
+      } catch (erro) { avisar(erro.message, true); botao.disabled = false; }
+    };
     $("repetir-demandas").onclick = carregar;
-    $("limpar-filtros-demandas").onclick = () => { $("form-pesquisa-demandas").reset(); carregar(); };
+    $("limpar-filtros-demandas").onclick = () => { $("form-pesquisa-demandas").reset(); $("mais-filtros-demandas").open = false; carregar(); };
     $("editar-demanda-detalhe").onclick = () => atual && formulario(atual.id);
     $("itens-demandas").onclick = e => {
       const botao = e.target.closest("[data-demanda-acao]");

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { atualizarDemanda, buscarDemanda, criarDemanda, listarDemandas } from "../models/demanda.model.js";
+import { atualizarDemanda, buscarDemanda, criarDemanda, listarDemandas, excluirRegistroAtendimento } from "../models/demanda.model.js";
 import { CATEGORIAS_DEMANDA, STATUS_DEMANDA } from "../utils/enums.js";
 import { dataOpcional, ehOsc, erroPrisma, idDaRota, limparQuery, validar } from "../utils/http.js";
 import { podeConsultarDemanda, podeEditarDemanda } from "../utils/demanda.js";
@@ -10,6 +10,25 @@ const camposOsc = {
   categoria: z.enum(CATEGORIAS_DEMANDA),
   prazo: dataOpcional,
 };
+
+export async function removerRegistroAtendimento(req, res) {
+  const id = idDaRota(req.params.id);
+  const registroId = idDaRota(req.params.registroId);
+  if (!id || !registroId) return res.status(400).json({ erro: "ID inválido." });
+  const dados = validar(z.object({ versao: z.number().int().nonnegative() }).strict(), req.body, res);
+  if (!dados) return;
+  try {
+    const atual = await buscarDemanda(id);
+    if (!atual) return res.status(404).json({ erro: "Demanda não encontrada." });
+    const registro = atual.historico.find(h => h.id === registroId && h.tipo === "ATENDIMENTO");
+    if (!registro) return res.status(404).json({ erro: "Atendimento não encontrado." });
+    if (registro.usuario.id !== req.usuario.id) return res.status(403).json({ erro: "Somente quem registrou o atendimento pode excluí-lo." });
+    if (dados.versao !== atual.versao) return res.status(409).json({ erro: "A demanda foi atualizada. Reabra os detalhes antes de excluir." });
+    const demanda = await excluirRegistroAtendimento(atual, registroId, req.usuario.id);
+    if (!demanda) return res.status(409).json({ erro: "A demanda mudou. Atualize os detalhes e tente novamente." });
+    return res.json({ demanda });
+  } catch (erro) { return erroPrisma(res, erro); }
+}
 const schemaCriacao = z.object({ ...camposOsc, categoria: camposOsc.categoria.default("OUTROS") }).strict();
 const schemaEdicao = z.object({ ...camposOsc }).partial().extend({ versao: z.number().int().nonnegative() }).strict();
 const textoAtendimento = z.string().trim().min(1).max(5000).optional();

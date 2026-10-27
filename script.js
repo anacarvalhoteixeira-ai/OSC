@@ -52,7 +52,7 @@ const CAMPOS_REL = {
   },
 };
 
-const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios"];
+const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios", "pessoas"];
 
 const MENU_DE = {
   "ficha-osc": "oscs",
@@ -221,6 +221,7 @@ function ligarLista(ulId, acoes) {
 // ---------- Navegação ----------
 
 function ir(nome) {
+  if (nome === "pessoas" && !ehAdmin) { ir("inicio"); return; }
   if ((nome === "relatorios" && !ehUoscc) || (nome === "cadastro-osc" && ehAdmin)) {
     avisar("Esta ação não está disponível para seu perfil.", true); return;
   }
@@ -265,8 +266,8 @@ async function carregarInicio() {
   $("total-oscs").textContent = oscs;
   $("total-demandas").textContent = projetos;
   $("lista-lembretes").innerHTML = recentes.length
-    ? `<ul class="space-y-3">${recentes.map(p => `<li class="flex flex-wrap justify-between gap-2"><span>${esc(p.titulo)} <small>· ${p.tipo === "GERAL" ? "Geral UOSCC" : "Específico OSC"}</small></span><span class="text-sm">${esc(rotulo(STATUS_PROJETO, p.status))}</span></li>`).join("")}</ul>`
-    : '<p class="text-sm text-slate-500">Os projetos da rede vão aparecer aqui. Cada ação começa com uma ideia.</p>';
+    ? `<ul class="space-y-3">${recentes.map(p => `<li class="flex flex-wrap justify-between gap-2"><div class="min-w-0"><p class="font-medium break-words">${esc(p.titulo)}</p><p class="mt-1 text-xs text-slate-500 dark:text-slate-300">${esc(p.organizacao?.nome || (p.tipo === "GERAL" ? "UOSCC" : "OSC não informada"))}</p></div><span class="text-sm">${esc(rotulo(STATUS_PROJETO, p.status))}</span></li>`).join("")}</ul>`
+    : '<p class="text-sm text-slate-500">Nenhum projeto cadastrado.</p>';
   if (ehUoscc) await carregarPendentes();
 }
 
@@ -281,7 +282,7 @@ async function carregarPendentes() {
     bloco = document.createElement("section");
     bloco.id = "bloco-pendentes";
     bloco.className = "mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800";
-    $("pagina-inicio").append(bloco);
+    $("pagina-inicio").insertBefore(bloco, $("indicadores"));
   }
 
   bloco.classList.toggle("hidden", solicitacoes.length === 0);
@@ -289,7 +290,6 @@ async function carregarPendentes() {
     <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
       <div>
         <h3 class="text-base font-bold text-[#122957] dark:text-white">🔔 Solicitações aguardando aprovação</h3>
-        <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">Confira os dados antes de aprovar ou recusar.</p>
       </div>
       <span class="rounded-full bg-orange-200 px-3 py-1 text-xs font-bold text-orange-950">${solicitacoes.length} pendente(s)</span>
     </div>
@@ -428,13 +428,32 @@ async function carregarOscs() {
   } else {
     lista = (await api(`/organizacoes${qs({ busca: f.busca.value.trim(), categoria: f.categoria.value, ativa: f.ativa.value })}`)).organizacoes;
   }
-  $("itens-oscs").innerHTML = lista
+  $("titulo-oscs").textContent = ehOsc ? "Minha organização" : "Organizações";
+  $("filtros-oscs").hidden = ehOsc;
+  $("pagina-oscs").classList.toggle("minha-osc", ehOsc);
+  $("sem-oscs").textContent = ehOsc ? "Nenhuma organização vinculada à sua conta." : "Nenhuma organização encontrada.";
+  $("itens-oscs").innerHTML = ehOsc ? lista.map(o => `
+    <li data-id="${o.id}" class="cartao-minha-osc">
+      <header class="minha-osc-cabecalho">
+        <span class="minha-osc-simbolo" aria-hidden="true">${esc(o.nome.slice(0, 1).toUpperCase())}</span>
+        <div><h3>${esc(o.nome)}</h3><p>${esc(rotulo(CATEGORIAS_OSC, o.categoria))}</p></div>
+      </header>
+      <dl class="minha-osc-dados">${[
+        ["CNPJ", o.cnpj], ["Responsável", o.responsavel],
+        ["Telefone", o.telefone], ["E-mail", o.email],
+        ["Endereço", [o.endereco, o.bairro].filter(Boolean).join(" · ")],
+      ].map(([rotulo, valor]) => `<div><dt>${rotulo}</dt><dd>${esc(valor || "Não informado")}</dd></div>`).join("")}</dl>
+      <footer class="minha-osc-acoes">
+        ${o.ativa ? '<button type="button" data-act="editar" class="btn-primario">Editar dados</button>' : ''}
+        <button type="button" data-act="ver" class="btn-secundario">Ver ficha completa</button>
+      </footer>
+    </li>`).join("") : lista
     .map(
       (o) =>
         `<li data-id="${o.id}" class="${classeItem}">${infoItem(
           o.nome,
           `${esc(rotulo(CATEGORIAS_OSC, o.categoria))} · ${esc(o.cnpj)} · ${esc(o.responsavel)} · ${esc(o.telefone)}`
-        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver ficha</button>${o.ativa ? "" : `<span class="text-sm text-slate-500">Inativa · histórico preservado</span>`}`, !ehAdmin && o.ativa, ehUoscc && o.ativa)}</li>`
+        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver ficha</button>${o.ativa ? "" : `<span class="text-sm text-slate-500">Inativa · histórico preservado</span>`}`, ehUoscc || (!ehAdmin && o.ativa), ehUoscc && o.ativa)}</li>`
     )
     .join("");
   $("sem-oscs").classList.toggle("hidden", lista.length > 0);
@@ -446,6 +465,9 @@ function abrirFormularioOsc(osc) {
   f.reset();
   $("titulo-form-osc").textContent = osc ? "Editar OSC" : "Cadastrar OSC";
   $("osc-id").value = osc?.id ?? "";
+  $("osc-situacao-bloco").hidden = !ehUoscc;
+  $("osc-ativa").disabled = !ehUoscc;
+  $("osc-ativa").value = String(osc?.ativa ?? true);
   if (osc) {
     for (const c of ["nome", "cnpj", "categoria", "endereco", "bairro", "responsavel", "telefone", "email", "descricao"]) {
       f.elements[c].value = osc[c] ?? "";
@@ -473,6 +495,8 @@ async function salvarOsc(e) {
     dados.nome = v.nome.trim();
     dados.cnpj = v.cnpj.trim();
   }
+  if (ehUoscc) dados.ativa = v.ativa === "true";
+  if (ehUoscc && !dados.ativa && !confirm("Salvar esta OSC como inativa? Os responsáveis vinculados ficarão sem acesso.")) return;
   await tentar(async () => {
     await api(id ? `/organizacoes/${id}` : "/organizacoes", { method: id ? "PUT" : "POST", corpo: dados });
     avisar("OSC salva com sucesso.");
@@ -481,6 +505,7 @@ async function salvarOsc(e) {
 }
 
 const paresOsc = (o) => [
+  ["Situação", o.ativa ? "Ativa" : "Inativa"],
   ["CNPJ", o.cnpj],
   ["Categoria", rotulo(CATEGORIAS_OSC, o.categoria)],
   ["Endereço", [o.endereco, o.bairro].filter(Boolean).join(" — ")],
@@ -510,7 +535,7 @@ async function abrirFicha(id) {
   const { projetos: relacionados } = await api(`/projetos${qs({ organizacaoId: id })}`);
   $("ficha-osc-projetos").innerHTML = relacionados.map((p) => li(p.titulo, rotulo(STATUS_PROJETO, p.status))).join("");
   $("ficha-osc-sem-projetos").classList.toggle("hidden", relacionados.length > 0);
-  $("botao-editar-osc-ficha").hidden = ehAdmin || !o.ativa;
+  $("botao-editar-osc-ficha").hidden = ehAdmin || (!ehUoscc && !o.ativa);
   ir("ficha-osc");
 }
 
@@ -519,7 +544,22 @@ async function abrirFicha(id) {
 async function carregarProjetos() {
   const f = $("form-pesquisa-projetos");
   const { projetos } = await api(`/projetos${qs({ busca: f.busca.value.trim(), status: f.status.value, tipo: f.tipo.value })}`);
-  $("itens-projetos").innerHTML = projetos
+  $("titulo-projetos").textContent = ehOsc ? "Projetos da minha OSC" : "Projetos";
+  $("itens-projetos").classList.toggle("grade-projetos-osc", ehOsc);
+  $("itens-projetos").innerHTML = ehOsc ? projetos.map(p => `
+    <li data-id="${p.id}" class="cartao-projeto-osc">
+      <header><span class="projeto-situacao" data-status="${esc(p.status)}">${esc(rotulo(STATUS_PROJETO, p.status))}</span>
+        <h3>${esc(p.titulo)}</h3>
+        ${p.tipo === "GERAL" ? '<p class="projeto-origem">Projeto da UOSCC</p>' : ''}
+      </header>
+      <dl class="projeto-datas">
+        <div><dt>Início</dt><dd>${p.dataInicio ? fmtData(p.dataInicio) : "Não definido"}</dd></div>
+        <div><dt>Término</dt><dd>${p.dataFim ? fmtData(p.dataFim) : "Não definido"}</dd></div>
+      </dl>
+      <footer><button type="button" data-act="ver" class="btn-secundario">Ver projeto</button>
+        ${podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false ? '<button type="button" data-act="editar" class="btn-primario">Editar</button>' : ''}
+      </footer>
+    </li>`).join("") : projetos
     .map(
       (p) =>
         `<li data-id="${p.id}" class="${classeItem}">${infoItem(
@@ -537,6 +577,15 @@ async function abrirFormularioProjeto(id, somenteLeitura = false) {
   await tentar(async () => {
     await carregarListaOscs();
     const f = $("form-projeto");
+    let ficha = $("ficha-projeto-visual");
+    if (!ficha) {
+      ficha = document.createElement("article");
+      ficha.id = "ficha-projeto-visual";
+      f.before(ficha);
+    }
+    ficha.hidden = true;
+    f.hidden = false;
+    $("pagina-cadastro-projeto").classList.remove("visualizando-projeto");
     f.reset();
     for (const campo of f.elements) campo.disabled = false;
     preencherOscs($("proj-osc"), $("aviso-sem-oscs"));
@@ -556,6 +605,34 @@ async function abrirFormularioProjeto(id, somenteLeitura = false) {
       }
       for (const option of $("proj-participantes").options) option.selected = p.participantes.some(o => o.id === Number(option.value));
       somenteLeitura ||= !podeEditarProjeto(usuario, p) || p.organizacao?.ativa === false;
+      if (somenteLeitura) {
+        const dado = (nome, valor) => `<div><dt>${nome}</dt><dd>${esc(valor ?? "Não informado")}</dd></div>`;
+        const moeda = p.orcamento == null ? "Não informado" : Number(p.orcamento).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        ficha.innerHTML = `
+          <header class="ficha-projeto-topo">
+            <span class="projeto-situacao" data-status="${esc(p.status)}">${esc(rotulo(STATUS_PROJETO, p.status))}</span>
+            <h3>${esc(p.titulo)}</h3>
+            <p>${esc(p.organizacao?.nome ?? "Projeto geral da UOSCC")}</p>
+          </header>
+          <dl class="ficha-projeto-numeros">
+            ${dado("Início", p.dataInicio ? fmtData(p.dataInicio) : "Não definido")}
+            ${dado("Término", p.dataFim ? fmtData(p.dataFim) : "Não definido")}
+            ${dado("Pessoas atendidas", p.totalAtendidos ?? 0)}
+            ${dado("Orçamento", moeda)}
+          </dl>
+          <div class="ficha-projeto-corpo">
+            <section><h4>Sobre o projeto</h4><p>${esc(p.descricao || "Sem descrição.")}</p></section>
+            ${p.objetivo ? `<section><h4>Objetivo</h4><p>${esc(p.objetivo)}</p></section>` : ''}
+            ${p.resultados ? `<section><h4>Resultados</h4><p>${esc(p.resultados)}</p></section>` : ''}
+            <section><h4>Contato</h4><dl class="ficha-projeto-contatos">${dado("Responsável", p.responsavel || "Não informado")}${dado("Telefone", p.telefone || "Não informado")}${dado("E-mail", p.email || "Não informado")}</dl></section>
+            ${p.tipo === "GERAL" ? `<section><h4>Organizações participantes</h4><p>${p.todasOscs ? "Todas as OSCs da rede" : esc(p.participantes.map(o => o.nome).join(" · ") || "Nenhuma organização informada.")}</p></section>` : ''}
+          </div>
+          <footer class="ficha-projeto-rodape"><button type="button" data-secao="projetos" class="btn-secundario">Voltar aos projetos</button>${podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false ? '<button type="button" id="editar-ficha-projeto" class="btn-primario">Editar projeto</button>' : ''}</footer>`;
+        ficha.hidden = false;
+        f.hidden = true;
+        $("pagina-cadastro-projeto").classList.add("visualizando-projeto");
+        ficha.querySelector("#editar-ficha-projeto")?.addEventListener("click", () => abrirFormularioProjeto(p.id));
+      }
       for (const c of ["titulo", "responsavel", "telefone", "email", "status", "descricao", "objetivo", "resultados"]) {
         f.elements[c].value = p[c] ?? "";
       }

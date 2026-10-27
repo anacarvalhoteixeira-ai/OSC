@@ -18,6 +18,7 @@ const emailOpcional = z.preprocess(
 ).optional();
 
 const camposOrganizacao = {
+  ativa: z.boolean().optional(),
   nome: z.string().trim().min(2).max(180),
   cnpj,
   categoria: z.enum(categorias),
@@ -113,13 +114,14 @@ export async function atualizar(req, res) {
     }
     const camposBloqueados = Object.keys(dados).filter((campo) => !camposEditaveisPelaOsc.has(campo));
     if (camposBloqueados.length) {
-      return res.status(403).json({ erro: "Nome e CNPJ devem ser alterados pela equipe UOSCC." });
+      return res.status(403).json({ erro: "Nome, CNPJ e situação devem ser alterados pela equipe UOSCC." });
     }
   }
 
   try {
     const atual = await buscarOrganizacao(id);
-    if (!atual?.ativa) return res.status(409).json({ erro: "A OSC está inativa. Seu histórico permanece disponível para consulta." });
+    if (!atual) return res.status(404).json({ erro: "OSC não encontrada." });
+    if (!atual.ativa && !(req.usuario.papel === "RESPONSAVEL_UOSCC" && dados.ativa === true)) return res.status(409).json({ erro: "Reative a OSC para alterar seus dados. Seu histórico permanece disponível para consulta." });
     const organizacao = await atualizarOrganizacao(id, dados);
     return res.json({ organizacao });
   } catch (erro) {

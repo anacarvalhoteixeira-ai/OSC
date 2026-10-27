@@ -18,6 +18,14 @@
           >
             <!-- vazio = nova OSC -->
             <input type="hidden" id="osc-id" name="id" />
+            <div id="osc-situacao-bloco">
+              <label for="osc-ativa" class="rotulo">Situação da OSC</label>
+              <select id="osc-ativa" name="ativa" class="campo" aria-describedby="osc-situacao-ajuda">
+                <option value="true">Ativa</option>
+                <option value="false">Inativa</option>
+              </select>
+              <p id="osc-situacao-ajuda" class="mt-2 text-xs text-slate-500 dark:text-slate-300">OSCs inativas mantêm o histórico, mas seus responsáveis ficam sem acesso.</p>
+            </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>

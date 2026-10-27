@@ -32,6 +32,21 @@ export function listarDemandas({ busca, status, categoria, organizacaoId, de, at
 }
 
 export const buscarDemanda = (id) => prisma.demanda.findUnique({ where: { id }, select: detalhes });
+
+export function excluirRegistroAtendimento(atual, registroId, usuarioId) {
+  return prisma.$transaction(async tx => {
+    const alterada = await tx.demanda.updateMany({
+      where: { id: atual.id, versao: atual.versao },
+      data: { versao: { increment: 1 } },
+    });
+    if (alterada.count !== 1) return null;
+    const removido = await tx.demandaHistorico.deleteMany({
+      where: { id: registroId, demandaId: atual.id, usuarioId, tipo: "ATENDIMENTO" },
+    });
+    if (removido.count !== 1) throw new Error("O registro não está mais disponível para exclusão.");
+    return tx.demanda.findUnique({ where: { id: atual.id }, select: detalhes });
+  });
+}
 export const criarDemanda = (data, usuarioId) => prisma.demanda.create({
   data: { ...data, status: "ABERTA", historico: { create: { usuarioId, tipo: "CRIACAO", statusNovo: "ABERTA" } } },
   select: detalhes,

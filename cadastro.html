@@ -13,10 +13,8 @@
     <main class="pagina-login">
         <aside class="apresentacao" aria-label="Sobre a rede">
             <span class="marca-rede">UOSCC <span>Rede de OSCs · Camaçari</span></span>
-            <div><p class="sobrelinha">JUNTOS PELA COMUNIDADE</p>
-            <h2>Uma rede de pessoas.<br>Muitas formas de cuidar.</h2>
-            <p>Um espaço para organizar projetos, conectar organizações e fortalecer as organizações da nossa cidade.</p>
-            <ul><li>Organizações conectadas em um só lugar</li><li>Projetos e ações mais fáceis de acompanhar</li><li>Mais colaboração no dia a dia</li></ul></div>
+            <div><h2>Faça parte da rede.</h2>
+            <p>Conecte sua organização à UOSCC.</p></div>
             <p class="assinatura">Unindo forças, transformando comunidades.</p>
         </aside>
         <div class="area-formulario">
@@ -32,18 +30,16 @@
 
             <div class="conteudo">
                 <div class="introducao">
-                    <span class="etiqueta">FAÇA PARTE DA REDE</span>
-                    <h2>Sua organização tem lugar aqui.</h2>
-                    <p>Conte um pouco sobre sua organização e sobre você. A equipe UOSCC vai analisar sua solicitação antes de liberar o acesso.</p>
+                    <h2>Solicitar acesso</h2>
+                    <p>Escolha sua organização e preencha seus dados.</p>
                 </div>
 
-                <ol class="etapas-cadastro" aria-label="Como funciona o cadastro"><li><span>1</span>Sua organização</li><li><span>2</span>Seus dados</li><li><span>3</span>Análise UOSCC</li></ol>
                 <div class="seletor-cenario">
-                    <button type="button" id="btn-cenario-a" class="seletor-btn ativo" aria-pressed="true" aria-controls="bloco-cenario-a">Minha OSC já está na rede</button>
-                    <button type="button" id="btn-cenario-b" class="seletor-btn" aria-pressed="false" aria-controls="bloco-cenario-b">Quero cadastrar minha OSC</button>
+                    <button type="button" id="btn-cenario-a" class="seletor-btn ativo" aria-pressed="true" aria-controls="bloco-cenario-a">OSC já cadastrada</button>
+                    <button type="button" id="btn-cenario-b" class="seletor-btn" aria-pressed="false" aria-controls="bloco-cenario-b">Cadastrar nova OSC</button>
                 </div>
 
-                <div class="nota-acesso"><span aria-hidden="true">ⓘ</span><p>Selecionar uma OSC envia um pedido de vínculo. O acesso só será liberado após a aprovação da UOSCC.</p></div>
+                <div class="nota-acesso"><span aria-hidden="true">ⓘ</span><p>Acesso sujeito à aprovação da UOSCC.</p></div>
                 <form id="form-cadastro" action="#" method="post">
                     <input type="hidden" id="tipo" name="tipo" value="VINCULO_OSC">
                     <input type="hidden" id="organizacaoId" name="organizacaoId" value="">
@@ -51,9 +47,9 @@
                     <!-- Bloco Cenário A: Busca de OSC existente -->
                     <div id="bloco-cenario-a">
                         <div class="campo">
-                            <label for="busca-osc">Busque sua organização pelo nome ou CNPJ</label>
-                            <input type="text" id="busca-osc" placeholder="Digite para buscar a OSC cadastrada..." autocomplete="off" aria-describedby="ajuda-busca">
-                            <small id="ajuda-busca">Digite pelo menos 2 caracteres e selecione um resultado.</small>
+                            <label for="busca-osc">Sua organização</label>
+                            <input type="text" id="busca-osc" placeholder="Buscar por nome ou CNPJ" autocomplete="off" aria-describedby="ajuda-busca">
+                            <small id="ajuda-busca">Digite 2 ou mais caracteres e selecione a OSC.</small>
                         </div>
                         <div id="lista-resultados-osc" aria-live="polite" style="max-height: 180px; overflow-y: auto; margin-bottom: 16px;"></div>
                         <div id="osc-selecionada-box" style="display: none; padding: 12px; background: #ecfdf3; border: 1px solid #abefc6; border-radius: 8px; margin-bottom: 16px;">
@@ -71,11 +67,11 @@
                             <input type="text" id="nomeOsc" name="nomeOsc" placeholder="Nome oficial da organização">
                         </div>
                         <div class="campo">
-                            <label for="cnpj">CNPJ (apenas números ou formatado)</label>
+                            <label for="cnpj">CNPJ (opcional)</label>
                             <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18">
                         </div>
                         <div class="campo">
-                            <label for="categoria">Categoria / Área de Atuação</label>
+                            <label for="categoria">Área de atuação</label>
                             <select id="categoria" name="categoria" class="campo" style="height: 49px; padding: 0 15px; border: 1px solid #ccd5e3; border-radius: 8px; width: 100%; font-size: 12px;">
                                 <option value="">Selecione uma categoria</option>
                                 <option value="educacao">Educação e formação cidadã</option>
@@ -97,12 +93,12 @@
                     <h4 style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: #132957;">Sobre você</h4>
 
                     <div class="campo">
-                        <label for="nome">Seu nome completo *</label>
+                            <label for="nome">Nome completo *</label>
                         <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Digite seu nome completo" required>
                     </div>
 
                     <div class="campo">
-                        <label for="email">Seu e-mail de acesso *</label>
+                        <label for="email">E-mail *</label>
                         <input type="email" id="email" name="email" autocomplete="email" placeholder="seuemail@exemplo.com" required>
                     </div>
 
@@ -112,8 +108,8 @@
                     </div>
 
                     <div class="campo">
-                        <label for="senha">Crie sua senha * (mínimo 8 caracteres)</label>
-                        <input type="password" id="senha" name="senha" autocomplete="new-password" minlength="8" required>
+                        <label for="senha">Senha *</label>
+                        <input type="password" id="senha" name="senha" autocomplete="new-password" placeholder="Mínimo de 8 caracteres" minlength="8" required>
                     </div>
 
                     <div class="campo">
@@ -127,13 +123,10 @@
                 </form>
 
                 <div class="alternativa">
-                    <p>Já possui uma conta ativa?</p>
-                    <a href="/login.html" class="link">Fazer login</a>
+                    <p>Já tem conta?</p>
+                    <a href="/login.html" class="link">Entrar</a>
                 </div>
 
-                <footer class="rodape">
-                    UOSCC · Governança e fortalecimento das organizações sociais.
-                </footer>
             </div>
 
         </section>

@@ -2,12 +2,13 @@ import { podeGerenciarUsuarios } from "../src/utils/permissoes.js";
 
 export function prepararEquipe(usuario, api, avisar) {
   const $ = id => document.getElementById(id);
-  const nomes = { ADMIN: "Administrador · Gestão de acessos", RESPONSAVEL_UOSCC: "Responsável da UOSCC · Gestão da rede", RESPONSAVEL_OSC: "Responsável da OSC · Minha organização" };
-  $("saudacao-usuario").textContent = `Olá, ${usuario.nome.split(" ")[0]}! Que bom ter você aqui.`;
+  const nomes = { ADMIN: "Administrador", RESPONSAVEL_UOSCC: "UOSCC", RESPONSAVEL_OSC: "Responsável da OSC" };
+  $("saudacao-usuario").textContent = `Olá, ${usuario.nome.split(" ")[0]}!`;
   $("perfil-atual").textContent = nomes[usuario.papel];
   if (!podeGerenciarUsuarios(usuario)) return;
   $("gestao-equipe").hidden = false;
-  $("equipe-descricao").textContent = "Cadastre pessoas, defina seus perfis e mantenha os acessos organizados. Os dados operacionais ficam com os responsáveis.";
+  $("pessoas-recentes").hidden = false;
+  document.querySelector('[data-menu="pessoas"]').hidden = false;
   const form = $("form-membro");
   let editando = null;
   let usuarios = [];
@@ -48,6 +49,14 @@ export function prepararEquipe(usuario, api, avisar) {
     $("equipe-feedback").textContent = "Carregando os acessos…";
     try {
       ({ usuarios } = await api("/usuarios/equipe"));
+      const recentes = [...usuarios].sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm) || b.id - a.id).slice(0, 5);
+      $("pessoas-recentes-lista").replaceChildren(...recentes.map(pessoa => {
+        const li = document.createElement("li");
+        const nome = document.createElement("strong"); nome.textContent = pessoa.nome;
+        const perfil = document.createElement("span"); perfil.textContent = nomes[pessoa.papel];
+        li.append(nome, perfil); return li;
+      }));
+      $("pessoas-recentes-feedback").textContent = recentes.length ? "" : "Nenhuma pessoa cadastrada.";
       $("equipe-lista").replaceChildren(...usuarios.map(pessoa => {
         const li = document.createElement("li");
         const dados = document.createElement("div");
@@ -59,7 +68,7 @@ export function prepararEquipe(usuario, api, avisar) {
         li.append(dados, editar); return li;
       }));
       $("equipe-feedback").textContent = `${usuarios.length} pessoa(s) cadastrada(s)`;
-    } catch (erro) { $("equipe-feedback").textContent = erro.message; }
+    } catch (erro) { $("equipe-feedback").textContent = erro.message; $("pessoas-recentes-feedback").textContent = erro.message; }
   }
   form.onsubmit = async event => {
     event.preventDefault();

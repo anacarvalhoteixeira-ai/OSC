@@ -4,7 +4,7 @@ import prisma from "../config/prisma.js";
 import { podeGerenciarUsuarios, PAPEIS } from "../utils/permissoes.js";
 import { idDaRota, erroPrisma } from "../utils/http.js";
 
-const campos = { id: true, nome: true, email: true, papel: true, ativo: true, organizacaoId: true, organizacao: { select: { nome: true, ativa: true } } };
+const campos = { id: true, nome: true, email: true, papel: true, ativo: true, criadoEm: true, organizacaoId: true, organizacao: { select: { nome: true, ativa: true } } };
 const propriedades = {
   nome: z.string().trim().min(2).max(120),
   email: z.string().trim().toLowerCase().email().max(191),
