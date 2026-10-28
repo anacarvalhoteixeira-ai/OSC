@@ -25,6 +25,9 @@ muda o acesso.
 
 ## Execução
 
+Para produção, siga [o guia de hospedagem](docs/HOSPEDAGEM.md). Após o build,
+o Express serve as páginas e a API no mesmo domínio.
+
 Configure `.env` com `DATABASE_URL`, `JWT_SECRET` e, opcionalmente, `PORT` e
 `FRONTEND_ORIGIN`. Não versione credenciais.
 
@@ -35,7 +38,8 @@ npx prisma generate --config prisma7.config.ts
 npm start
 ```
 
-Em outro terminal: `npm run dev`. Acesse `/login.html`. Para gerar os arquivos de
+Em desenvolvimento, use `npm run dev:api` para reinício automático da API e,
+em outro terminal, `npm run dev`. Acesse `/login.html`. Para gerar os arquivos de
 produção: `npm run build`. Reinicie a API ao atualizar schema ou permissões.
 
 O primeiro administrador pode ser criado pelo comando existente `npm run criar-admin`,

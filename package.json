@@ -3,8 +3,13 @@
   "scripts": {
     "criar-admin": "node scripts/criar-admin.js",
     "dev": "vite",
-    "build": "vite build",
-    "start": "nodemon server.js",
+    "build": "npm run prisma:generate && vite build",
+    "start": "node server.js",
+    "dev:api": "nodemon server.js",
+    "prisma:generate": "prisma generate --config prisma7.config.ts",
+    "db:deploy": "prisma migrate deploy --config prisma7.config.ts",
+    "db:validate": "prisma validate --config prisma7.config.ts",
+    "test:hosting": "node tests/hospedagem.smoke.js",
     "test": "node --test tests/*.test.js",
     "test:integration": "node --test tests/*.integration.js"
   },
@@ -22,6 +27,7 @@
     "vite": "^8.3.4",
     "zod": "^4.6.7"
   },
+  "engines": { "node": ">=22.18.0 <23 || >=24.0.0 <25" },
   "name": "osc",
   "version": "1.0.0",
   "description": "",
