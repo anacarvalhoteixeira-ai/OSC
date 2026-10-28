@@ -116,6 +116,7 @@ model Organizacao {
   projetos     Projeto[]
   demandas     Demanda[]
   atendimentos RegistroAtendimento[]
+  pessoasAtendidas PessoaAtendida[]
   solicitacoes SolicitacaoCadastro[]
 
   criadoEm     DateTime @default(now())
@@ -294,4 +295,20 @@ model DemandaHistorico {
 
   @@index([demandaId, criadoEm])
   @@index([usuarioId])
+}
+
+model PessoaAtendida {
+  id             Int @id @default(autoincrement())
+  nome           String @db.VarChar(120)
+  tipo           String @db.VarChar(20)
+  dataNascimento DateTime? @db.Date
+  telefone       String? @db.VarChar(20)
+  responsavel    String? @db.VarChar(120)
+  ativo          Boolean @default(true)
+  organizacaoId  Int
+  organizacao    Organizacao @relation(fields: [organizacaoId], references: [id], onDelete: Restrict)
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+
+  @@index([organizacaoId, ativo])
 }

@@ -10,7 +10,7 @@
     "db:deploy": "prisma migrate deploy --config prisma7.config.ts",
     "db:validate": "prisma validate --config prisma7.config.ts",
     "test:hosting": "node tests/hospedagem.smoke.js",
-    "test": "node --test tests/*.test.js",
+    "test": "npm run prisma:generate && node --test tests/*.test.js",
     "test:integration": "node --test tests/*.integration.js"
   },
   "dependencies": {

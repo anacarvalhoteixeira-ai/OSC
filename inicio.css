@@ -318,3 +318,17 @@
     #editar-demanda-detalhe { margin: 0 20px 20px; }
   }
 }
+/* Cadastro de alunos e beneficiários */
+.campo-beneficiario {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: .4rem;
+  padding: .75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: .75rem;
+  background: transparent;
+  color: inherit;
+}
+.campo-beneficiario:focus { outline: 2px solid #fb923c; outline-offset: 2px; }
+.campo-beneficiario option { background: white; color: #0f172a; }

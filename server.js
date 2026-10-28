@@ -13,6 +13,7 @@ import atendimentoRoutes from "./src/routes/atendimento.routes.js";
 import painelRoutes from "./src/routes/painel.routes.js";
 import relatorioRoutes from "./src/routes/relatorio.routes.js";
 import acessoRoutes from "./src/routes/acesso.routes.js";
+import pessoaAtendidaRoutes from "./src/routes/pessoa-atendida.routes.js";
 
 export const app = express();
 validarAmbiente();
@@ -57,6 +58,7 @@ app.use("/api/atendimentos", atendimentoRoutes);
 app.use("/api/painel", painelRoutes);
 app.use("/api/relatorios", relatorioRoutes);
 app.use("/api/usuarios", acessoRoutes);
+app.use("/api/pessoas-atendidas", pessoaAtendidaRoutes);
 app.use("/api", (_req, res) => res.status(404).json({ erro: "Rota não encontrada." }));
 app.use(express.static(dist, {
   dotfiles: "deny",

@@ -1,4 +1,5 @@
 import { criarModuloDemandas } from "./assets/demandas.js";
+import { criarModuloBeneficiarios } from "./assets/beneficiarios.js";
 import { podeEditarProjeto, podeExcluirProjeto } from "./src/utils/permissoes.js";
 import "./inicio.css";
 
@@ -52,7 +53,7 @@ const CAMPOS_REL = {
   },
 };
 
-const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios", "pessoas", "solicitacoes"];
+const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios", "pessoas", "solicitacoes", "beneficiarios"];
 
 const MENU_DE = {
   "ficha-osc": "oscs",
@@ -126,6 +127,7 @@ const qs = (obj) => {
 };
 const rotulo = (mapa, chave) => mapa[chave] ?? chave ?? "—";
 const demandasUI = criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, paraInput, qs, STATUS_DEMANDA, CATEGORIAS_DEMANDA });
+const beneficiariosUI = criarModuloBeneficiarios({ usuario, api, avisar, fmtData });
 
 function avisar(msg, erro = false) {
   const el = document.createElement("div");
@@ -228,6 +230,7 @@ function ir(nome) {
   else delete voltar.dataset.secao;
   if (nome === "solicitacoes" && !ehUoscc) { ir("inicio"); return; }
   if (nome === "pessoas" && !ehAdmin) { ir("inicio"); return; }
+  if (nome === "beneficiarios" && !ehOsc && !ehUoscc) { ir("inicio"); return; }
   if ((nome === "relatorios" && !ehUoscc) || (nome === "cadastro-osc" && ehAdmin)) {
     avisar("Esta ação não está disponível para seu perfil.", true); return;
   }
@@ -250,6 +253,7 @@ function ir(nome) {
     oscs: carregarOscs,
     projetos: carregarProjetos,
     demandas: carregarDemandas,
+    beneficiarios: beneficiariosUI.carregar,
     relatorios: prepararRelatorios,
   }[nome];
   if (carregar) tentar(carregar);
@@ -977,6 +981,7 @@ function iniciar() {
   preencherSelect($("filtro-status"), STATUS_PROJETO, "Todos os status");
   preencherSelect($("proj-status"), STATUS_PROJETO);
   demandasUI.iniciar();
+  beneficiariosUI.iniciar();
   $("botao-nova-osc").hidden = !ehUoscc;
   $("botao-novo-projeto").hidden = ehAdmin;
   $("botao-editar-osc-ficha").hidden = ehAdmin;

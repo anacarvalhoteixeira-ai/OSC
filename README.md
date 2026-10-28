@@ -22,6 +22,8 @@ muda o acesso.
 | Criar/editar demandas | Não | Não | Criar para a própria OSC; editar somente ABERTA |
 | Responder/alterar status de demandas | Não | Sim, com histórico | Não |
 | Excluir demandas | Não | Não | Não |
+| Consultar pessoas atendidas | Não | Todas as OSCs | Apenas da própria OSC |
+| Cadastrar/editar/desativar pessoas atendidas | Não | Não | Apenas da própria OSC |
 
 ## Execução
 
@@ -80,6 +82,20 @@ como `ESPECIFICO`. Acrescenta `Organizacao.ativa`, `Projeto.tipo`, `Projeto.toda
 e a tabela de participantes, tornando `Projeto.organizacaoId` opcional. O campo
 legado `Usuario.dono` foi preservado sem efeito sobre permissões; a regra anterior
 de donos/equipes foi substituída pela matriz de três perfis.
+
+## Pessoas atendidas
+
+No menu **Pessoas atendidas**, responsáveis da OSC cadastram alunos ou
+beneficiários com nome, tipo, nascimento, telefone e responsável opcional.
+A OSC consulta, edita, desativa e reativa somente os próprios cadastros.
+A UOSCC consulta todas as OSCs, inclusive inativas, com filtros por OSC, tipo,
+nome e situação. O ADMIN não acessa esses dados pessoais. A listagem é paginada.
+Esses registros não criam contas de acesso e não alteram os totais de atendimentos
+dos relatórios, que continuam baseados nos registros quantitativos existentes.
+
+Aplique a migration `20261028200000_pessoas_atendidas` com `npm run db:deploy`,
+execute `npm run build` e reinicie a API. A migration cria somente a nova tabela
+e seu vínculo com a OSC, preservando os dados existentes.
 
 ## Demandas
 

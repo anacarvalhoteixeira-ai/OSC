@@ -1,4 +1,4 @@
-const telas = ["inicio", "oscs", "ficha-osc", "cadastro-osc", "projetos", "cadastro-projeto", "demandas", "cadastro-demanda", "relatorios", "solicitacoes"];
+const telas = ["inicio", "oscs", "ficha-osc", "cadastro-osc", "projetos", "cadastro-projeto", "demandas", "cadastro-demanda", "relatorios", "solicitacoes", "beneficiarios"];
 const pontos = [...document.querySelectorAll('main > [data-tela-placeholder]')];
 const destino = new Map(pontos.map((p) => [p.dataset.telaPlaceholder, p]));
 await Promise.all(telas.map(async (tela) => {
