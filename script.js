@@ -52,7 +52,7 @@ const CAMPOS_REL = {
   },
 };
 
-const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios", "pessoas"];
+const PRINCIPAIS = ["inicio", "oscs", "projetos", "demandas", "relatorios", "pessoas", "solicitacoes"];
 
 const MENU_DE = {
   "ficha-osc": "oscs",
@@ -221,6 +221,12 @@ function ligarLista(ulId, acoes) {
 // ---------- Navegação ----------
 
 function ir(nome) {
+  const voltar = $("voltar-ficha");
+  const destinoFicha = { "ficha-osc": "oscs", "cadastro-projeto": "projetos", "detalhe-demanda": "demandas" }[nome];
+  voltar.hidden = !destinoFicha;
+  if (destinoFicha) voltar.dataset.secao = destinoFicha;
+  else delete voltar.dataset.secao;
+  if (nome === "solicitacoes" && !ehUoscc) { ir("inicio"); return; }
   if (nome === "pessoas" && !ehAdmin) { ir("inicio"); return; }
   if ((nome === "relatorios" && !ehUoscc) || (nome === "cadastro-osc" && ehAdmin)) {
     avisar("Esta ação não está disponível para seu perfil.", true); return;
@@ -240,6 +246,7 @@ function ir(nome) {
   window.scrollTo(0, 0);
   const carregar = {
     inicio: carregarInicio,
+    solicitacoes: carregarPendentes,
     oscs: carregarOscs,
     projetos: carregarProjetos,
     demandas: carregarDemandas,
@@ -276,16 +283,11 @@ async function carregarPendentes() {
   if (!podeExcluir) return;
 
   const { solicitacoes = [] } = await api("/usuarios/solicitacoes?status=PENDENTE");
-  let bloco = $("bloco-pendentes");
-
-  if (!bloco) {
-    bloco = document.createElement("section");
-    bloco.id = "bloco-pendentes";
-    bloco.className = "mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800";
-    $("pagina-inicio").insertBefore(bloco, $("indicadores"));
-  }
-
-  bloco.classList.toggle("hidden", solicitacoes.length === 0);
+  const aviso = $("aviso-solicitacoes");
+  aviso.hidden = solicitacoes.length === 0;
+  $("quantidade-solicitacoes").textContent = solicitacoes.length;
+  $("total-solicitacoes-menu").textContent = solicitacoes.length ? String(solicitacoes.length) : "";
+  const bloco = $("bloco-pendentes");
   bloco.innerHTML = `
     <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
       <div>
@@ -545,12 +547,12 @@ async function carregarProjetos() {
   const f = $("form-pesquisa-projetos");
   const { projetos } = await api(`/projetos${qs({ busca: f.busca.value.trim(), status: f.status.value, tipo: f.tipo.value })}`);
   $("titulo-projetos").textContent = ehOsc ? "Projetos da minha OSC" : "Projetos";
-  $("itens-projetos").classList.toggle("grade-projetos-osc", ehOsc);
-  $("itens-projetos").innerHTML = ehOsc ? projetos.map(p => `
+  $("itens-projetos").classList.add("grade-projetos-osc");
+  $("itens-projetos").innerHTML = projetos.map(p => `
     <li data-id="${p.id}" class="cartao-projeto-osc">
       <header><span class="projeto-situacao" data-status="${esc(p.status)}">${esc(rotulo(STATUS_PROJETO, p.status))}</span>
         <h3>${esc(p.titulo)}</h3>
-        ${p.tipo === "GERAL" ? '<p class="projeto-origem">Projeto da UOSCC</p>' : ''}
+        <p class="projeto-origem">${esc(p.organizacao?.nome || (p.tipo === "GERAL" ? "UOSCC" : "OSC não informada"))}</p>
       </header>
       <dl class="projeto-datas">
         <div><dt>Início</dt><dd>${p.dataInicio ? fmtData(p.dataInicio) : "Não definido"}</dd></div>
@@ -559,17 +561,7 @@ async function carregarProjetos() {
       <footer><button type="button" data-act="ver" class="btn-secundario">Ver projeto</button>
         ${podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false ? '<button type="button" data-act="editar" class="btn-primario">Editar</button>' : ''}
       </footer>
-    </li>`).join("") : projetos
-    .map(
-      (p) =>
-        `<li data-id="${p.id}" class="${classeItem}">${infoItem(
-          p.titulo,
-          `${esc((p.organizacao?.nome ?? "Geral UOSCC"))} · ${esc(rotulo(STATUS_PROJETO, p.status))} · ${fmtData(p.dataInicio)} → ${fmtData(
-            p.dataFim
-          )}`
-        )}${botoesItem(`<button type="button" data-act="ver" class="btn-secundario px-3 py-2">Ver projeto</button>`, podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false, podeExcluirProjeto(usuario, p))}</li>`
-    )
-    .join("");
+    </li>`).join("");
   $("sem-projetos").classList.toggle("hidden", projetos.length > 0);
 }
 
@@ -627,7 +619,7 @@ async function abrirFormularioProjeto(id, somenteLeitura = false) {
             <section><h4>Contato</h4><dl class="ficha-projeto-contatos">${dado("Responsável", p.responsavel || "Não informado")}${dado("Telefone", p.telefone || "Não informado")}${dado("E-mail", p.email || "Não informado")}</dl></section>
             ${p.tipo === "GERAL" ? `<section><h4>Organizações participantes</h4><p>${p.todasOscs ? "Todas as OSCs da rede" : esc(p.participantes.map(o => o.nome).join(" · ") || "Nenhuma organização informada.")}</p></section>` : ''}
           </div>
-          <footer class="ficha-projeto-rodape"><button type="button" data-secao="projetos" class="btn-secundario">Voltar aos projetos</button>${podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false ? '<button type="button" id="editar-ficha-projeto" class="btn-primario">Editar projeto</button>' : ''}</footer>`;
+          <footer class="ficha-projeto-rodape">${podeEditarProjeto(usuario, p) && p.organizacao?.ativa !== false ? '<button type="button" id="editar-ficha-projeto" class="btn-primario">Editar projeto</button>' : ''}</footer>`;
         ficha.hidden = false;
         f.hidden = true;
         $("pagina-cadastro-projeto").classList.add("visualizando-projeto");
@@ -992,6 +984,7 @@ function iniciar() {
   document.querySelectorAll('[data-menu="demandas"], [data-secao="demandas"]').forEach(el => el.hidden = false);
   $("proj-todas").addEventListener("change", () => { $("proj-participantes").disabled = $("proj-todas").checked; });
   $("filtro-tipo-projeto").addEventListener("change", () => tentar(carregarProjetos));
+  document.querySelector('[data-menu="solicitacoes"]').hidden = !ehUoscc;
   $("filtro-situacao-osc").hidden = ehOsc;
   $("filtro-situacao-osc").addEventListener("change", () => tentar(carregarOscs));
 

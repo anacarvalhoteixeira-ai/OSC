@@ -1,0 +1,209 @@
+[
+  {
+    "origemId": 1,
+    "nome": "União das Organizações Sociais e Culturais de Camaçari",
+    "resultado": "ja_cadastrada"
+  },
+  {
+    "origemId": 2,
+    "nome": "Instituto Cidade Verde - Conselho dos Moradores",
+    "email": "cristovam@gmail.com",
+    "categoria": "meio-ambiente",
+    "resultado": "pendente",
+    "solicitacaoId": 11
+  },
+  {
+    "origemId": 3,
+    "nome": "Associacao Beneficente Mãe Da Terra",
+    "email": "jaciara@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 12
+  },
+  {
+    "origemId": 4,
+    "nome": "Associação De Karatê Litoral Norte Da Bahia",
+    "email": "tiago@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 13
+  },
+  {
+    "origemId": 5,
+    "nome": "Centro Comunitario De Atividades Socio Educativas Do Triangulo",
+    "email": "luis@gmail.com",
+    "categoria": "educacao",
+    "resultado": "pendente",
+    "solicitacaoId": 14
+  },
+  {
+    "origemId": 6,
+    "nome": "Associação Beneficente De Jauá",
+    "email": "roberto@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 15
+  },
+  {
+    "origemId": 7,
+    "nome": "Associação De Moradores Do Sitio Tereré",
+    "email": "jonatas@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 16
+  },
+  {
+    "origemId": 8,
+    "nome": "Academia De Formacao De Craques Divino Oliverio",
+    "resultado": "ja_cadastrada"
+  },
+  {
+    "origemId": 9,
+    "nome": "ASSOCIACAO DE PROTECAO E DESENVOLVIMENTO DA CRIANCA, DO ADOLESCENTE E DO IDOSO",
+    "email": "daniel@gmail.com",
+    "categoria": "direitos",
+    "resultado": "pendente",
+    "solicitacaoId": 17
+  },
+  {
+    "origemId": 10,
+    "nome": "MINISTÉRIO BATISTA ALABASTRO",
+    "email": "segisnando@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 18
+  },
+  {
+    "origemId": 11,
+    "nome": "Centro De Apoio Aos Esportes E A Cidadania",
+    "email": "domingos@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 19
+  },
+  {
+    "origemId": 12,
+    "nome": "Associação Dos Locutores De Camaçari E Região Metropolitana De Salvador",
+    "email": "ricardo@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 20
+  },
+  {
+    "origemId": 13,
+    "nome": "Centro De Apoio A Saúde E Assistência Social",
+    "email": "jocinea@gmail.com",
+    "categoria": "saude",
+    "resultado": "pendente",
+    "solicitacaoId": 21
+  },
+  {
+    "origemId": 14,
+    "nome": "Instituto Educacional Professora Zélia Maria",
+    "email": "edleuza@gmail.com",
+    "categoria": "educacao",
+    "resultado": "pendente",
+    "solicitacaoId": 22
+  },
+  {
+    "origemId": 15,
+    "nome": "Centro Cultural Deus E As Aguas",
+    "email": "paulo@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 23
+  },
+  {
+    "origemId": 16,
+    "nome": "Associacao Beneficente Cristo É Vida",
+    "email": "jaqueline@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 24
+  },
+  {
+    "origemId": 17,
+    "nome": "Associação De Moradores Do Parque Balneário Senhor Do Bomfim Parque Verde Lll",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 18,
+    "nome": "Associação Dos Moradores Do Jardim Brasília",
+    "email": "fabio@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 25
+  },
+  {
+    "origemId": 19,
+    "nome": "Instituto Empreender Cultura",
+    "email": "adriana@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 26
+  },
+  {
+    "origemId": 21,
+    "nome": "Banda Marcial Estudantil Municipal De Camaçari",
+    "email": "gildemar@gmail.com",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 27
+  },
+  {
+    "origemId": 22,
+    "nome": "Associação Cultural Casa Do Acolhimento",
+    "email": "eduardo@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 28
+  },
+  {
+    "origemId": 23,
+    "nome": "Conselho De Moradores Nova Arembepe E Rancho Alegre",
+    "email": "carla@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 29
+  },
+  {
+    "origemId": 24,
+    "nome": "Instituto Social Novas Loretas",
+    "email": "celi@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 30
+  },
+  {
+    "origemId": 25,
+    "nome": "Associacao De Apoio Social E Defesa Dos Comerciantes De Festas Populares De Arembepe E Adjacencias",
+    "email": "lucidalva@gmail.com",
+    "categoria": "direitos",
+    "resultado": "pendente",
+    "solicitacaoId": 31
+  },
+  {
+    "origemId": 26,
+    "nome": "Associação De Moradores Do Loteamento Por Do Sol",
+    "email": "rubem@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 32
+  },
+  {
+    "origemId": 27,
+    "nome": "Associacao Dos Agentes Comunitarios De Saude",
+    "email": "marla@gmail.com",
+    "categoria": "saude",
+    "resultado": "pendente",
+    "solicitacaoId": 33
+  },
+  {
+    "origemId": 28,
+    "nome": "Assembleia De Deus Vivendo O Evangelho Do Reino",
+    "email": "sidnei@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 34
+  }
+]

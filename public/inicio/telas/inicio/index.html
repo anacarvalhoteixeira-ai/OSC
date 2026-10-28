@@ -1,5 +1,9 @@
 <section id="pagina-inicio" data-pagina>
           <div class="cabecalho-resumo"><h2 id="titulo-inicio">Visão geral</h2><span id="perfil-atual">Rede UOSCC</span></div>
+          <aside id="aviso-solicitacoes" class="aviso-solicitacoes" hidden aria-label="Solicitações pendentes">
+            <div><strong><span id="quantidade-solicitacoes">0</span> solicitações pendentes</strong><p>Novos pedidos de acesso aguardam sua análise.</p></div>
+            <a href="#solicitacoes" data-secao="solicitacoes" class="btn-primario">Ver solicitações</a>
+          </aside>
           <section
             id="indicadores"
             class="mb-9 grid grid-cols-1 gap-3 sm:grid-cols-3"
@@ -103,9 +107,8 @@
         </section>
 
 <section id="pagina-pessoas" data-pagina class="hidden" aria-labelledby="titulo-pessoas">
-  <h2 id="titulo-pessoas" class="mb-6 text-2xl font-bold">Pessoas e acessos</h2>
           <section id="gestao-equipe" class="equipe-painel" hidden>
-            <div class="equipe-cabecalho"><div><h3>Pessoas e acessos</h3></div><button type="button" id="abrir-membro" class="btn-primario">+ Adicionar pessoa</button></div>
+            <div class="equipe-cabecalho"><h2 id="titulo-pessoas" class="text-2xl font-bold">Pessoas e acessos</h2><button type="button" id="abrir-membro" class="btn-primario">+ Adicionar pessoa</button></div>
             <p id="equipe-feedback" role="status" aria-live="polite"></p>
             <form id="form-membro" hidden>
               <h4 id="membro-titulo">Novo acesso</h4>

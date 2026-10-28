@@ -32,7 +32,17 @@ form.addEventListener("submit", async (e) => {
     const destino = form.lembrar.checked ? localStorage : sessionStorage;
     destino.setItem("uoscc_token", dados.token);
     destino.setItem("uoscc_usuario", JSON.stringify(dados.usuario));
-    location.replace(URL_PAINEL);
+    let destinoPainel = URL_PAINEL;
+    if (dados.usuario.papel === "RESPONSAVEL_UOSCC") {
+      try {
+        const pendentes = await fetch("/api/usuarios/solicitacoes?status=PENDENTE", {
+          headers: { Authorization: `Bearer ${dados.token}` },
+          signal: AbortSignal.timeout(5000),
+        });
+        if (pendentes.ok && (await pendentes.json()).solicitacoes?.length) destinoPainel += "#solicitacoes";
+      } catch { /* A visão geral permite consultar os pedidos novamente. */ }
+    }
+    location.replace(destinoPainel);
   } catch (erro) {
     mostrarErro(erro.message);
     botao.disabled = false;

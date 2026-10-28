@@ -52,7 +52,7 @@ export function criarModuloDemandas({ usuario, api, ir, avisar, esc, fmtData, pa
     const descricao = resumo.querySelector(":scope > div");
     if (descricao) {
       descricao.classList.add("demanda-descricao-principal");
-      resumo.prepend(descricao);
+      resumo.append(descricao);
     }
     $("historico-demanda").innerHTML = d.historico.map(h => `<li><div class="flex flex-wrap justify-between gap-2 text-sm"><strong>${esc(h.usuario.nome)}</strong><time datetime="${esc(h.criadoEm)}" class="text-slate-500 dark:text-slate-300">${esc(dataHora(h.criadoEm))}</time></div><p class="my-2 text-sm">${h.tipo === "CRIACAO" ? "Demanda criada" : h.tipo === "EDICAO" ? "Dados da demanda atualizados" : "Atendimento registrado"} · ${h.statusAnterior && h.statusAnterior !== h.statusNovo ? `${esc(STATUS_DEMANDA[h.statusAnterior])} → ` : ""}${esc(STATUS_DEMANDA[h.statusNovo])}</p>${h.resposta ? `<h4 class="text-sm font-semibold">Resposta</h4><p class="demanda-texto mb-2 text-sm">${esc(h.resposta)}</p>` : ""}${h.observacao ? `<h4 class="text-sm font-semibold">Observação</h4><p class="demanda-texto text-sm">${esc(h.observacao)}</p>` : ""}${podeAtenderDemanda(usuario) && h.tipo === "ATENDIMENTO" && h.usuario.id === usuario.id ? `<button type="button" data-excluir-atendimento="${h.id}" class="excluir-registro-atendimento">Excluir registro</button>` : ""}</li>`).join("");
     $("sem-historico-demanda").hidden = d.historico.length > 0;

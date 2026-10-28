@@ -1,0 +1,143 @@
+[
+  {
+    "origemId": 1,
+    "nome": "União das Organizações Sociais e Culturais de Camaçari",
+    "email": "redegc@gmail.com",
+    "categoria": "social",
+    "resultado": "pendente",
+    "solicitacaoId": 9
+  },
+  {
+    "origemId": 2,
+    "nome": "Instituto Cidade Verde - Conselho dos Moradores",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 3,
+    "nome": "Associacao Beneficente Mãe Da Terra",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 4,
+    "nome": "Associação De Karatê Litoral Norte Da Bahia",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 5,
+    "nome": "Centro Comunitario De Atividades Socio Educativas Do Triangulo",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 6,
+    "nome": "Associação Beneficente De Jauá",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 7,
+    "nome": "Associação De Moradores Do Sitio Tereré",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 8,
+    "nome": "Academia De Formacao De Craques Divino Oliverio",
+    "email": "colomboaguiar@bol.com.br",
+    "categoria": "cultura",
+    "resultado": "pendente",
+    "solicitacaoId": 10
+  },
+  {
+    "origemId": 9,
+    "nome": "ASSOCIACAO DE PROTECAO E DESENVOLVIMENTO DA CRIANCA, DO ADOLESCENTE E DO IDOSO",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 10,
+    "nome": "MINISTÉRIO BATISTA ALABASTRO",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 11,
+    "nome": "Centro De Apoio Aos Esportes E A Cidadania",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 12,
+    "nome": "Associação Dos Locutores De Camaçari E Região Metropolitana De Salvador",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 13,
+    "nome": "Centro De Apoio A Saúde E Assistência Social",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 14,
+    "nome": "Instituto Educacional Professora Zélia Maria",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 15,
+    "nome": "Centro Cultural Deus E As Aguas",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 16,
+    "nome": "Associacao Beneficente Cristo É Vida",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 17,
+    "nome": "Associação De Moradores Do Parque Balneário Senhor Do Bomfim Parque Verde Lll",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 18,
+    "nome": "Associação Dos Moradores Do Jardim Brasília",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 19,
+    "nome": "Instituto Empreender Cultura",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 21,
+    "nome": "Banda Marcial Estudantil Municipal De Camaçari",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 22,
+    "nome": "Associação Cultural Casa Do Acolhimento",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 23,
+    "nome": "Conselho De Moradores Nova Arembepe E Rancho Alegre",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 24,
+    "nome": "Instituto Social Novas Loretas",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 25,
+    "nome": "Associacao De Apoio Social E Defesa Dos Comerciantes De Festas Populares De Arembepe E Adjacencias",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 26,
+    "nome": "Associação De Moradores Do Loteamento Por Do Sol",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 27,
+    "nome": "Associacao Dos Agentes Comunitarios De Saude",
+    "resultado": "sem_email"
+  },
+  {
+    "origemId": 28,
+    "nome": "Assembleia De Deus Vivendo O Evangelho Do Reino",
+    "resultado": "sem_email"
+  }
+]

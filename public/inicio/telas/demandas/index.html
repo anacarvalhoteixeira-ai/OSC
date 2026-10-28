@@ -26,14 +26,15 @@
 </section>
 
 <section id="pagina-detalhe-demanda" data-pagina class="hidden" aria-labelledby="titulo-detalhe-demanda">
-  <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
-    <div><div id="ficha-demanda-status" class="mb-3 flex flex-wrap items-center gap-3"></div><h2 id="titulo-detalhe-demanda" class="mt-2 text-2xl font-bold text-[#122957] dark:text-white">Detalhes da demanda</h2></div>
-    <button type="button" data-secao="demandas" class="btn-secundario">Voltar às demandas</button>
-  </header>
+
   <p id="detalhe-demanda-feedback" role="status" aria-live="polite" class="mb-4 text-sm"></p>
   <button id="recarregar-detalhe-demanda" type="button" class="btn-secundario mb-4" hidden>Atualizar detalhes</button>
   <div id="detalhe-demanda-conteudo" hidden>
     <article class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+        <header class="ficha-demanda-topo">
+    <div><div id="ficha-demanda-status" class="mb-3 flex flex-wrap items-center gap-3"></div><h2 id="titulo-detalhe-demanda" class="mt-2 text-2xl font-bold text-[#122957] dark:text-white">Detalhes da demanda</h2></div>
+
+  </header>
       <div id="detalhe-demanda-resumo" class="space-y-4"></div>
       <button id="editar-demanda-detalhe" type="button" class="btn-secundario mt-5" hidden>Editar demanda</button>
     </article>
