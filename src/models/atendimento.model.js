@@ -25,7 +25,7 @@ export function listarAtendimentos({ organizacaoId, projetoId, de, ate } = {}) {
 
 export const buscarAtendimento = (id) => prisma.registroAtendimento.findUnique({ where: { id }, select: campos });
 export const buscarProjetoDaOsc = (id) =>
-  prisma.projeto.findUnique({ where: { id }, select: { id: true, organizacaoId: true } });
+  prisma.projeto.findUnique({ where: { id }, select: { id: true, organizacaoId: true, tipo: true, todasOscs: true, participantes: { select: { id: true } } } });
 export const criarAtendimento = (data) => prisma.registroAtendimento.create({ data, select: campos });
 export const atualizarAtendimento = (id, data) =>
   prisma.registroAtendimento.update({ where: { id }, data, select: campos });

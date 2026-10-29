@@ -18,6 +18,7 @@ const emailOpcional = z.preprocess(
 ).optional();
 
 const camposOrganizacao = {
+  ativa: z.boolean().optional(),
   nome: z.string().trim().min(2).max(180),
   cnpj,
   categoria: z.enum(categorias),
@@ -59,7 +60,8 @@ export async function listar(req, res) {
     return res.status(400).json({ erro: "Categoria inválida." });
   }
   try {
-    const organizacoes = await listarOrganizacoes({ busca, categoria });
+    if (req.query.ativa && !["true", "false", "todas"].includes(req.query.ativa)) return res.status(400).json({ erro: "Situação inválida." });
+    const organizacoes = await listarOrganizacoes({ busca, categoria, ativa: req.usuario.papel === "RESPONSAVEL_OSC" ? true : (req.query.ativa === "todas" ? null : req.query.ativa !== "false"), organizacaoId: req.usuario.papel === "RESPONSAVEL_OSC" ? req.usuario.organizacaoId : undefined });
     return res.json({ organizacoes });
   } catch (erro) {
     return falha(res, erro);
@@ -112,11 +114,14 @@ export async function atualizar(req, res) {
     }
     const camposBloqueados = Object.keys(dados).filter((campo) => !camposEditaveisPelaOsc.has(campo));
     if (camposBloqueados.length) {
-      return res.status(403).json({ erro: "Nome e CNPJ devem ser alterados pela equipe UOSCC." });
+      return res.status(403).json({ erro: "Nome, CNPJ e situação devem ser alterados pela equipe UOSCC." });
     }
   }
 
   try {
+    const atual = await buscarOrganizacao(id);
+    if (!atual) return res.status(404).json({ erro: "OSC não encontrada." });
+    if (!atual.ativa && !(req.usuario.papel === "RESPONSAVEL_UOSCC" && dados.ativa === true)) return res.status(409).json({ erro: "Reative a OSC para alterar seus dados. Seu histórico permanece disponível para consulta." });
     const organizacao = await atualizarOrganizacao(id, dados);
     return res.json({ organizacao });
   } catch (erro) {

@@ -1,4 +1,9 @@
 <section id="pagina-inicio" data-pagina>
+          <div class="cabecalho-resumo"><h2 id="titulo-inicio">Visão geral</h2><span id="perfil-atual">Rede UOSCC</span></div>
+          <aside id="aviso-solicitacoes" class="aviso-solicitacoes" hidden aria-label="Solicitações pendentes">
+            <div><strong><span id="quantidade-solicitacoes">0</span> solicitações pendentes</strong><p>Novos pedidos de acesso aguardam sua análise.</p></div>
+            <a href="#solicitacoes" data-secao="solicitacoes" class="btn-primario">Ver solicitações</a>
+          </aside>
           <section
             id="indicadores"
             class="mb-9 grid grid-cols-1 gap-3 sm:grid-cols-3"
@@ -10,7 +15,7 @@
               <!-- soma de projeto,pessoas atendidas e etc -->
               <p
                 id="numeracao-pessoas"
-                class="text-2xl font-bold text-orange-400"
+                class="text-2xl font-bold"
               >
                 0
               </p>
@@ -21,7 +26,7 @@
               id="card-oscs"
               class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800"
             >
-              <p id="total-oscs" class="text-2xl font-bold text-emerald-600">
+              <p id="total-oscs" class="text-2xl font-bold">
                 0
               </p>
               <p class="text-xs text-slate-500 dark:text-slate-300">
@@ -35,16 +40,17 @@
             >
               <p
                 id="total-demandas"
-                class="text-2xl font-bold text-emerald-600"
+                class="text-2xl font-bold"
               >
                 0
               </p>
               <p class="text-xs text-slate-500 dark:text-slate-300">
-                Demandas abertas
+                Projetos na rede
               </p>
             </article>
           </section>
 
+          <h3 class="titulo-atalhos">Acesso rápido</h3>
           <!-- Botões de atalho -->
           <section
             id="acessos-rapidos"
@@ -55,28 +61,28 @@
               data-secao="oscs"
               class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
             >
-              🏛️ OSCs
+              <span>Organizações</span><span class="atalho-seta" aria-hidden="true">→</span>
             </button>
             <button
               type="button"
               data-secao="projetos"
               class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
             >
-              📋 Projetos
+              <span>Projetos</span><span class="atalho-seta" aria-hidden="true">→</span>
             </button>
             <button
               type="button"
               data-secao="demandas"
               class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
             >
-              🙋 Demandas
+              <span>Demandas</span><span class="atalho-seta" aria-hidden="true">→</span>
             </button>
             <button
               type="button"
               data-secao="relatorios"
               class="cartao-acesso flex min-h-40 items-center justify-center gap-2 rounded-2xl bg-slate-50 p-6 text-xl font-semibold text-[#122957] shadow-sm hover:shadow-md dark:bg-slate-800 dark:text-white"
             >
-              📝 Relatórios
+              <span>Relatórios</span><span class="atalho-seta" aria-hidden="true">→</span>
             </button>
           </section>
 
@@ -84,12 +90,38 @@
             class="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800"
           >
             <h3 class="mb-4 text-sm font-bold text-[#122957] dark:text-white">
-              ⏰ Demandas atuais
+              Projetos recentes
             </h3>
             <div id="lista-lembretes">
               <p class="text-sm text-slate-500 dark:text-slate-400">
-                Nenhum lembrete cadastrado no momento.
+                Nenhum projeto cadastrado.
               </p>
             </div>
           </section>
+          <section id="pessoas-recentes" class="equipe-painel" hidden>
+            <div class="equipe-cabecalho"><h3>Cadastros recentes</h3><a href="#pessoas" data-secao="pessoas" class="btn-secundario">Ver todas as pessoas</a></div>
+            <p id="pessoas-recentes-feedback" role="status"></p>
+            <ul id="pessoas-recentes-lista"></ul>
+          </section>
+
         </section>
+
+<section id="pagina-pessoas" data-pagina class="hidden" aria-labelledby="titulo-pessoas">
+          <section id="gestao-equipe" class="equipe-painel" hidden>
+            <div class="equipe-cabecalho"><h2 id="titulo-pessoas" class="text-2xl font-bold">Pessoas e acessos</h2><button type="button" id="abrir-membro" class="btn-primario">+ Adicionar pessoa</button></div>
+            <p id="equipe-feedback" role="status" aria-live="polite"></p>
+            <form id="form-membro" hidden>
+              <h4 id="membro-titulo">Novo acesso</h4>
+              <div class="equipe-campos">
+                <label class="rotulo">Nome completo<input class="campo" name="nome" required minlength="2" maxlength="120" autocomplete="name"></label>
+                <label class="rotulo">E-mail<input class="campo" name="email" type="email" required maxlength="191" autocomplete="email"></label>
+                <label class="rotulo">Senha inicial<input class="campo" name="senha" type="password" required minlength="8" autocomplete="new-password"></label>
+                <label class="rotulo">Perfil<select class="campo" name="papel" id="membro-papel"></select></label>
+              </div>
+              <label id="membro-vinculo" class="rotulo">OSC autorizada<select id="membro-organizacao" class="campo"></select></label>
+              <label class="rotulo"><span><input id="membro-ativo" type="checkbox" checked> Acesso ativo</span></label>
+              <div class="equipe-acoes"><button type="submit" class="btn-primario">Salvar acesso</button><button type="button" id="cancelar-membro" class="btn-secundario">Cancelar</button></div>
+            </form>
+            <ul id="equipe-lista" aria-label="Pessoas da equipe"></ul>
+          </section>
+</section>

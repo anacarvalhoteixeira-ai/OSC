@@ -18,6 +18,7 @@ export async function listar(req, res) {
   try {
     const solicitacoes = await prisma.solicitacaoCadastro.findMany({
       where: filtros.status ? { status: filtros.status } : {},
+      omit: { senhaUsuario: true },
       include: {
         organizacao: { select: { id: true, nome: true, cnpj: true, responsavel: true } },
         analisadoPor: { select: { id: true, nome: true, email: true } },
@@ -53,7 +54,12 @@ export async function aprovar(req, res) {
         throw new Error("Um usuário não pode aprovar a sua própria solicitação.");
       }
 
+      const reserva = await tx.solicitacaoCadastro.updateMany({ where: { id, status: "PENDENTE" }, data: { status: "APROVADA", analisadoPorId: req.usuario.id, dataAnalise: new Date() } });
+      if (reserva.count !== 1) throw new Error("Esta solicitação já foi analisada.");
       let oscIdFinal = solicitacao.organizacaoId;
+      if (solicitacao.tipo === "VINCULO_OSC" && !await tx.organizacao.findFirst({ where: { id: oscIdFinal ?? -1, ativa: true }, select: { id: true } })) {
+        throw new Error("A OSC do vínculo está inativa ou não foi encontrada.");
+      }
 
       if (solicitacao.tipo === "NOVA_OSC") {
         // Checagem de concorrência antes de criar a OSC
@@ -90,9 +96,11 @@ export async function aprovar(req, res) {
           senha: solicitacao.senhaUsuario,
           telefone: solicitacao.telefoneUsuario,
           papel: "RESPONSAVEL_OSC",
+
           ativo: true,
           organizacaoId: oscIdFinal,
         },
+        select: { id: true, nome: true, email: true, papel: true, organizacaoId: true },
       });
 
       // Atualiza o registro da solicitação
@@ -106,7 +114,7 @@ export async function aprovar(req, res) {
         },
       });
 
-      return { usuario: novoUsuario, solicitacao: solAtualizada };
+      return { usuario: novoUsuario, solicitacao: { id: solAtualizada.id, status: solAtualizada.status } };
     });
 
     return res.json({
@@ -133,20 +141,12 @@ export async function recusar(req, res) {
       return res.status(400).json({ erro: "Esta solicitação já foi analisada anteriormente." });
     }
 
-    const solRecusada = await prisma.solicitacaoCadastro.update({
-      where: { id },
-      data: {
-        status: "RECUSADA",
-        motivoRecusa: dados.motivo,
-        analisadoPorId: req.usuario.id,
-        dataAnalise: new Date(),
-      },
+    const resultado = await prisma.solicitacaoCadastro.updateMany({
+      where: { id, status: "PENDENTE" },
+      data: { status: "RECUSADA", motivoRecusa: dados.motivo, analisadoPorId: req.usuario.id, dataAnalise: new Date() },
     });
-
-    return res.json({
-      mensagem: "Solicitação recusada e motivo registrado no histórico.",
-      solicitacao: solRecusada,
-    });
+    if (resultado.count !== 1) return res.status(409).json({ erro: "Esta solicitação já foi analisada." });
+    return res.json({ mensagem: "Solicitação recusada e motivo registrado no histórico." });
   } catch (erro) {
     return erroPrisma(res, erro);
   }

@@ -1,0 +1,2672 @@
+[
+  {
+    "page": 0,
+    "x": 15,
+    "y": 22.193848,
+    "text": "ID"
+  },
+  {
+    "page": 0,
+    "x": 81,
+    "y": 22.193848,
+    "text": "OSC"
+  },
+  {
+    "page": 0,
+    "x": 190,
+    "y": 22.193848,
+    "text": "NOME"
+  },
+  {
+    "page": 0,
+    "x": 276,
+    "y": 22.193848,
+    "text": "REPRESENTANTE"
+  },
+  {
+    "page": 0,
+    "x": 443,
+    "y": 22.193848,
+    "text": "ENDEREÇO"
+  },
+  {
+    "page": 0,
+    "x": 623,
+    "y": 22.193848,
+    "text": "CEP"
+  },
+  {
+    "page": 0,
+    "x": 757,
+    "y": 22.193848,
+    "text": "CIDADE"
+  },
+  {
+    "page": 0,
+    "x": 900,
+    "y": 22.193848,
+    "text": "ESTADO"
+  },
+  {
+    "page": 0,
+    "x": 1004,
+    "y": 22.193848,
+    "text": "TELEFONE CONTATO"
+  },
+  {
+    "page": 0,
+    "x": 1158,
+    "y": 22.193848,
+    "text": "WHATSAPP"
+  },
+  {
+    "page": 0,
+    "x": 1273,
+    "y": 22.193848,
+    "text": "E-MAIL"
+  },
+  {
+    "page": 0,
+    "x": 1379,
+    "y": 22.193848,
+    "text": "CNPJ"
+  },
+  {
+    "page": 0,
+    "x": 1452,
+    "y": 22.193848,
+    "text": "SITUAÇÃO NA RECEITA"
+  },
+  {
+    "page": 0,
+    "x": 1621,
+    "y": 22.193848,
+    "text": "PÚBLICO-ALVO"
+  },
+  {
+    "page": 0,
+    "x": 1738,
+    "y": 22.193848,
+    "text": "PRINCIPAIS ATIVIDADES"
+  },
+  {
+    "page": 0,
+    "x": 1905,
+    "y": 22.193848,
+    "text": "REDES SOCIAIS"
+  },
+  {
+    "page": 0,
+    "x": 2037,
+    "y": 14.193848,
+    "text": "SERVIÇOS "
+  },
+  {
+    "page": 0,
+    "x": 2030,
+    "y": 29.142578,
+    "text": "REALIZADOS"
+  },
+  {
+    "page": 0,
+    "x": 2153,
+    "y": 14.193848,
+    "text": "OPORTUNIDADES "
+  },
+  {
+    "page": 0,
+    "x": 2164,
+    "y": 29.142578,
+    "text": "VOLUNTÁRIOS"
+  },
+  {
+    "page": 0,
+    "x": 2310,
+    "y": 14.193848,
+    "text": "OBSERVAÇÕES "
+  },
+  {
+    "page": 0,
+    "x": 2332,
+    "y": 29.142578,
+    "text": "ESTÁGIO"
+  },
+  {
+    "page": 0,
+    "x": 2447,
+    "y": 22.193848,
+    "text": "SITUAÇÃO"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 177.19385,
+    "text": "1"
+  },
+  {
+    "page": 0,
+    "x": 72,
+    "y": 177.19385,
+    "text": "UOSCC"
+  },
+  {
+    "page": 0,
+    "x": 178,
+    "y": 154.19385,
+    "text": "União das "
+  },
+  {
+    "page": 0,
+    "x": 167,
+    "y": 169.14258,
+    "text": "Organizações "
+  },
+  {
+    "page": 0,
+    "x": 153,
+    "y": 184.09131,
+    "text": "Sociais e Culturais "
+  },
+  {
+    "page": 0,
+    "x": 172,
+    "y": 199.04004,
+    "text": "de Camaçari"
+  },
+  {
+    "page": 0,
+    "x": 292,
+    "y": 177.19385,
+    "text": "Antônio Costa"
+  },
+  {
+    "page": 0,
+    "x": 401,
+    "y": 177.19385,
+    "text": "Rua da Glória, 26, Gleba C"
+  },
+  {
+    "page": 0,
+    "x": 605,
+    "y": 177.19385,
+    "text": "42807-085"
+  },
+  {
+    "page": 0,
+    "x": 754,
+    "y": 177.19385,
+    "text": "Camaçari"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 177.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1028,
+    "y": 177.19385,
+    "text": "71 98101-7384"
+  },
+  {
+    "page": 0,
+    "x": 1151,
+    "y": 177.19385,
+    "text": "71 98101-7384"
+  },
+  {
+    "page": 0,
+    "x": 1252,
+    "y": 169.19385,
+    "text": "redegc@gmail."
+  },
+  {
+    "page": 0,
+    "x": 1283,
+    "y": 184.14258,
+    "text": "com"
+  },
+  {
+    "page": 0,
+    "x": 1364,
+    "y": 169.19385,
+    "text": "01.852.737"
+  },
+  {
+    "page": 0,
+    "x": 1371,
+    "y": 184.14258,
+    "text": "/0001-03"
+  },
+  {
+    "page": 0,
+    "x": 1509,
+    "y": 177.19385,
+    "text": "ATIVA"
+  },
+  {
+    "page": 0,
+    "x": 1611,
+    "y": 177.19385,
+    "text": "OSC e Comunidade"
+  },
+  {
+    "page": 0,
+    "x": 2136,
+    "y": 132.19385,
+    "text": "Assistente Administrativo; "
+  },
+  {
+    "page": 0,
+    "x": 2157,
+    "y": 147.14258,
+    "text": "Cuidador de Horta "
+  },
+  {
+    "page": 0,
+    "x": 2134,
+    "y": 162.09131,
+    "text": "Comunitária; Estágios nas "
+  },
+  {
+    "page": 0,
+    "x": 2138,
+    "y": 177.04004,
+    "text": "áreas de Administração / "
+  },
+  {
+    "page": 0,
+    "x": 2137,
+    "y": 191.98877,
+    "text": "Psicologia / Fisioterapia / "
+  },
+  {
+    "page": 0,
+    "x": 2160,
+    "y": 206.9375,
+    "text": "Psicopedagogia / "
+  },
+  {
+    "page": 0,
+    "x": 2176,
+    "y": 221.88623,
+    "text": "Informática  "
+  },
+  {
+    "page": 0,
+    "x": 2330,
+    "y": 49.193848,
+    "text": "A UOSCC "
+  },
+  {
+    "page": 0,
+    "x": 2296,
+    "y": 64.14258,
+    "text": "disponibiliza os epaço "
+  },
+  {
+    "page": 0,
+    "x": 2299,
+    "y": 79.09131,
+    "text": "e auxilia na captação "
+  },
+  {
+    "page": 0,
+    "x": 2313,
+    "y": 94.04004,
+    "text": "do público alvo / "
+  },
+  {
+    "page": 0,
+    "x": 2300,
+    "y": 108.98877,
+    "text": "atividades, porém as "
+  },
+  {
+    "page": 0,
+    "x": 2295,
+    "y": 123.9375,
+    "text": "empresas / insituições "
+  },
+  {
+    "page": 0,
+    "x": 2319,
+    "y": 138.88623,
+    "text": "de ensino que "
+  },
+  {
+    "page": 0,
+    "x": 2319,
+    "y": 153.83496,
+    "text": "precisarem de "
+  },
+  {
+    "page": 0,
+    "x": 2296,
+    "y": 168.78369,
+    "text": "convênio para estágio "
+  },
+  {
+    "page": 0,
+    "x": 2325,
+    "y": 183.73242,
+    "text": "precisam se "
+  },
+  {
+    "page": 0,
+    "x": 2302,
+    "y": 198.68115,
+    "text": "responsabilizar pela "
+  },
+  {
+    "page": 0,
+    "x": 2312,
+    "y": 213.62988,
+    "text": "carga-horária / e "
+  },
+  {
+    "page": 0,
+    "x": 2304,
+    "y": 228.57861,
+    "text": "responsavbilidades "
+  },
+  {
+    "page": 0,
+    "x": 2323,
+    "y": 243.52734,
+    "text": "trabalhistas / "
+  },
+  {
+    "page": 0,
+    "x": 2308,
+    "y": 258.47607,
+    "text": "contratos  com os "
+  },
+  {
+    "page": 0,
+    "x": 2299,
+    "y": 273.4248,
+    "text": "profissionais que vão "
+  },
+  {
+    "page": 0,
+    "x": 2299,
+    "y": 288.37354,
+    "text": "fazer a precepção de "
+  },
+  {
+    "page": 0,
+    "x": 2339,
+    "y": 303.32227,
+    "text": "estágio."
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 339.19385,
+    "text": "2"
+  },
+  {
+    "page": 0,
+    "x": 48,
+    "y": 354.24512,
+    "text": "Falta Sigla"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 324.34766,
+    "text": "Instituto Cidade "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 339.2964,
+    "text": "Verde - Conselho "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 354.24512,
+    "text": "dos Moradores"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 354.24512,
+    "text": "Cristóvam Colombo"
+  },
+  {
+    "page": 0,
+    "x": 713,
+    "y": 354.24512,
+    "text": "Camaçari"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 339.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 354.24512,
+    "text": "71 98156-5059"
+  },
+  {
+    "page": 0,
+    "x": 1148,
+    "y": 354.24512,
+    "text": "72 98156-5059"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 399.19385,
+    "text": "3"
+  },
+  {
+    "page": 0,
+    "x": 77,
+    "y": 399.19385,
+    "text": "ABMT"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 374.19385,
+    "text": "Associacao "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 389.14258,
+    "text": "Beneficente Mãe "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 404.0913,
+    "text": "Da Terra"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 375.4103,
+    "text": "Jaciara Menezes "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 391.8503,
+    "text": "Carvalho"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 375.4103,
+    "text": "Rua Gerônimo Marinho, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 391.8503,
+    "text": "nº 57, Monte Gordo "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 408.2903,
+    "text": "(Monte Gordo), "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 424.73035,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 604,
+    "y": 425.24512,
+    "text": " 42839-786"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 399.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 375.4103,
+    "text": "71 9 9915 5686"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 376.62677,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 470.19385,
+    "text": "4"
+  },
+  {
+    "page": 0,
+    "x": 57,
+    "y": 470.19385,
+    "text": "ASKALIN-BA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 445.19385,
+    "text": "Associação De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 460.14258,
+    "text": "Karatê Litoral Norte "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 475.0913,
+    "text": "Da Bahia"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 446.4103,
+    "text": "Tiago Nascimento "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 462.8503,
+    "text": "Teixeira"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 446.4103,
+    "text": "Rua Água Doce, Jauá, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 462.8503,
+    "text": "Pé de Areia (Abrantes), "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 479.2903,
+    "text": "CEP: 42829-190, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 495.73035,
+    "text": "Camaçari/BA"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 470.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 446.4103,
+    "text": "71 9984-3342"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 447.62677,
+    "text": "Ainda em andamento"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 541.19385,
+    "text": "5"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 516.19385,
+    "text": "Centro Comunitario "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 531.1426,
+    "text": "De Atividades Socio "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 546.0913,
+    "text": "Educativas Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 561.04004,
+    "text": "Triangulo"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 517.4103,
+    "text": "Luís Sérgio "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 533.85034,
+    "text": "Rocha Brandão"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 517.4103,
+    "text": "Rua Santo Antônio, nº "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 533.85034,
+    "text": "154, Camaçari de "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 550.29034,
+    "text": "Dentro, CEP: 42804-479, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 566.73035,
+    "text": "Camaçari - Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 541.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 517.4103,
+    "text": "71 99632 5464"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 518.6268,
+    "text": "Inapta"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 612.19385,
+    "text": "6"
+  },
+  {
+    "page": 0,
+    "x": 55,
+    "y": 597.19385,
+    "text": "SOCIEDADE "
+  },
+  {
+    "page": 0,
+    "x": 48,
+    "y": 612.1426,
+    "text": "BENEFICENTE "
+  },
+  {
+    "page": 0,
+    "x": 68,
+    "y": 627.0913,
+    "text": "DE JAUÁ"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 587.19385,
+    "text": "Associação "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 602.1426,
+    "text": "Beneficente De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 617.0913,
+    "text": "Jauá"
+  },
+  {
+    "page": 0,
+    "x": 273,
+    "y": 588.4103,
+    "text": "Roberto de Souza "
+  },
+  {
+    "page": 0,
+    "x": 309,
+    "y": 604.85034,
+    "text": "Amarijo"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 588.4103,
+    "text": "Rua Direta de Jauá, s/n, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 604.85034,
+    "text": "Jauá, Distrito de "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 621.29034,
+    "text": "Abrantes, CEP: 42828-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 637.73035,
+    "text": "576, Camaçari-BA"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 612.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 588.4103,
+    "text": "71 98532 8435"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 589.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 691.19385,
+    "text": "7"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 658.19385,
+    "text": "Associação De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 673.1426,
+    "text": "Moradores Do Sitio "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 688.0913,
+    "text": "Tereré"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 659.4103,
+    "text": "Jonatas "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 675.85034,
+    "text": "Fernandes Lemos"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 659.4103,
+    "text": "Rua do Sossego, nº 13-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 675.85034,
+    "text": "B, Sitio Tereré, Catu de "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 692.29034,
+    "text": "Abrantes, (Abrantes), "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 708.73035,
+    "text": "CEP: 42800-970, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 725.17035,
+    "text": "Camaçari – BA"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 691.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 659.4103,
+    "text": "71 9294 5424"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 660.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 767.19385,
+    "text": "8"
+  },
+  {
+    "page": 0,
+    "x": 83,
+    "y": 767.19385,
+    "text": "CAF"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 745.19385,
+    "text": "Academia De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 760.1426,
+    "text": "Formacao De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 775.0913,
+    "text": "Craques Divino "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 790.04004,
+    "text": "Oliverio"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 746.4103,
+    "text": "Cristóvão "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 762.85034,
+    "text": "Colombo Ferreira "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 779.29034,
+    "text": "de Aguiar"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 746.4103,
+    "text": "Rua da Glória, nº 26, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 762.85034,
+    "text": "CEP: 42.803-010, Gleba "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 779.29034,
+    "text": "“C”, Camaçari/Ba"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 767.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 746.4103,
+    "text": "(71) 9 8156 5059 "
+  },
+  {
+    "page": 0,
+    "x": 1249,
+    "y": 790.2451,
+    "text": "colomboaguiar@bol.com.br"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 747.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 18,
+    "y": 855.19385,
+    "text": "9"
+  },
+  {
+    "page": 0,
+    "x": 51,
+    "y": 847.19385,
+    "text": "CLINICAMENT"
+  },
+  {
+    "page": 0,
+    "x": 91,
+    "y": 862.1426,
+    "text": "E"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 810.19385,
+    "text": "ASSOCIACAO DE "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 825.1426,
+    "text": "PROTECAO E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 840.0913,
+    "text": "DESENVOLVIMEN"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 855.04004,
+    "text": "TO DA CRIANCA, "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 869.9888,
+    "text": "DO "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 884.9375,
+    "text": "ADOLESCENTE E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 899.8862,
+    "text": "DO IDOSO"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 811.4103,
+    "text": "Daniel dos Santos "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 827.85034,
+    "text": "Reis"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 811.4103,
+    "text": "Rua Custódio da Silva "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 827.85034,
+    "text": "Campos, nº 52, Centro, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 844.29034,
+    "text": "Camaçari/Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 855.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 811.4103,
+    "text": "71 9205 3546"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 812.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 953.19385,
+    "text": "10"
+  },
+  {
+    "page": 0,
+    "x": 81,
+    "y": 953.19385,
+    "text": "MBA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 920.19385,
+    "text": "MINISTÉRIO "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 935.1426,
+    "text": "BATISTA "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 950.0913,
+    "text": "ALABASTRO"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 921.4103,
+    "text": "SEGISNANDO "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 937.85034,
+    "text": "PEREIRA "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 954.29034,
+    "text": "MONTEIRO"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 921.4103,
+    "text": "Avenida Tiradentes, S/N, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 937.85034,
+    "text": "Vila de Abrantes – "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 954.29034,
+    "text": "Abrantes – Camaçari - "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 970.73035,
+    "text": "BA, CEP: 42827-762, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 987.17035,
+    "text": "Camaçari/Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 953.19385,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 921.4103,
+    "text": "(71) 98712-8507 (71) 98657-4391"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 922.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 15,
+    "y": 1024.1938,
+    "text": "11"
+  },
+  {
+    "page": 0,
+    "x": 77,
+    "y": 1024.1938,
+    "text": "CAEC"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1007.19385,
+    "text": "Centro De Apoio "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1022.1426,
+    "text": "Aos Esportes E A "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1037.0913,
+    "text": "Cidadania"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1008.4103,
+    "text": "Domingos Moura "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1024.8503,
+    "text": "de Brito"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1008.4103,
+    "text": "Rua da Glória, nº 26, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1024.8503,
+    "text": "Gleba “C”, 42.807-085, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1041.2903,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1024.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1008.4103,
+    "text": "(71) 98101 7384"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1009.6268,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1091.1938,
+    "text": "12"
+  },
+  {
+    "page": 0,
+    "x": 51,
+    "y": 1076.1938,
+    "text": "ASSOCIAÇÃO "
+  },
+  {
+    "page": 0,
+    "x": 81,
+    "y": 1091.1426,
+    "text": "DOS"
+  },
+  {
+    "page": 0,
+    "x": 53,
+    "y": 1106.0913,
+    "text": " LOCUTORES"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1061.1938,
+    "text": "Associação Dos "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1076.1426,
+    "text": "Locutores De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1091.0913,
+    "text": "Camaçari E Região "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1106.04,
+    "text": "Metropolitana De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1120.9888,
+    "text": "Salvador"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1062.4103,
+    "text": "Ricardo de Assis "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1078.8503,
+    "text": "Pinheiro"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1062.4103,
+    "text": "Caminho do Horizonte, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1078.8503,
+    "text": "nº 16, Gleba “E”, CEP. "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1095.2903,
+    "text": "42808-131, Camaçari - "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1111.7303,
+    "text": "Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1091.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1062.4103,
+    "text": "(71) 9 9680 7374"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1063.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1158.1938,
+    "text": "13"
+  },
+  {
+    "page": 0,
+    "x": 78,
+    "y": 1158.1938,
+    "text": "CASA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1141.1938,
+    "text": "Centro De Apoio A "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1156.1426,
+    "text": "Saúde E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1171.0913,
+    "text": "Assistência Social"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1142.4103,
+    "text": "Jocinea Mota "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1158.8503,
+    "text": "Nogueira"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1142.4103,
+    "text": "Rua da Glória, nº 26, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1158.8503,
+    "text": "Gleba C, CEP: 42.803-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1175.2903,
+    "text": "010, Camaçari/Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1158.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1220.1938,
+    "text": "14"
+  },
+  {
+    "page": 0,
+    "x": 60,
+    "y": 1205.1938,
+    "text": "INSTITUTO "
+  },
+  {
+    "page": 0,
+    "x": 49,
+    "y": 1220.1426,
+    "text": "PROFESSORA "
+  },
+  {
+    "page": 0,
+    "x": 77,
+    "y": 1235.0913,
+    "text": "ZÉLIA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1195.1938,
+    "text": "Instituto "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1210.1426,
+    "text": "Educacional "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1225.0913,
+    "text": "Professora Zélia "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1240.04,
+    "text": "Maria"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1196.4103,
+    "text": "Edleuza Ferreira "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1212.8503,
+    "text": "de Jesus"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1196.4103,
+    "text": "Rua Marlim Azul, nº: 281, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1212.8503,
+    "text": "Parque Nascente do Rio "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1229.2903,
+    "text": "Capivara, CEP: 42801-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1245.7303,
+    "text": "113, Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1220.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1196.4103,
+    "text": "(71) 99695 2607"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1197.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1291.1938,
+    "text": "15"
+  },
+  {
+    "page": 0,
+    "x": 69,
+    "y": 1284.1938,
+    "text": "ILÊ AXÉ "
+  },
+  {
+    "page": 0,
+    "x": 66,
+    "y": 1299.1426,
+    "text": "IOROMIM"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1266.1938,
+    "text": "Centro Cultural "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1281.1426,
+    "text": "Deus E As Aguas"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1267.4103,
+    "text": "Paulo Ricardo "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1283.8503,
+    "text": "Pedreira de Brito"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1267.4103,
+    "text": "Rua Acalanto, Nº 32, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1283.8503,
+    "text": "Lama Preta, CEP: "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1300.2903,
+    "text": "42.806-390, Camaçari-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1316.7303,
+    "text": "Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1291.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1268.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1362.1938,
+    "text": "16"
+  },
+  {
+    "page": 0,
+    "x": 63,
+    "y": 1347.1938,
+    "text": "PROJETO "
+  },
+  {
+    "page": 0,
+    "x": 56,
+    "y": 1362.1426,
+    "text": "MINGAU DO "
+  },
+  {
+    "page": 0,
+    "x": 70,
+    "y": 1377.0913,
+    "text": "MENINO"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1337.1938,
+    "text": "Associacao "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1352.1426,
+    "text": "Beneficente Cristo "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1367.0913,
+    "text": "É Vida"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1338.4103,
+    "text": "Jaqueline de "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1354.8503,
+    "text": "Souza Braga"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1338.4103,
+    "text": "Rua Novo Horizonte, s/n, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1354.8503,
+    "text": "CEP: 42825-120, Catu "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1371.2903,
+    "text": "de Abrantes, Camaçari - "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1387.7303,
+    "text": "Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1362.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1339.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1441.1938,
+    "text": "17"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1408.1938,
+    "text": "Associação De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1423.1426,
+    "text": "Moradores Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1438.0913,
+    "text": "Parque Balneário "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1453.04,
+    "text": "Senhor Do Bomfim "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1467.9888,
+    "text": "Parque Verde Lll"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1409.4103,
+    "text": "Rua Direta da "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1425.8503,
+    "text": "Massaranduba,  "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1442.2903,
+    "text": " Nº 1606"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1458.7303,
+    "text": " CEP: 42810-582, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1475.1703,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1441.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1409.4103,
+    "text": "(71) 98290 9474"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1512.1938,
+    "text": "18"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1495.1938,
+    "text": "Associação Dos "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1510.1426,
+    "text": "Moradores Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1525.0913,
+    "text": "Jardim Brasília"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1496.4103,
+    "text": "Fábio de Jesus "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1512.8503,
+    "text": "Almeida"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1496.4103,
+    "text": "Rua do Pardal, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1512.8503,
+    "text": " n° 120"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1529.2903,
+    "text": " Bairro, Jardim Brasília"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1512.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1496.4103,
+    "text": "(71) 993052437"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1566.1938,
+    "text": "19"
+  },
+  {
+    "page": 0,
+    "x": 85,
+    "y": 1566.1938,
+    "text": "IEC"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1549.1938,
+    "text": "Instituto "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1564.1426,
+    "text": "Empreender "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1579.0913,
+    "text": "Cultura"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1550.4103,
+    "text": "Adriana"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1550.4103,
+    "text": "Rua da Glória, nº 26, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1566.8503,
+    "text": "Gleba C, CEP: 42.803-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1583.2903,
+    "text": "010, Camaçari/Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1566.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1550.4103,
+    "text": "(71) 9 8101 7384"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1551.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1636.1938,
+    "text": "21"
+  },
+  {
+    "page": 0,
+    "x": 67,
+    "y": 1636.1938,
+    "text": "BAMEMC"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1603.1938,
+    "text": "Banda Marcial "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1618.1426,
+    "text": "Estudantil Municipal "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1633.0913,
+    "text": "De Camaçari"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1604.4103,
+    "text": "Gildemar Silva "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1620.8503,
+    "text": "Santos"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1604.4103,
+    "text": "Rua das Conchinhas, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1620.8503,
+    "text": "s/n, Residencial "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1637.2903,
+    "text": "Algarobas I,Santa Maria, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1653.7303,
+    "text": "CEP: 42807-906, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1670.1703,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1636.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1604.4103,
+    "text": "(71) 98321 5713"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1715.1938,
+    "text": "22"
+  },
+  {
+    "page": 0,
+    "x": 77,
+    "y": 1715.1938,
+    "text": "ACCA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1690.1938,
+    "text": "Associação Cultural "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1705.1426,
+    "text": "Casa Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1720.0913,
+    "text": "Acolhimento"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1691.4103,
+    "text": "Eduardo Viana de "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1707.8503,
+    "text": "Jesus Silva"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1691.4103,
+    "text": "Segunda Travessa Rio "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1707.8503,
+    "text": "do Toco, Parque Verde "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1724.2903,
+    "text": "II, CEP: 42808-400, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1740.7303,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1715.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1691.4103,
+    "text": "(71) 98234 1330"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1803.1938,
+    "text": "23"
+  },
+  {
+    "page": 0,
+    "x": 62,
+    "y": 1803.1938,
+    "text": "COMNARA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1761.1938,
+    "text": "Conselho De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1776.1426,
+    "text": "Moradores Nova "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1791.0913,
+    "text": "Arembepe E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1806.04,
+    "text": "Rancho Alegre"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1762.4103,
+    "text": "Carla Miguez do "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1778.8503,
+    "text": "Sacramento Reis"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1762.4103,
+    "text": "Condominio Vivenda de "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1778.8503,
+    "text": "Arembepe 2, Quadra D-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1795.2903,
+    "text": "A, Lote – 01, Arembepe, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1811.7303,
+    "text": "Barra do Jacuipe, CEP: "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1828.1703,
+    "text": "42833-000, Camacari-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1844.6104,
+    "text": "Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1803.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1762.4103,
+    "text": "(71) 9131 1823"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1890.1938,
+    "text": "24"
+  },
+  {
+    "page": 0,
+    "x": 71,
+    "y": 1883.1938,
+    "text": "NOVAS "
+  },
+  {
+    "page": 0,
+    "x": 66,
+    "y": 1898.1426,
+    "text": "LORETAS"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1865.1938,
+    "text": "Instituto Social "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1880.1426,
+    "text": "Novas Loretas"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1866.4103,
+    "text": "Celi Farias dos "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1882.8503,
+    "text": "Santos"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1866.4103,
+    "text": "1ª Travessa Carlos "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1882.8503,
+    "text": "Gomes, nº 03, CEP: "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1899.2903,
+    "text": "40727-065, Periperi, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1915.7303,
+    "text": "Salvador-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1890.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1866.4103,
+    "text": "(71) 98822 8044"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 1981.1938,
+    "text": "25"
+  },
+  {
+    "page": 0,
+    "x": 51,
+    "y": 1951.1938,
+    "text": "ASSOCIACAO "
+  },
+  {
+    "page": 0,
+    "x": 85,
+    "y": 1966.1426,
+    "text": "DE "
+  },
+  {
+    "page": 0,
+    "x": 53,
+    "y": 1981.0913,
+    "text": "BARRAQUEIR"
+  },
+  {
+    "page": 0,
+    "x": 73,
+    "y": 1996.04,
+    "text": "OS DE "
+  },
+  {
+    "page": 0,
+    "x": 59,
+    "y": 2010.9888,
+    "text": "AREMBEPE"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1936.1938,
+    "text": "Associacao De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1951.1426,
+    "text": "Apoio Social E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1966.0913,
+    "text": "Defesa Dos "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1981.04,
+    "text": "Comerciantes De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 1995.9888,
+    "text": "Festas Populares "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2010.9375,
+    "text": "De Arembepe E "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2025.8862,
+    "text": "Adjacencias"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1937.4103,
+    "text": "Lucidalva Souza "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 1953.8503,
+    "text": "Cunha"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1937.4103,
+    "text": "Loteamento Fonte das "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1953.8503,
+    "text": "Águas, Quadra B, Lote "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1970.2903,
+    "text": "17, s/n, CEP: 42.835-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 1986.7303,
+    "text": "000, Arembepe, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2003.1703,
+    "text": "Camaçari-Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 1981.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 1937.4103,
+    "text": "(71) 99659 6259"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 1938.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 2071.1938,
+    "text": "26"
+  },
+  {
+    "page": 0,
+    "x": 77,
+    "y": 2071.1938,
+    "text": "ODSA"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2046.1938,
+    "text": "Associação De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2061.1426,
+    "text": "Moradores Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2076.0913,
+    "text": "Loteamento Por Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2091.04,
+    "text": "Sol"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 2047.4103,
+    "text": "Rubem Alexandre "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 2063.8503,
+    "text": "Vieira"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2047.4103,
+    "text": "Rua Rio Joanes, nº 10, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2063.8503,
+    "text": "CEP: 42.849-000, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2080.2903,
+    "text": "Parafuso, Camaçari-"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2096.7302,
+    "text": "Bahia"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 2071.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 2047.4103,
+    "text": "(71) 998555 0452"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 2139.1938,
+    "text": "27"
+  },
+  {
+    "page": 0,
+    "x": 78,
+    "y": 2139.1938,
+    "text": "AACS"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2117.1938,
+    "text": "Associacao Dos "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2132.1426,
+    "text": "Agentes "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2147.0913,
+    "text": "Comunitarios De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2162.04,
+    "text": "Saude"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 2118.4104,
+    "text": "Marla Lago"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2118.4104,
+    "text": "Rua Abaré, s/n, Gleba C, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2134.8503,
+    "text": "CEP: 42.807-027, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2151.2903,
+    "text": "Camaçari-Ba"
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 2139.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 1003,
+    "y": 2118.4104,
+    "text": "(71) 99720 9281"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 2119.6267,
+    "text": "Ativa"
+  },
+  {
+    "page": 0,
+    "x": 14,
+    "y": 2207.1938,
+    "text": "28"
+  },
+  {
+    "page": 0,
+    "x": 53,
+    "y": 2192.1938,
+    "text": "ASSEMBLEIA "
+  },
+  {
+    "page": 0,
+    "x": 58,
+    "y": 2207.1426,
+    "text": "VIVENDO O "
+  },
+  {
+    "page": 0,
+    "x": 56,
+    "y": 2222.0913,
+    "text": "EVANGELHO"
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2182.1938,
+    "text": "Assembleia De "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2197.1426,
+    "text": "Deus Vivendo O "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2212.0913,
+    "text": "Evangelho Do "
+  },
+  {
+    "page": 0,
+    "x": 151,
+    "y": 2227.04,
+    "text": "Reino"
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 2183.4104,
+    "text": "Sidnei dos Anjos "
+  },
+  {
+    "page": 0,
+    "x": 275,
+    "y": 2199.8503,
+    "text": "Santo"
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2183.4104,
+    "text": "Rua Lamarca, nº 32, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2199.8503,
+    "text": "Nova Vitória, CEP: "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2216.2903,
+    "text": "42802-451, "
+  },
+  {
+    "page": 0,
+    "x": 399,
+    "y": 2232.7302,
+    "text": "Camaçari/Bahia."
+  },
+  {
+    "page": 0,
+    "x": 918,
+    "y": 2207.1938,
+    "text": "BA"
+  },
+  {
+    "page": 0,
+    "x": 2434,
+    "y": 2184.6267,
+    "text": "Ativa"
+  }
+]

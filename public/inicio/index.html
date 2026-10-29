@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>|Painel UOSCC</title>
+    <title>Painel | UOSCC</title>
 
-    <script type="module" src="/inicio/carregar-telas.js"></script>
+    <script type="module" src="/assets/painel.js"></script>
   </head>
 
   <body
@@ -22,6 +22,9 @@
         </div>
 
         <nav class="flex-1 py-3" aria-label="Menu principal">
+          <a href="#beneficiarios" data-menu="beneficiarios" class="menu-link block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10" hidden>Pessoas atendidas</a>
+          <a href="#solicitacoes" data-menu="solicitacoes" class="menu-link block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10" hidden>Solicitações <span id="total-solicitacoes-menu" class="ml-2 text-xs font-bold"></span></a>
+          <a href="#pessoas" data-menu="pessoas" class="menu-link block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10" hidden>Pessoas e acessos</a>
           <a
             href="#inicio"
             data-menu="inicio"
@@ -32,7 +35,7 @@
             href="#oscs"
             data-menu="oscs"
             class="menu-link mt-1 block rounded-r-xl px-4 py-3 text-sm text-blue-100 transition hover:bg-white/10"
-            >OSCs</a
+            >Organizações</a
           >
           <a
             href="#projetos"
@@ -62,7 +65,7 @@
       <!----------- CONTEÚDO PRINCIPAL ---------->
       <main class="min-w-0 flex-1 p-5 sm:p-8">
         <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <h2 class="text-xl font-semibold">Olá, equipe UOSCC!</h2>
+          <div class="saudacao-com-voltar"><button id="voltar-ficha" type="button" class="btn-secundario" hidden>← Voltar</button><p id="saudacao-usuario" class="text-xl font-semibold">Olá! Que bom ter você aqui.</p></div>
 
           <button
             id="botao-tema"
@@ -76,10 +79,12 @@
 
         <!-------------  PÁGINA 1: INÍCIO ------------>
         <div data-tela-placeholder="inicio"></div>
+        <div data-tela-placeholder="solicitacoes"></div>
         <!-- FIM DA PÁGINA 1 -->
 
         <!---------------- PÁGINA 2: LISTA DE OSCs ------------->
         <div data-tela-placeholder="oscs"></div>
+        <div data-tela-placeholder="beneficiarios"></div>
 
         <!---------  FICHA COMPLETA DA OSC ------------->
         <div data-tela-placeholder="ficha-osc"></div>

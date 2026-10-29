@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { autenticar, exigirPapel } from "../middlewares/auth.middleware.js";
+import { listar, obter, criar, atualizar } from "../controllers/pessoa-atendida.controller.js";
+const router = Router();
+router.use(autenticar, exigirPapel("RESPONSAVEL_OSC", "RESPONSAVEL_UOSCC"));
+router.get("/", listar);
+router.get("/:id", obter);
+router.post("/", exigirPapel("RESPONSAVEL_OSC"), criar);
+router.patch("/:id", exigirPapel("RESPONSAVEL_OSC"), atualizar);
+export default router;

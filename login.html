@@ -9,10 +9,19 @@
 <body>
 
     <main class="pagina-login">
+        <aside class="apresentacao" aria-label="Sobre a rede">
+            <span class="marca-rede">UOSCC <span>Rede de OSCs · Camaçari</span></span>
+            <div><p class="sobrelinha">JUNTOS PELA COMUNIDADE</p>
+            <h2>Uma rede de pessoas.<br>Muitas formas de cuidar.</h2>
+            <p>Um espaço para organizar projetos, conectar organizações e fortalecer as organizações da nossa cidade.</p>
+            <ul><li>Organizações conectadas em um só lugar</li><li>Projetos e ações mais fáceis de acompanhar</li><li>Mais colaboração no dia a dia</li></ul></div>
+            <p class="assinatura">Unindo forças, transformando comunidades.</p>
+        </aside>
+        <div class="area-formulario">
         <section class="card-login">
 
             <header class="cabecalho">
-                <div class="logo">U</div>
+                <div class="logo" aria-hidden="true">U</div>
 
                 <div class="identidade">
                     <h1>UOSCC</h1>
@@ -22,11 +31,11 @@
 
             <div class="conteudo">
                 <div class="introducao">
-                    <span class="etiqueta">ÁREA RESTRITA</span>
                     <h2>Bem-vindo de volta!</h2>
-                    <p>Acesse o sistema da rede UOSCC.</p>
+                    <p>Entre para acompanhar sua organização e as ações da rede.</p>
                 </div>
 
+                <div class="nota-acesso"><span aria-hidden="true">↗</span><p>Seu acesso conecta você à sua organização. Se acabou de cadastrar uma organização, aguarde a aprovação da UOSCC.</p></div>
                 <form action="#" method="post">
                     <div class="campo">
                         <label for="email">E-mail</label>
@@ -58,9 +67,7 @@
                             Manter conectado
                         </label>
 
-                        <a href="#" class="link">
-                            Esqueci minha senha
-                        </a>
+                        <details class="ajuda-senha"><summary>Esqueceu a senha?</summary><p>Peça ajuda à equipe administradora da UOSCC para recuperar seu acesso.</p></details>
                     </div>
 
                     <button type="submit" class="botao" id="login">
@@ -71,22 +78,18 @@
                 <div class="alternativa">
                     <p>Ainda não possui uma conta?</p>
                     <a href="/cadastro.html" class="link">
-                        Criar cadastro
+                        Solicitar meu acesso
                     </a>
                 </div>
 
-                <footer class="rodape">
-                    Unindo forças para fortalecer organizações.
-                </footer>
             </div>
 
         </section>
 
-        <p class="legenda">
-            UOSCC · Unindo forças, transformando comunidades.
-        </p>
+        </div>
     </main>
 
+    <script type="module" src="/assets/auth-ui.js"></script>
     <script type="module" src="/assets/login.js"></script>
 </body>
 </html>

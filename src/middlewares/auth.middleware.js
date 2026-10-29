@@ -1,4 +1,5 @@
 ﻿import jwt from "jsonwebtoken";
+import { PAPEIS } from "../utils/permissoes.js";
 import { buscarUsuarioAtivoPorId } from "../models/usuario.model.js";
 
 export async function autenticar(req, res, next) {
@@ -31,6 +32,10 @@ export async function autenticar(req, res, next) {
     return res.status(401).json({ erro: "Conta inativa ou inexistente." });
   }
 
+  if (!PAPEIS.includes(usuario.papel)) return res.status(403).json({ erro: "Perfil não autorizado." });
+  if (usuario.papel === "RESPONSAVEL_OSC" && (!usuario.organizacaoId || !usuario.organizacao?.ativa)) {
+    return res.status(403).json({ erro: "Sua OSC está inativa ou seu vínculo não está autorizado. Procure a UOSCC." });
+  }
   req.usuario = usuario;
   return next();
 }

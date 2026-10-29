@@ -87,6 +87,7 @@ export async function pesquisarOsc(req, res) {
   try {
     const organizacoes = await prisma.organizacao.findMany({
       where: {
+        ativa: true,
         OR: [
           { nome: { contains: busca } },
           ...(apenasDigitos.length >= 4
@@ -178,7 +179,7 @@ export async function solicitarAcesso(req, res) {
         where: { id: dados.organizacaoId },
       });
 
-      if (!organizacao) {
+      if (!organizacao?.ativa) {
         return res.status(404).json({
           erro: "A organização selecionada não foi encontrada.",
         });
@@ -317,6 +318,15 @@ export async function entrar(req, res) {
   try {
     const usuario = await buscarUsuarioParaLogin(validacao.data.email);
 
+    if (!usuario) {
+      const solicitacao = await prisma.solicitacaoCadastro.findFirst({ where: { emailUsuario: validacao.data.email }, orderBy: { criadoEm: "desc" } });
+      if (solicitacao && await bcrypt.compare(validacao.data.senha, solicitacao.senhaUsuario)) {
+        const mensagem = solicitacao.status === "RECUSADA"
+          ? `Sua solicitação foi recusada. Motivo: ${solicitacao.motivoRecusa || "Entre em contato com a UOSCC."}`
+          : solicitacao.status === "PENDENTE" ? "Sua solicitação está pendente. Aguarde a análise da UOSCC para entrar." : "Solicitação analisada. Procure a UOSCC para conferir seu acesso.";
+        return res.status(403).json({ erro: mensagem, status: solicitacao.status });
+      }
+    }
     if (
       !usuario ||
       !(await bcrypt.compare(validacao.data.senha, usuario.senha))
@@ -333,6 +343,10 @@ export async function entrar(req, res) {
       });
     }
 
+    if (usuario.papel === "RESPONSAVEL_OSC") {
+      const osc = usuario.organizacaoId && await prisma.organizacao.findFirst({ where: { id: usuario.organizacaoId, ativa: true }, select: { id: true } });
+      if (!osc) return res.status(403).json({ erro: "Sua OSC está inativa ou sem vínculo autorizado. Procure a UOSCC." });
+    }
     const segredo = process.env.JWT_SECRET;
 
     if (!segredo) {

@@ -26,3 +26,18 @@
         padding: 24px 22px;
     }
 }
+.card-login { max-width: 600px; }
+.seletor-cenario { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.seletor-btn { padding: 14px 12px; border: 1px solid #ccd5e3; background: #fff; color: #43516b; border-radius: 10px; cursor: pointer; font: inherit; font-size: 14px; line-height: 1.5; text-align: left; }
+.seletor-btn.ativo { border-color: #122957; color: #122957; background: #edf2fa; box-shadow: inset 0 0 0 1px #122957; font-weight: 700; }
+.resultado-item { display: block; width: 100%; text-align: left; font: inherit; color: #122957; background: white; padding: 12px; border: 1px solid #dce2eb; border-radius: 8px; margin-bottom: 8px; cursor: pointer; line-height: 1.6; }
+.resultado-item:hover { background: #edf2fa; border-color: #122957; }
+.badge-tipo { font-size: 12px; padding: 2px 6px; border-radius: 4px; background: #eef2f7; }
+@media (max-width: 480px) { .seletor-cenario { grid-template-columns: 1fr; } }
+.seletor-btn { position: relative; border-radius: 12px; min-height: 76px; padding: 16px; background: #fdfdfb; }
+.seletor-btn.ativo { background: #f0f4fa; border-color: #122957; }
+.seletor-btn.ativo::after { content: '✓'; position: absolute; right: 10px; top: 7px; font-size: 11px; }
+#bloco-cenario-a, #bloco-cenario-b { padding: 18px 18px 2px; border: 1px solid #e4e8ed; border-radius: 14px; background: #fcfcfa; }
+#categoria { font-family: inherit; font-size: 14px !important; margin-bottom: 18px; }
+#lista-resultados-osc { font-size: 13px; line-height: 1.7; }
+#osc-selecionada-box { margin-bottom: 18px !important; }

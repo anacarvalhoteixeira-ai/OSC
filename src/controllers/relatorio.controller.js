@@ -80,6 +80,7 @@ const tipos = {
 };
 
 export async function gerar(req, res) {
+  if (req.params.tipo === "demandas") return res.status(403).json({ erro: "Módulo fora do escopo deste acesso." });
   const tipo = Object.hasOwn(tipos, req.params.tipo) ? tipos[req.params.tipo] : null;
   if (!tipo) return res.status(404).json({ erro: "Relatório não encontrado." });
 

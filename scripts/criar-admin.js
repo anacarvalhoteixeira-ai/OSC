@@ -12,8 +12,8 @@ if (!email || !senha || senha.length < 8 || Buffer.byteLength(senha, "utf8") > 7
 const hash = await bcrypt.hash(senha, 12);
 const admin = await prisma.usuario.upsert({
   where: { email },
-  update: { senha: hash, papel: "ADMIN", ativo: true },
-  create: { nome: process.env.ADMIN_NOME || "Administrador", email, senha: hash, papel: "ADMIN", ativo: true },
+  update: { senha: hash, papel: "ADMIN", organizacaoId: null, ativo: true },
+  create: { nome: process.env.ADMIN_NOME || "Administrador", email, senha: hash, papel: "ADMIN", organizacaoId: null, ativo: true },
   select: { id: true, email: true },
 });
 console.log(`Admin pronto: ${admin.email} (id ${admin.id}).`);
