@@ -137,9 +137,9 @@
   #ficha-osc-projetos > li:last-child { border-bottom: 0; }
   #detalhe-demanda-resumo > div { margin-top: 24px; padding-top: 24px; border-top: 1px solid #e2e8f0; }
   #ficha-demanda-status { color: #475569; }
-  .dark #pagina-ficha-osc .ficha-osc-unica > header { background: #203b34; border-color: #34594a; }
-  .dark #pagina-detalhe-demanda > header { background: #1e3250; border-color: #334f75; }
-  .dark #pagina-ficha-osc .ficha-osc-impacto { border-color: #34594a; }
+  .dark #pagina-ficha-osc .ficha-osc-unica > header { background: transparent; border: 0; }
+  .dark #pagina-detalhe-demanda > header { background: transparent; border: 0; }
+  .dark #pagina-ficha-osc .ficha-osc-impacto { border-color: #334155; }
   .dark #ficha-osc-pessoas { color: #86efac; }
   .dark .ficha-osc-impacto p, .dark #ficha-demanda-status { color: #cbd5e1; }
   .dark #ficha-osc-projetos > li, .dark #detalhe-demanda-resumo > div { border-color: #334155; }
@@ -209,7 +209,7 @@
   .minha-osc-dados dd { font-size: 15px; overflow-wrap: anywhere; }
   .minha-osc-acoes { display: flex; flex-wrap: wrap; gap: 12px; padding: 0 28px 28px; }
   .dark .cartao-minha-osc { background: #1e293b; border-color: #334155; }
-  .dark .minha-osc-cabecalho { background: #203b34; border-color: #334155; }
+  .dark .minha-osc-cabecalho { background: #1e293b; border-color: #334155; }
   .dark .minha-osc-cabecalho p, .dark .minha-osc-dados dt { color: #cbd5e1; }
   @media (max-width: 600px) {
     .minha-osc-dados { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 20px; }
@@ -265,14 +265,14 @@
 }
 @media (max-width: 767px) { body > .flex > aside { width: 100%; } }
 
-/* Ficha de demanda: leitura e atendimento à esquerda, histórico à direita. */
+/* Ficha de demanda no mesmo formato de leitura da ficha de projeto. */
 @layer components {
   #pagina-detalhe-demanda { max-width: 1280px; }
   #pagina-detalhe-demanda > header { padding: 24px 28px; }
   #detalhe-demanda-conteudo { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); gap: 24px; align-items: start; }
   #detalhe-demanda-conteudo > article { grid-column: 1; grid-row: 1; }
-  #detalhe-demanda-conteudo > #form-atendimento-demanda { grid-column: 1; grid-row: 2; }
-  #detalhe-demanda-conteudo > #painel-historico-demanda { grid-column: 2; grid-row: 1 / span 2; padding: 24px; background: #f8fafc; }
+  #detalhe-demanda-conteudo > #form-atendimento-demanda { grid-column: 1; grid-row: 2; padding: 32px; border-radius: 20px; }
+  #detalhe-demanda-conteudo > #painel-historico-demanda { grid-column: 2; grid-row: 1 / span 2; padding: 24px; border-radius: 20px; background: #f8fafc; }
   #detalhe-demanda-resumo > .demanda-descricao-principal { margin: 0 0 24px; padding: 0 0 24px; border-top: 0; border-bottom: 1px solid #e2e8f0; }
   #detalhe-demanda-resumo > .demanda-descricao-principal h3 { font-size: 18px; margin-bottom: 12px; }
   #detalhe-demanda-resumo > .demanda-descricao-principal p { font-size: 16px; line-height: 1.7; }
@@ -303,19 +303,28 @@
 
 @layer components {
   .saudacao-com-voltar { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
-  #detalhe-demanda-conteudo > article { padding: 0; overflow: hidden; }
-  .ficha-demanda-topo { padding: 32px; background: #eff6ff; border-bottom: 1px solid #bfdbfe; }
-  #detalhe-demanda-resumo { padding: 28px 32px; }
-  #detalhe-demanda-resumo > dl { padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; }
-  #detalhe-demanda-resumo > .demanda-descricao-principal { margin: 24px 0 0; padding: 0; border: 0; }
+  #detalhe-demanda-conteudo > article { padding: 0; border: 0; overflow: hidden; border-radius: 20px; }
+  #pagina-detalhe-demanda > .cabecalho-detalhe-demanda { padding: 0; border: 0; border-radius: 0; background: transparent; }
+  .ficha-demanda-topo { padding: 32px; background: #dbeafe; border-bottom: 1px solid #93c5fd; }
+  #titulo-detalhe-demanda { font-size: clamp(24px, 3vw, 32px); line-height: 1.3; margin: 16px 0 8px; overflow-wrap: anywhere; }
+  #detalhe-demanda-resumo { padding: 0; }
+  #detalhe-demanda-resumo > dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 28px 32px; border-bottom: 1px solid #e2e8f0; }
+  #detalhe-demanda-resumo dt { font-size: 12px; color: #64748b; margin-bottom: 8px; }
+  #detalhe-demanda-resumo dd { font-size: 15px; font-weight: 600; }
+  #detalhe-demanda-resumo > div { margin: 0; padding: 32px; }
+  #detalhe-demanda-resumo > .demanda-descricao-principal { margin: 0; padding: 32px; border: 0; }
   #detalhe-demanda-resumo > .demanda-descricao-principal h3 { font-size: 16px; }
-  #detalhe-demanda-resumo > .demanda-descricao-principal p { font-size: 14px; }
-  #editar-demanda-detalhe { margin: 0 32px 28px; }
-  .dark .ficha-demanda-topo { background: #1e3250; border-color: #334f75; }
+  #detalhe-demanda-resumo > div p { font-size: 14px; line-height: 1.7; color: #475569; }
+  .ficha-demanda-rodape { display: flex; flex-wrap: wrap; gap: 12px; padding: 24px 32px; border-top: 1px solid #e2e8f0; }
+  .ficha-demanda-rodape:has(> button[hidden]) { display: none; }
+  .dark .ficha-demanda-topo { background: #172d4d; border-color: #29486e; }
+  .dark #detalhe-demanda-resumo dt, .dark #detalhe-demanda-resumo > div p { color: #cbd5e1; }
   .dark #detalhe-demanda-resumo > dl { border-color: #334155; }
-  @media(max-width:600px) {
-    .ficha-demanda-topo, #detalhe-demanda-resumo { padding: 20px; }
-    #editar-demanda-detalhe { margin: 0 20px 20px; }
+  .dark .ficha-demanda-rodape { border-color: #334155; }
+  @media(max-width:700px) {
+    .ficha-demanda-topo, #detalhe-demanda-resumo > div, #detalhe-demanda-resumo > .demanda-descricao-principal, #detalhe-demanda-conteudo > #painel-historico-demanda, #detalhe-demanda-conteudo > #form-atendimento-demanda { padding: 24px; }
+    #detalhe-demanda-resumo > dl { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px; }
+    .ficha-demanda-rodape { padding: 24px; }
   }
 }
 /* Cadastro de alunos e beneficiários */
