@@ -76,7 +76,12 @@ export function criarModuloBeneficiarios({ usuario, api, avisar, fmtData }) {
     form().elements.dataNascimento.max = new Date().toISOString().slice(0, 10);
     $("nova-pessoa-atendida").onclick = () => abrir();
     $("cancelar-beneficiario").onclick = fechar;
-    $("filtros-beneficiarios").onsubmit = e => { e.preventDefault(); pagina = 1; carregar(); };
+    let buscaTimer;
+    $("filtros-beneficiarios").onsubmit = e => e.preventDefault();
+    $("filtros-beneficiarios").oninput = () => {
+      clearTimeout(buscaTimer);
+      buscaTimer = setTimeout(() => { pagina = 1; carregar(); }, 300);
+    };
     $("beneficiarios-anterior").onclick = () => { if (pagina > 1) { pagina--; carregar(); } };
     $("beneficiarios-proxima").onclick = () => { if (pagina < paginas) { pagina++; carregar(); } };
     $("lista-beneficiarios").onclick = async e => {
