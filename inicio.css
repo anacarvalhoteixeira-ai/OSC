@@ -4,6 +4,8 @@
 /*MODO ESCURO */
 @custom-variant dark (&:where(.dark, .dark *));
 
+#menu-lateral[hidden] { display: none; }
+
 @layer components {
 .campo {
     @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:border-orange-400 dark:border-slate-700 dark:bg-slate-900 dark:text-white;

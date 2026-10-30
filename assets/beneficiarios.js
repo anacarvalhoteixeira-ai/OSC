@@ -7,12 +7,13 @@ export function criarModuloBeneficiarios({ usuario, api, avisar, fmtData }) {
   const fechar = () => { form().hidden = true; form().reset(); editando = null; $("nova-pessoa-atendida").focus(); };
   function abrir(pessoa) {
     form().reset(); editando = pessoa?.id ?? null;
+    form().elements.tipo.value = pessoa?.tipo ?? "ALUNO";
     for (const campo of ["nome", "tipo", "telefone", "responsavel"]) {
       if (pessoa) form().elements[campo].value = pessoa[campo] ?? "";
     }
     form().elements.dataNascimento.value = pessoa?.dataNascimento?.slice(0, 10) ?? "";
     form().elements.ativo.checked = pessoa?.ativo ?? true;
-    $("titulo-form-beneficiario").textContent = pessoa ? "Editar pessoa atendida" : "Cadastrar pessoa";
+    $("titulo-form-beneficiario").textContent = pessoa ? "Editar pessoa atendida" : "Cadastrar beneficiado";
     $("feedback-form-beneficiario").textContent = "";
     form().hidden = false; form().elements.nome.focus();
   }
@@ -44,7 +45,7 @@ export function criarModuloBeneficiarios({ usuario, api, avisar, fmtData }) {
         const dadosPessoa = document.createElement("div"); dadosPessoa.className = "min-w-0 break-words";
         const nome = document.createElement("h3"); nome.className = "font-semibold"; nome.textContent = pessoa.nome; dadosPessoa.append(nome);
         for (const texto of [
-          `${pessoa.tipo === "ALUNO" ? "Aluno(a)" : "Beneficiário(a)"} · ${pessoa.ativo ? "Ativo" : "Inativo"}`,
+          `${pessoa.tipo === "ALUNO" ? "Aluno(a)" : "Beneficiado(a)"} · ${pessoa.ativo ? "Ativo" : "Inativo"}`,
           ...(!osc ? [`OSC: ${pessoa.organizacao.nome}${pessoa.organizacao.ativa ? "" : " (inativa)"}`] : []),
           `Nascimento: ${fmtData(pessoa.dataNascimento)}`,
           `Telefone: ${pessoa.telefone || "Não informado"}`,
@@ -60,7 +61,7 @@ export function criarModuloBeneficiarios({ usuario, api, avisar, fmtData }) {
         }
         $("lista-beneficiarios").append(li);
       }
-      $("feedback-beneficiarios").textContent = dados.total ? `${dados.total} pessoa(s) encontrada(s).` : "Nenhuma pessoa encontrada. Altere os filtros ou cadastre uma pessoa.";
+      $("feedback-beneficiarios").textContent = dados.total ? `${dados.total} pessoa(s) encontrada(s).` : "Nenhuma pessoa encontrada. Altere os filtros ou cadastre um beneficiado.";
       $("beneficiarios-pagina").textContent = `Página ${pagina} de ${Math.max(1, paginas)}`;
       $("beneficiarios-anterior").disabled = pagina <= 1;
       $("beneficiarios-proxima").disabled = pagina >= paginas;

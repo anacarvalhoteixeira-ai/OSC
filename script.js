@@ -941,6 +941,15 @@ function aplicarTema(escuro) {
 // ---------- Inicialização ----------
 
 function iniciar() {
+  $("alternar-menu-lateral").addEventListener("click", () => {
+    const menu = $("menu-lateral");
+    menu.hidden = !menu.hidden;
+    const botao = $("alternar-menu-lateral");
+    botao.setAttribute("aria-expanded", String(!menu.hidden));
+    const rotulo = menu.hidden ? "Abrir menu lateral" : "Fechar menu lateral";
+    botao.setAttribute("aria-label", rotulo);
+    botao.title = rotulo;
+  });
   const guardado = localStorage.getItem("uoscc_tema");
   aplicarTema(guardado ? guardado === "escuro" : matchMedia("(prefers-color-scheme: dark)").matches);
   $("botao-tema").addEventListener("click", () => {
